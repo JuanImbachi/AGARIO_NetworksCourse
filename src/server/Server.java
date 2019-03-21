@@ -30,12 +30,12 @@ public class Server {
 				System.out.println("Conexión iniciada");
 				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
-				out.writeUTF("::Bienvenido::");
 				String mensajeObtenidoCliente = in.readUTF();
 				System.out.println("=================" + mensajeObtenidoCliente);
-				//String respuestaServer = "::Bienvenido::";
-				//out.writeUTF(respuestaServer);
+				String respuestaServer = "::Bienvenido::";
+				out.writeUTF(respuestaServer);
 				
+				socket.close();
 				System.out.println("::Cliente desconectado::");
 			
 			}
