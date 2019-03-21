@@ -38,6 +38,9 @@ public class Server {
 				out.writeUTF(respuestaServer);
 				salida=mensajeObtenidoCliente;
 				}
+				out = new DataOutputStream(socket.getOutputStream());
+
+				out.writeUTF("Se ha desconectado exitosamente");
 				}catch (Exception e) {
 					// TODO: handle exception
 					System.out.println("::Cliente desconectado::");
