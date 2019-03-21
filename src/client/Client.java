@@ -24,12 +24,12 @@ public class Client {
 		DataInputStream in;
 		
 		DataOutputStream out;
-		
+		 
 		try {
 			clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
 			
 			
-			
+			String n="";
 			in = new DataInputStream(clientConnection.getInputStream());
 			out = new DataOutputStream(clientConnection.getOutputStream());
 			
