@@ -34,7 +34,7 @@ public class Client {
 			out = new DataOutputStream(clientConnection.getOutputStream());
 			
 			out.writeUTF("hola");
-			
+			System.out.println(in.readUTF());
 			
 			clientConnection.close();
 			in.close();
