@@ -14,7 +14,8 @@ public class Server {
 	private static Socket socket;
 	
 	private static  ServerSocket serverSocket;
-	public Server() {
+	public static void main(String[] args) {
+		
 		DataInputStream in;
 		DataOutputStream out;
 		
@@ -31,7 +32,7 @@ public class Server {
 				out = new DataOutputStream(socket.getOutputStream());
 				String mensajeObtenidoCliente = in.readUTF();
 				System.out.println("El mensaje enviado por el cliente fue : " + mensajeObtenidoCliente);
-				String respuestaServer ="En la bna prrito";
+				String respuestaServer = "En la bna prrito";
 				out.writeUTF(respuestaServer);
 				socket.close();
 				System.out.println("::Cliente desconectado, el mensaje encriptado ha sido enviado::");
@@ -44,8 +45,5 @@ public class Server {
 			e.printStackTrace();
 		}
 		
-	
-		// TODO Auto-generated constructor stub
 	}
-
 }
