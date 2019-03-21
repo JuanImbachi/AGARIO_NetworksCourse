@@ -28,17 +28,23 @@ public class Client {
 		try {
 			clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
 			
+			while(true) {
+			
+			BufferedReader	clientReader = new BufferedReader(new InputStreamReader(System.in));
+			String palabra=	clientReader.readLine();
+			
+			
 			
 			String n="";
 			in = new DataInputStream(clientConnection.getInputStream());
 			out = new DataOutputStream(clientConnection.getOutputStream());
 			
-			out.writeUTF("holaa");
+			out.writeUTF(palabra);
 			System.out.println(in.readUTF());
-			
-			clientConnection.close();
-			in.close();
-			out.close();
+		}
+//			clientConnection.close();
+//			in.close();
+//			out.close();
 			
 		} catch (Exception e) {
 			System.out.println("Se generó una excepcion");
