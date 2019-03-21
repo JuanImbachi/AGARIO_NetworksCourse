@@ -24,17 +24,25 @@ public class Server {
 			System.out.println("::Servidor en línea, esperando conexión::");
 			
 			while(true) {
-				
+				String salida="";
 				socket = serverSocket.accept();
 				
 				System.out.println("Conexión iniciada");
-				in = new DataInputStream(socket.getInputStream());
-				out = new DataOutputStream(socket.getOutputStream());
+				try {
+				while(!salida.equals("desconectar")) {
+					in = new DataInputStream(socket.getInputStream());
+					out = new DataOutputStream(socket.getOutputStream());
 				String mensajeObtenidoCliente = in.readUTF();
 				System.out.println("=================" + mensajeObtenidoCliente);
 				String respuestaServer = "::Bienvenido::";
 				out.writeUTF(respuestaServer);
-				
+				salida=mensajeObtenidoCliente;
+				}
+				}catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("::Cliente desconectado::");
+
+				}
 				socket.close();
 				System.out.println("::Cliente desconectado::");
 			
