@@ -22,11 +22,10 @@ public class Server {
 	public Server() throws IOException {
 		serverSocket = new ServerSocket(PORT);
 		threadWC = new ThreadWaitingClients(this);
+		waitingClients = true;
 		threadWC.start();
 		
-		while(true) {
-			
-		}
+		
 	}
 	
 	
