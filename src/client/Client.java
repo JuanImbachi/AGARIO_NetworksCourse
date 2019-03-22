@@ -14,8 +14,6 @@ import server.Server;
 
 public class Client {
 	
-	private Ball ball;
-	
 	static Socket clientConnection; 
 	
 	public static void main(String[] args) {
@@ -52,13 +50,5 @@ public class Client {
 
 	}
 	
-
-	public Ball getBall() {
-		return ball;
-	}
-
-	public void setBall(Ball ball) {
-		this.ball = ball;
-	}
 
 }
