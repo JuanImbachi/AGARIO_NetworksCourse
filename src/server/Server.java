@@ -17,23 +17,25 @@ public class Server {
 	
 	private ThreadWaitingClients threadWC;
 	
+	private ThreadTimer timer;
+	
 	private  ServerSocket serverSocket;
 	
 	public Server() throws IOException {
+		
 		serverSocket = new ServerSocket(PORT);
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
 		threadWC.start();
 		
+		timer.start();
 		
 	}
 	
 	
 	public static void main(String[] args) {
-		//hh
 		
 		try {
-			
 			
 			Server s = new Server();
 		} catch (IOException e) {
@@ -115,6 +117,16 @@ public class Server {
 
 	public void setWaitingClients(boolean waitingClients) {
 		this.waitingClients = waitingClients;
+	}
+
+
+	public ThreadTimer getTimer() {
+		return timer;
+	}
+
+
+	public void setTimer(ThreadTimer timer) {
+		this.timer = timer;
 	}
 	
 	
