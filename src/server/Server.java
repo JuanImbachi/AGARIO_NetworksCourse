@@ -23,6 +23,10 @@ public class Server {
 		serverSocket = new ServerSocket(PORT);
 		threadWC = new ThreadWaitingClients(this);
 		threadWC.start();
+		
+		while(true) {
+			
+		}
 	}
 	
 	
