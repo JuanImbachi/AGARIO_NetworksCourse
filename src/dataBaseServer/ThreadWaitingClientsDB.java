@@ -2,6 +2,7 @@ package dataBaseServer;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
 import server.Server;
@@ -29,8 +30,7 @@ public class ThreadWaitingClientsDB extends Thread {
 				DataInputStream in = new DataInputStream(socket.getInputStream());
 				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 				String mensaje = in.readUTF();
-				System.out.println(mensaje);
-		
+				
 				if(!mensaje.equalsIgnoreCase("")){
 					String[] info = mensaje.split(",");
 					String mode = info[0];
@@ -39,22 +39,32 @@ public class ThreadWaitingClientsDB extends Thread {
 						
 						String nick = info[1];
 						String password = info[2];
-						serverDB.loginPlayer(nick, password);
+						boolean result = serverDB.loginPlayer(nick, password);
+						if(result){
+							out.writeUTF("CONFIRMED ACCESS");
+						}else{
+							out.writeUTF("DENIED ACCESS");
+						}
 						
 					}else if(mode.equals(DataBaseServer.REGISTER_DB)) {
 						
 						String nick = info[1];
 						String password = info[2];
 						String email = info[3];
-						serverDB.registerPlayer(nick, password, email);
-						out.writeUTF("Player was saved!");
+						boolean result = serverDB.registerPlayer(nick, password, email);
+						if(result){
+							out.writeUTF("PLAYER SAVED");
+						}else{
+							out.writeUTF("COULDN'T SAVE PLAYER");
+						}
 						
 					}
 					
 				}
 				
-				out.writeUTF("CONFIRMADO");
+				
 			} catch (Exception e) {
+				
 				
 			}
 		}
