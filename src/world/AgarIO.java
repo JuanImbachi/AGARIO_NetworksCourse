@@ -30,12 +30,12 @@ public class AgarIO {
 	
 	public AgarIO(int numbPlayers , ArrayList<String> nicks) {
 		
-	players = new PlayerBall[numbPlayers];
-	isRunning = false;
-	winner = null;
-	status = WAITING;
-	winnerExist=false;
-	gameEnded = false;
+		players = new PlayerBall[numbPlayers];
+		isRunning = false;
+		winner = null;
+		status = WAITING;
+		winnerExist=false;
+		gameEnded = false;
 		
 	}
 	
@@ -52,9 +52,9 @@ public class AgarIO {
 			Color color = new Color(R, G, B);
 			int posX=0;
 			int posY=0;
-			int score=0;
 			
-			//PlayerBall player = new PlayerBall(nicks.get(i), color, posX, posY, score, isWinner, isPlaying)
+			PlayerBall player = new PlayerBall(nick, color, posX, posY, 0, false, false);
+			players[i] = player;
 		}
 	
 	
