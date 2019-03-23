@@ -10,19 +10,20 @@ public class Ball {
 	
 	private int posY;
 	
+	private int score;
 	
-	public Ball(Color color, int posX, int posY) {
+	public Ball(Color color, int posX, int posY, int score) {
 		
 		this.color = color;
 		this.posX = posX;
 		this.posY = posY;
+		this.score = score;
 	}
 
 
 	public Color getColor() {
 		return color;
 	}
-
 
 	public void setColor(Color color) {
 		this.color = color;
@@ -46,6 +47,16 @@ public class Ball {
 
 	public void setPosY(int posY) {
 		this.posY = posY;
+	}
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 	
 	
