@@ -27,8 +27,13 @@ public class ThreadWaitingClients extends Thread {
 				String mensaje = in.readUTF();
 				System.out.println(mensaje);
 		
-				out.writeUTF("CONFIRMADO");
+				if(mensaje.equals(Server.CONNECTED_CLIENT)){
+					server.getTimer().start();	
+					server.setNumberOfClients(server.getNumberOfClients()+1);
+					System.out.println(server.getNumberOfClients()+" cliente(s)");
+				}
 				
+				out.writeUTF("CONFIRMADO");
 			} catch (Exception e) {
 				
 			}

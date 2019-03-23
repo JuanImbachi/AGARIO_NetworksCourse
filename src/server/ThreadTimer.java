@@ -6,7 +6,6 @@ public class ThreadTimer extends Thread{
 	
 	private int seconds;
 	
-	private int minutes;
 	
 	public ThreadTimer(Server s) {
 		server = s;
@@ -19,22 +18,23 @@ public class ThreadTimer extends Thread{
 		while(server.isWaitingClients()) {
 			
 			seconds++;
+			System.out.println(seconds);
+			if(seconds<120 && server.getNumberOfClients()<5) {
 			try {
 				this.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			}else {
+				server.setWaitingClients(false);
+			}
 			
 		}
 		
 	}
 
-	private void advanceTime() {
-		
-		
-		
-	}
+	
 
 
 	public Server getServer() {

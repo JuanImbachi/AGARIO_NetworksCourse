@@ -8,8 +8,10 @@ import java.net.Socket;
 
 public class Server {
 
-	public final static String IP_SERVER="172.30.179.30";
+//	public final static String IP_SERVER="172.30.179.30";
+	public final static String IP_SERVER="172.30.172.70";
 	public static final int PORT = 36556;
+	public final static String CONNECTED_CLIENT = "connected_client";
 	
 //	private Socket socket;
 	
@@ -21,14 +23,16 @@ public class Server {
 	
 	private  ServerSocket serverSocket;
 	
+	private int numberOfClients;
+	
 	public Server() throws IOException {
 		
 		serverSocket = new ServerSocket(PORT);
+		System.out.println("Servidor en línea");
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
 		threadWC.start();
-		
-		timer.start();
+		timer = new ThreadTimer(this);
 		
 	}
 	
@@ -127,6 +131,16 @@ public class Server {
 
 	public void setTimer(ThreadTimer timer) {
 		this.timer = timer;
+	}
+
+
+	public int getNumberOfClients() {
+		return numberOfClients;
+	}
+
+
+	public void setNumberOfClients(int numberOfClients) {
+		this.numberOfClients = numberOfClients;
 	}
 	
 	
