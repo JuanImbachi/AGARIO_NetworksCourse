@@ -16,6 +16,9 @@ import client.Client;
 		private Gui_LogIn jdLogIn;
 		private FirstPanel jdFirstPanel;
 		private Gui_IP jdIp;
+		private Gui_WaitingRoom jdWaitingRoom;
+		
+		private boolean connectionResult;
 		
 		private Client player;
 
@@ -69,6 +72,15 @@ import client.Client;
 			firstPanel();
 		}
 		
+		
+		public void goToWaitingRoom(){
+			
+			jdWaitingRoom = new Gui_WaitingRoom(this);
+			jdWaitingRoom.setVisible(true);
+			
+		}
+		
+		
 		public static void main(String[] args) {
 			
 			try {
@@ -103,5 +115,13 @@ import client.Client;
 			
 			JOptionPane.showMessageDialog(this, result);
 			
+		}
+
+		public boolean isConnectionResult() {
+			return connectionResult;
+		}
+
+		public void setConnectionResult(boolean connectionResult) {
+			this.connectionResult = connectionResult;
 		}
 	}

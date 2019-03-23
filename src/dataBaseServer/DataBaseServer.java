@@ -66,10 +66,12 @@ public class DataBaseServer {
 		this.waitingClients = waitingClients;
 	}
 
-	public boolean loginPlayer(String email, String pass) {
+	public String loginPlayer(String email, String pass) {
 		
 			try {
 			   
+				String r=null;
+				
 				File text = new File(ROOT);
 				
 				FileReader reader = new FileReader(text);
@@ -86,27 +88,27 @@ public class DataBaseServer {
 					if (email.equals(theEmail) && pass.equals(thePass)) {
 
 						cond = true;
-						
+						r= info[0];
 					}
 
 				}
 				
-				return cond;
+				return r;
 
 				
 			} catch (Exception e) {
-				return false;
+				return null;
 			}
 			
 	
 
 	}
 
-	public boolean registerPlayer(String nick, String pass, String email) {
+	public String registerPlayer(String nick, String pass, String email) {
 		String information = nick + "," + pass + "," + email;
 		try {
 			
-			boolean r =false;
+			String r =null;;
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					System.in));
 			File text = new File(ROOT);
@@ -123,7 +125,7 @@ public class DataBaseServer {
 				out.write("\n");
 				out.close();
 				
-				r=true;
+				r=nick;;
 
 			}
 			
@@ -132,7 +134,7 @@ public class DataBaseServer {
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			return false;
+			return null;
 		}
 	}
 

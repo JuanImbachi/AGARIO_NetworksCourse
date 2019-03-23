@@ -22,8 +22,10 @@ public class Gui_WaitingRoom extends JDialog  {
 	private JList jlPlayers;
 	private DefaultListModel listModel;
 	
-	public Gui_WaitingRoom() {
-		
+	private GUI_principal principal;
+	
+	public Gui_WaitingRoom(GUI_principal pri) {
+		principal=pri;
 		listModel = new DefaultListModel();
 		
 		setTitle("Icesi Games SA - AgarIO");

@@ -39,9 +39,10 @@ public class ThreadWaitingClientsDB extends Thread {
 						
 						String email = info[1];
 						String password = info[2];
-						boolean result = serverDB.loginPlayer(email, password);
-						if(result){
+						String result = serverDB.loginPlayer(email, password);
+						if(result!=null){
 							out.writeUTF(DataBaseServer.CONF_ACCESS);
+							out.writeUTF(result);
 						}else{
 							out.writeUTF(DataBaseServer.DENIED_ACCESS);
 						}
@@ -51,9 +52,10 @@ public class ThreadWaitingClientsDB extends Thread {
 						String nick = info[1];
 						String password = info[2];
 						String email = info[3];
-						boolean result = serverDB.registerPlayer(nick, password, email);
-						if(result){
+						String result = serverDB.registerPlayer(nick, password, email);
+						if(result!=null){
 							out.writeUTF(DataBaseServer.PLAYER_SAVED);
+							out.writeUTF(result);
 						}else{
 							out.writeUTF(DataBaseServer.PLAYER_NOTSAVED);
 						}

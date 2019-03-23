@@ -28,6 +28,8 @@ public class Client {
 	private Socket clientConnectionDB;
 
 	private Socket clientConnectionServer;
+	
+	private ThreadWaitingRoom threadWR;
 
 	private boolean waitingForPlay;
 
@@ -120,8 +122,18 @@ public class Client {
 					clientConnectionDB.getOutputStream());
 
 			out.writeUTF(message);
+			
+			String result = in.readUTF();
 
-			gui.connectionResult(in.readUTF());
+			gui.connectionResult(result);
+			boolean r = false;
+			if(result.equals(DataBaseServer.CONF_ACCESS)||result.equals(DataBaseServer.PLAYER_SAVED)){
+				r = true;
+				String information = in.readUTF();
+				nickname = information;
+				connectWithServer();
+			}
+			gui.setConnectionResult(r);
 			
 			clientConnectionDB.close();
 
@@ -129,6 +141,33 @@ public class Client {
 			System.out.println("Error connecting to data base");
 		}
 
+	}
+	
+	
+	private void connectWithServer(){
+		
+		try {
+		    
+
+			clientConnectionServer = new Socket(Server.IP_SERVER,
+					Server.PORT);
+			DataInputStream in = new DataInputStream(
+					clientConnectionServer.getInputStream());
+			DataOutputStream out = new DataOutputStream(
+					clientConnectionServer.getOutputStream());
+			
+			out.writeUTF(Server.CONNECTED_CLIENT);
+			
+			if(in.readUTF().equals(Server.CONNECTED_CLIENT)){
+				gui.goToWaitingRoom();
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	public String getIpServer() {
@@ -237,6 +276,14 @@ public class Client {
 
 	public void setClientConnectionServer(Socket clientConnectionServer) {
 		this.clientConnectionServer = clientConnectionServer;
+	}
+
+	public ThreadWaitingRoom getThreadWR() {
+		return threadWR;
+	}
+
+	public void setThreadWR(ThreadWaitingRoom threadWR) {
+		this.threadWR = threadWR;
 	}
 
 }

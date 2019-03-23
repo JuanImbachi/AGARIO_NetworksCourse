@@ -184,7 +184,10 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 			}
 			if(command.equals(LOG_IN)) {
 				principal.oldPlayer(email, password);
-				this.dispose();
+				if(principal.isConnectionResult()){
+
+					this.dispose();	
+				}
 			}
 		}catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, "Complete all the information","Error", JOptionPane.ERROR_MESSAGE );

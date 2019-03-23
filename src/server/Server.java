@@ -47,6 +47,8 @@ public class Server {
 		try {
 			
 			Server serv = new Server();
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -30,10 +30,10 @@ public class ThreadWaitingClients extends Thread {
 				if(mensaje.equals(Server.CONNECTED_CLIENT)){
 					server.getTimer().start();	
 					server.setNumberOfClients(server.getNumberOfClients()+1);
-					System.out.println(server.getNumberOfClients()+" cliente(s)");
+					
 				}
 				
-				out.writeUTF("CONFIRMADO");
+				out.writeUTF(Server.CONNECTED_CLIENT);
 			} catch (Exception e) {
 				
 			}
