@@ -43,6 +43,8 @@ public class DataBaseServer {
 	}
 
 	public ServerSocket getServerSocket() {
+		//holas
+		
 		return serverSocket;
 	}
 
