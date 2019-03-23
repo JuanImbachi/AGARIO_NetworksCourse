@@ -5,7 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
+import client.Client;
 import dataBaseServer.DataBaseServer;
 
 public class Server {
@@ -13,10 +15,12 @@ public class Server {
 //	public final static String IP_SERVER="172.30.179.30";
 	public final static String IP_SERVER="192.168.1.22";
 	public static final int PORT = 36556;
+	public static final int PORT_WR = 33000;
 	public final static String CONNECTED_CLIENT = "connected_client";
 	
 //	private Socket socket;
 	
+
 	private DataBaseServer dbServer;
 	
 	private boolean waitingClients;
@@ -25,12 +29,15 @@ public class Server {
 	
 	private ThreadTimer timer;
 	
+	private ArrayList<String> players;
+	
 	private  ServerSocket serverSocket;
 	
 	private int numberOfClients;
 	
 	public Server() throws IOException {
 		
+		players=new ArrayList<String>();
 		serverSocket = new ServerSocket(PORT);
 		System.out.println("Servidor en línea");
 		threadWC = new ThreadWaitingClients(this);
@@ -159,6 +166,17 @@ public class Server {
 	public void setDbServer(DataBaseServer dbServer) {
 		this.dbServer = dbServer;
 	}
+
+
+	public ArrayList<String> getPlayers() {
+		return players;
+	}
+
+
+	public void setPlayers(ArrayList<String> players) {
+		this.players = players;
+	}
+
 	
 	
 }

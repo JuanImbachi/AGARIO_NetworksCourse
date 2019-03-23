@@ -43,6 +43,7 @@ public class ThreadWaitingClientsDB extends Thread {
 						if(result!=null){
 							out.writeUTF(DataBaseServer.CONF_ACCESS);
 							out.writeUTF(result);
+							serverDB.addPlayer(result);
 						}else{
 							out.writeUTF(DataBaseServer.DENIED_ACCESS);
 						}
@@ -56,6 +57,8 @@ public class ThreadWaitingClientsDB extends Thread {
 						if(result!=null){
 							out.writeUTF(DataBaseServer.PLAYER_SAVED);
 							out.writeUTF(result);
+
+							serverDB.addPlayer(result);
 						}else{
 							out.writeUTF(DataBaseServer.PLAYER_NOTSAVED);
 						}

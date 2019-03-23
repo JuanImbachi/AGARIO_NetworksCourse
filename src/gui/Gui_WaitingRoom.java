@@ -37,7 +37,7 @@ public class Gui_WaitingRoom extends JDialog  {
 		Font font = new Font("Snap ITC", Font.PLAIN, 36);
 		lblTitle.setFont(font);
 		
-		lblTimer = new JLabel("02:00");
+		lblTimer = new JLabel("00:00");
 		lblTimer.setHorizontalAlignment(JLabel.CENTER);
 		
 		lblInfo = new JLabel("La partida comenzará en: ");
@@ -75,6 +75,12 @@ public class Gui_WaitingRoom extends JDialog  {
 		
 		
 	}
+	
+	
+	public void refresh(String[] data){
+		lblTimer.setText(data[0]);
+	}
+	
 
 	public void addPlayer(String nickname) {
 		listModel.addElement(nickname);

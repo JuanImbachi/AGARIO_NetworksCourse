@@ -80,6 +80,12 @@ import client.Client;
 			
 		}
 		
+		public void refreshWR(String[] data){
+			jdWaitingRoom.refresh(data);
+			System.out.println("cambia");
+//			pack();
+		}
+		
 		
 		public static void main(String[] args) {
 			

@@ -64,12 +64,7 @@ public class Client {
 		
 		String message = DataBaseServer.REGISTER_DB + "," + nick + ","+ pass + "," + email;
 		connectWithDB(message);
-		
-//		DataInputStream in = new DataInputStream(clientConnectionDB.getInputStream());
-//		
-//		String result = in.readUTF();
-//		
-//		gui.connectionResult(result);
+
 	}
 	
 	
@@ -78,12 +73,7 @@ public class Client {
 		
 		String message = DataBaseServer.LOGIN_DB + "," + email + ","+ password;
 		connectWithDB(message);
-		
-//		DataInputStream in = new DataInputStream(clientConnectionDB.getInputStream());
-//		
-//		String result = in.readUTF();
-//		
-//		gui.connectionResult(result);
+
 		
 	}
 	
@@ -160,6 +150,9 @@ public class Client {
 			
 			if(in.readUTF().equals(Server.CONNECTED_CLIENT)){
 				gui.goToWaitingRoom();
+				waitingForPlay=true;
+				threadWR = new ThreadWaitingRoom(this);
+				threadWR.start();
 			}
 			
 			
@@ -168,6 +161,10 @@ public class Client {
 			// TODO: handle exception
 		}
 		
+	}
+	
+	public void refreshWaitingRoom(String[] data){
+		gui.refreshWR(data);
 	}
 
 	public String getIpServer() {

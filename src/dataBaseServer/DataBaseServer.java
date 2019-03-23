@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import server.Server;
@@ -152,6 +153,13 @@ public class DataBaseServer {
 
 	public void setServer(Server server) {
 		this.server = server;
+	}
+
+	public void addPlayer(String result) {
+		ArrayList<String> a = server.getPlayers();
+		a.add(result);
+		server.setPlayers(a);
+		
 	}
 
 }

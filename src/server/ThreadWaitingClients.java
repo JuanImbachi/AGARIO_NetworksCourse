@@ -2,16 +2,26 @@ package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ThreadWaitingClients extends Thread {
 
 	private Server server;
+	
+	
+	
 
-	public ThreadWaitingClients(Server s) {
+	public ThreadWaitingClients(Server s) throws IOException {
 		server = s;
-
+        
+		
+		
 	}
+	
+	
 
 	@Override
 	public void run() {
@@ -21,6 +31,9 @@ public class ThreadWaitingClients extends Thread {
    
 				Socket socket = server.getServerSocket().accept();
 				
+				
+				
+				
 				// server.agregarSocketAActivos(socket);
 				DataInputStream in = new DataInputStream(socket.getInputStream());
 				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
@@ -28,16 +41,24 @@ public class ThreadWaitingClients extends Thread {
 				System.out.println(mensaje);
 		
 				if(mensaje.equals(Server.CONNECTED_CLIENT)){
-					server.getTimer().start();	
+					
 					server.setNumberOfClients(server.getNumberOfClients()+1);
+					out.writeUTF(Server.CONNECTED_CLIENT);
+					if(!server.getTimer().isAlive()){
+						server.getTimer().start();	
+					}
 					
 				}
 				
-				out.writeUTF(Server.CONNECTED_CLIENT);
+				
 			} catch (Exception e) {
 				
 			}
 		}
 	}
+	
+	
+	
+	
 
 }
