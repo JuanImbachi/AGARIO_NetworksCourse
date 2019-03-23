@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.util.Scanner;
 
+import server.Server;
 import server.ThreadWaitingClients;
 
 public class DataBaseServer {
@@ -26,13 +27,19 @@ public class DataBaseServer {
 	private ServerSocket serverSocket;
 
 	private boolean waitingClients;
+	
+	private Server server;
 
 	private ThreadWaitingClientsDB threadWC_DB;
 
-	public DataBaseServer() throws IOException {
+	public DataBaseServer(Server s) throws IOException {
 		serverSocket = new ServerSocket(DB_PORT);
 		threadWC_DB = new ThreadWaitingClientsDB(this);
+		
+		server = s;
 		waitingClients = true;
+		
+		threadWC_DB.start();
 	}
 
 	public ServerSocket getServerSocket() {
@@ -118,6 +125,22 @@ public class DataBaseServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public ThreadWaitingClientsDB getThreadWC_DB() {
+		return threadWC_DB;
+	}
+
+	public void setThreadWC_DB(ThreadWaitingClientsDB threadWC_DB) {
+		this.threadWC_DB = threadWC_DB;
+	}
+
+	public Server getServer() {
+		return server;
+	}
+
+	public void setServer(Server server) {
+		this.server = server;
 	}
 
 }

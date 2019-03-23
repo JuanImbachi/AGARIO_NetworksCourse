@@ -47,6 +47,7 @@ public class ThreadWaitingClientsDB extends Thread {
 						String password = info[2];
 						String email = info[3];
 						serverDB.registerPlayer(nick, password, email);
+						out.writeUTF("Player was saved!");
 						
 					}
 					

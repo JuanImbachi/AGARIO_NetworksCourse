@@ -6,14 +6,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import dataBaseServer.DataBaseServer;
+
 public class Server {
 
 //	public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER="172.30.172.70";
+	public final static String IP_SERVER="192.168.1.22";
 	public static final int PORT = 36556;
 	public final static String CONNECTED_CLIENT = "connected_client";
 	
 //	private Socket socket;
+	
+	private DataBaseServer dbServer;
 	
 	private boolean waitingClients;
 	
@@ -33,6 +37,7 @@ public class Server {
 		waitingClients = true;
 		threadWC.start();
 		timer = new ThreadTimer(this);
+		dbServer = new DataBaseServer(this);
 		
 	}
 	
@@ -41,7 +46,7 @@ public class Server {
 		
 		try {
 			
-			Server s = new Server();
+			Server serv = new Server();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,6 +146,16 @@ public class Server {
 
 	public void setNumberOfClients(int numberOfClients) {
 		this.numberOfClients = numberOfClients;
+	}
+
+
+	public DataBaseServer getDbServer() {
+		return dbServer;
+	}
+
+
+	public void setDbServer(DataBaseServer dbServer) {
+		this.dbServer = dbServer;
 	}
 	
 	
