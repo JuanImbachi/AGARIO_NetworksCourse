@@ -3,8 +3,12 @@
 	import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import client.Client;
 
 	public  class GUI_principal extends JFrame
 	{
@@ -12,12 +16,14 @@ import javax.swing.JFrame;
 		private Gui_LogIn jdLogIn;
 		private FirstPanel jdFirstPanel;
 		private Gui_IP jdIp;
+		
+		private Client player;
 
-		public GUI_principal() {
+		public GUI_principal() throws IOException {
 			//Font normal = new Font("Arial", Font.BOLD, 14);
 			setTitle("Icesi Games SA - AgarIO");	
 			setLayout(new BorderLayout());
-			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setMinimumSize(new Dimension(700, 600));
 			setResizable(false);
 			setLocationRelativeTo(null);
@@ -26,6 +32,9 @@ import javax.swing.JFrame;
 			jdLogIn = new Gui_LogIn(this);
 			jdFirstPanel = new FirstPanel(this);
 			jdIp= new Gui_IP(this);
+			
+			
+			player= new Client(this);
 		}
 		
 		public void jdIp() {
@@ -44,11 +53,11 @@ import javax.swing.JFrame;
 			jdSignUp.setVisible(true);
 		}
 		
-		public void oldPlayer(String email, String password) {
-			System.out.println("jugador antiguo");
+		public void oldPlayer(String email, String password) throws IOException {
+			player.loginPlayer(email,password);
 		}
-		public void newPlayer(String email, String nickname, String password) {
-			System.out.println("nuevo jugador");
+		public void newPlayer(String email, String nickname, String password) throws IOException {
+			player.registerPlayer(email, password, nickname);
 		}
 	
 		public void connectServer(String ip) {
@@ -61,8 +70,38 @@ import javax.swing.JFrame;
 		}
 		
 		public static void main(String[] args) {
-			GUI_principal principal = new GUI_principal();
-			//principal.firstPanel();
-			principal.jdIp();
+			
+			try {
+				
+				GUI_principal principal;
+				principal = new GUI_principal();
+				principal.jdIp();
+				
+				
+				//principal.firstPanel();
+				
+				
+			} catch (IOException e) {
+				
+				
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+
+		public Client getPlayer() {
+			return player;
+		}
+
+		public void setPlayer(Client player) {
+			this.player = player;
+		}
+
+		public void connectionResult(String result) {
+			
+			JOptionPane.showMessageDialog(this, result);
+			
 		}
 	}

@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import client.Client;
+
 public class Gui_LogIn extends JDialog implements ActionListener {
 
 	public final static String LOG_IN="Log in";
@@ -27,6 +29,7 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 	private JButton btnLogIn;
 	
 	private GUI_principal principal;
+	
 	
 	public Gui_LogIn(GUI_principal principal) {
 		
@@ -185,7 +188,10 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 			}
 		}catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, "Complete all the information","Error", JOptionPane.ERROR_MESSAGE );
+		    ex.printStackTrace();
 		}
 	}
+
+
 
 }

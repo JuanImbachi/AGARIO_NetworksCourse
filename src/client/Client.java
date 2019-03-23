@@ -1,5 +1,7 @@
 package client;
 
+import gui.GUI_principal;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -11,6 +13,7 @@ import java.net.MulticastSocket;
 import java.net.Socket;
 
 //import Cliente.HiloAtentoAlMulticast;
+
 
 import dataBaseServer.DataBaseServer;
 import server.Server;
@@ -33,6 +36,8 @@ public class Client {
 	private String nickname;
 
 	private int score;
+	
+	private GUI_principal gui;
 
 	private Socket clientSocket;
 
@@ -47,35 +52,36 @@ public class Client {
 	// this.IpServer = IpServer;
 	// }
 
-	public Client() throws IOException {
-		
-		registerPlayer();
+	public Client(GUI_principal theGui) throws IOException {
+		gui = theGui;
 
 	}
 
-	public void registerPlayer() throws IOException {
+	public void registerPlayer(String email, String pass, String nick) throws IOException {
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				System.in));
-
-		System.out.println("Escriba nickname, password y email separados por una coma cada uno");
-
-		String info[] = reader.readLine().split(",");
-		String message = DataBaseServer.REGISTER_DB + "," + info[0] + ","+ info[1] + "," + info[2];
+		
+		String message = DataBaseServer.REGISTER_DB + "," + nick + ","+ pass + "," + email;
 		connectWithDB(message);
+		
+//		DataInputStream in = new DataInputStream(clientConnectionDB.getInputStream());
+//		
+//		String result = in.readUTF();
+//		
+//		gui.connectionResult(result);
 	}
 	
 	
-	public void loginPlayer() throws IOException{
+	public void loginPlayer(String email, String password) throws IOException{
 		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				System.in));
-
-		System.out.println("Escriba nickname y password separados por una coma");
-
-		String info[] = reader.readLine().split(",");
-		String message = DataBaseServer.LOGIN_DB + "," + info[0] + ","+ info[1];
+		
+		String message = DataBaseServer.LOGIN_DB + "," + email + ","+ password;
 		connectWithDB(message);
+		
+//		DataInputStream in = new DataInputStream(clientConnectionDB.getInputStream());
+//		
+//		String result = in.readUTF();
+//		
+//		gui.connectionResult(result);
 		
 	}
 	
@@ -115,7 +121,9 @@ public class Client {
 
 			out.writeUTF(message);
 
-			System.out.println(in.readUTF());
+			gui.connectionResult(in.readUTF());
+			
+			clientConnectionDB.close();
 
 		} catch (Exception e) {
 			System.out.println("Error connecting to data base");
@@ -179,41 +187,41 @@ public class Client {
 		this.mcSocket = mcSocket;
 	}
 
-	public static void main(String[] args) throws IOException {
-
-		Client c = new Client();
-
-		// DataInputStream in;
-		//
-		// DataOutputStream out;
-		//
-		// try {
-		// clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
-		//
-		// while(true) {
-		//
-		// // BufferedReader clientReader = new BufferedReader(new
-		// InputStreamReader(System.in));
-		// // String palabra= clientReader.readLine();
-		// //
-		// //
-		// //
-		// // String n="";
-		// in = new DataInputStream(clientConnection.getInputStream());
-		// out = new DataOutputStream(clientConnection.getOutputStream());
-		//
-		// out.writeUTF(Server.CONNECTED_CLIENT);
-		// System.out.println(in.readUTF());
-		// }
-		// // clientConnection.close();
-		// // in.close();
-		// // out.close();
-		//
-		// } catch (Exception e) {
-		// System.out.println("Se generó una excepcion");
-		// }
-
-	}
+//	public static void main(String[] args) throws IOException {
+//
+//		Client c = new Client();
+//
+//		// DataInputStream in;
+//		//
+//		// DataOutputStream out;
+//		//
+//		// try {
+//		// clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
+//		//
+//		// while(true) {
+//		//
+//		// // BufferedReader clientReader = new BufferedReader(new
+//		// InputStreamReader(System.in));
+//		// // String palabra= clientReader.readLine();
+//		// //
+//		// //
+//		// //
+//		// // String n="";
+//		// in = new DataInputStream(clientConnection.getInputStream());
+//		// out = new DataOutputStream(clientConnection.getOutputStream());
+//		//
+//		// out.writeUTF(Server.CONNECTED_CLIENT);
+//		// System.out.println(in.readUTF());
+//		// }
+//		// // clientConnection.close();
+//		// // in.close();
+//		// // out.close();
+//		//
+//		// } catch (Exception e) {
+//		// System.out.println("Se generó una excepcion");
+//		// }
+//
+//	}
 
 	public Socket getClientConnectionDB() {
 		return clientConnectionDB;

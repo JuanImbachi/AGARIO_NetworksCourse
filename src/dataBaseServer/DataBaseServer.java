@@ -17,6 +17,11 @@ import server.ThreadWaitingClients;
 
 public class DataBaseServer {
 
+	public final static String CONF_ACCESS = "acces_confirmed";
+	public final static String DENIED_ACCESS = "acces_denied";
+	public final static String PLAYER_SAVED = "player_saved";
+	public final static String PLAYER_NOTSAVED = "player_notsaved";
+	
 	public final static String REGISTER_DB = "register_DB";
 
 	public final static String LOGIN_DB = "login_DB";
@@ -61,7 +66,7 @@ public class DataBaseServer {
 		this.waitingClients = waitingClients;
 	}
 
-	public boolean loginPlayer(String nick, String pass) {
+	public boolean loginPlayer(String email, String pass) {
 		
 			try {
 			   
@@ -73,17 +78,17 @@ public class DataBaseServer {
 
 				boolean cond = false;
 				
-				String info[] = in.readLine().split(",");
-				while (!info[0].equals("")) {
-					String theNick = info[0];
+				
+				while (!cond) {
+					String info[] = in.readLine().split(",");
+					String theEmail = info[2];
 					String thePass = info[1];
-					if (nick.equals(theNick) && pass.equals(thePass)) {
+					if (email.equals(theEmail) && pass.equals(thePass)) {
 
 						cond = true;
 						
 					}
 
-					info = in.readLine().split(",");
 				}
 				
 				return cond;

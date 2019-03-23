@@ -37,13 +37,13 @@ public class ThreadWaitingClientsDB extends Thread {
 					
 					if(mode.equals(DataBaseServer.LOGIN_DB)) {
 						
-						String nick = info[1];
+						String email = info[1];
 						String password = info[2];
-						boolean result = serverDB.loginPlayer(nick, password);
+						boolean result = serverDB.loginPlayer(email, password);
 						if(result){
-							out.writeUTF("CONFIRMED ACCESS");
+							out.writeUTF(DataBaseServer.CONF_ACCESS);
 						}else{
-							out.writeUTF("DENIED ACCESS");
+							out.writeUTF(DataBaseServer.DENIED_ACCESS);
 						}
 						
 					}else if(mode.equals(DataBaseServer.REGISTER_DB)) {
@@ -53,9 +53,9 @@ public class ThreadWaitingClientsDB extends Thread {
 						String email = info[3];
 						boolean result = serverDB.registerPlayer(nick, password, email);
 						if(result){
-							out.writeUTF("PLAYER SAVED");
+							out.writeUTF(DataBaseServer.PLAYER_SAVED);
 						}else{
-							out.writeUTF("COULDN'T SAVE PLAYER");
+							out.writeUTF(DataBaseServer.PLAYER_NOTSAVED);
 						}
 						
 					}
