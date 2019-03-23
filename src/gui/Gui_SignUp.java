@@ -88,6 +88,78 @@ public class Gui_SignUp extends JDialog implements ActionListener{
 		
 	}
 
+	public JLabel getLblTitle() {
+		return lblTitle;
+	}
+
+	public void setLblTitle(JLabel lblTitle) {
+		this.lblTitle = lblTitle;
+	}
+
+	public JLabel getLblEmail() {
+		return lblEmail;
+	}
+
+	public void setLblEmail(JLabel lblEmail) {
+		this.lblEmail = lblEmail;
+	}
+
+	public JLabel getLblNickname() {
+		return lblNickname;
+	}
+
+	public void setLblNickname(JLabel lblNickname) {
+		this.lblNickname = lblNickname;
+	}
+
+	public JLabel getLblPassword() {
+		return lblPassword;
+	}
+
+	public void setLblPassword(JLabel lblPassword) {
+		this.lblPassword = lblPassword;
+	}
+
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public void setTxtEmail(JTextField txtEmail) {
+		this.txtEmail = txtEmail;
+	}
+
+	public JTextField getTxtNickname() {
+		return txtNickname;
+	}
+
+	public void setTxtNickname(JTextField txtNickname) {
+		this.txtNickname = txtNickname;
+	}
+
+	public JTextField getTxtPassword() {
+		return txtPassword;
+	}
+
+	public void setTxtPassword(JTextField txtPassword) {
+		this.txtPassword = txtPassword;
+	}
+
+	public JButton getBtnSignUp() {
+		return btnSignUp;
+	}
+
+	public void setBtnSignUp(JButton btnSignUp) {
+		this.btnSignUp = btnSignUp;
+	}
+
+	public GUI_principal getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(GUI_principal principal) {
+		this.principal = principal;
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String command = e.getActionCommand();

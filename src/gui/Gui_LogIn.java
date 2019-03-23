@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -83,12 +84,107 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 		
 	}
 
+	public JLabel getLblTitle() {
+		return lblTitle;
+	}
+
+
+
+	public void setLblTitle(JLabel lblTitle) {
+		this.lblTitle = lblTitle;
+	}
+
+
+
+	public JLabel getLblEmail() {
+		return lblEmail;
+	}
+
+
+
+	public void setLblEmail(JLabel lblEmail) {
+		this.lblEmail = lblEmail;
+	}
+
+
+
+	public JLabel getLblPassword() {
+		return lblPassword;
+	}
+
+
+
+	public void setLblPassword(JLabel lblPassword) {
+		this.lblPassword = lblPassword;
+	}
+
+
+
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+
+
+	public void setTxtEmail(JTextField txtEmail) {
+		this.txtEmail = txtEmail;
+	}
+
+
+
+	public JTextField getTxtPassword() {
+		return txtPassword;
+	}
+
+
+
+	public void setTxtPassword(JTextField txtPassword) {
+		this.txtPassword = txtPassword;
+	}
+
+
+
+	public JButton getBtnLogIn() {
+		return btnLogIn;
+	}
+
+
+
+	public void setBtnLogIn(JButton btnLogIn) {
+		this.btnLogIn = btnLogIn;
+	}
+
+
+
+	public GUI_principal getPrincipal() {
+		return principal;
+	}
+
+
+
+	public void setPrincipal(GUI_principal principal) {
+		this.principal = principal;
+	}
+
+
+
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String command = e.getActionCommand();
-		
-		if(command.equals(LOG_IN)) {
-			this.dispose();
+
+		try {
+			String email = txtEmail.getText();
+			String password = txtPassword.getText();
+			
+			if(email.trim().isEmpty()|| password.trim().isEmpty()) {
+				throw new Exception();
+			}
+			if(command.equals(LOG_IN)) {
+				principal.oldPlayer(email, password);
+				this.dispose();
+			}
+		}catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Complete all the information","Error", JOptionPane.ERROR_MESSAGE );
 		}
 	}
 
