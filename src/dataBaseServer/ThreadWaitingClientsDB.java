@@ -74,7 +74,7 @@ public class ThreadWaitingClientsDB extends Thread {
 
 				}
 
-				serverDB.getServerSocket().close();
+//				serverDB.getServerSocket().close();
 			}
 		} catch (Exception e) {
 
