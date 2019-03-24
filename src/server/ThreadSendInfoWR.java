@@ -21,7 +21,9 @@ public class ThreadSendInfoWR extends Thread {
 	public void run() {
 
 		try {
-			Socket socketInfo = SsocketInfo.accept();
+			
+			Socket socketInfo= SsocketInfo.accept();	
+			
 			int lastTime = 0;
 			while (server.isWaitingClients()) {
 

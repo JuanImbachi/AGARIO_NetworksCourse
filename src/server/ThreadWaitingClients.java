@@ -10,63 +10,57 @@ import java.util.ArrayList;
 public class ThreadWaitingClients extends Thread {
 
 	private Server server;
-	
-	
-	
 
 	public ThreadWaitingClients(Server s) throws IOException {
 		server = s;
-        
-		
-		
+
 	}
-	
-	
 
 	@Override
 	public void run() {
 
-		while (server.isWaitingClients()) {
-			try {
-   
-				Socket socket = server.getServerSocket().accept();
-				
-				
-				
-				
+		try {
+
+			Socket socket = server.getServerSocket().accept();
+			
+			int n =0;
+
+			while (server.isWaitingClients()) {
+
 				// server.agregarSocketAActivos(socket);
-				DataInputStream in = new DataInputStream(socket.getInputStream());
-				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+				DataInputStream in = new DataInputStream(
+						socket.getInputStream());
+				DataOutputStream out = new DataOutputStream(
+						socket.getOutputStream());
 				String mensaje = in.readUTF();
+				
 				System.out.println(mensaje);
-		
-				if(mensaje.equals(Server.CONNECTED_CLIENT)){
+
+				if (mensaje.equals(Server.CONNECTED_CLIENT)) {
 					
-					
-					server.setNumberOfClients(server.getNumberOfClients()+1);
-					if(!server.getTimer().isAlive()){
-						server.getTimer().start();	
-						
+					n++;
+
+					server.setNumberOfClients(server.getNumberOfClients() + 1);
+					if (!server.getTimer().isAlive()) {
+						server.getTimer().start();
+
 					}
+
 					
-					ThreadSendInfoWR th = new ThreadSendInfoWR(server);
-					th.start();
-//					server.getThreadSIWR().add(new ThreadSendInfoWR(server));
-					
+
+					new ThreadSendInfoWR(server).start();
+
+					// server.getThreadSIWR().add(new ThreadSendInfoWR(server));
+
 					out.writeUTF(Server.CONNECTED_CLIENT);
-					
-					
 				}
-				
-				
-			} catch (Exception e) {
-				
+
 			}
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+
 		}
 	}
-	
-	
-	
-	
-
 }
