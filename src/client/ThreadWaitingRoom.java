@@ -24,7 +24,7 @@ public class ThreadWaitingRoom extends Thread {
 		try {
 			
 			String info[] = null;
-            int lastTime=0;
+            String lastTime="0";
             
 
 			DataInputStream in = new DataInputStream(socketWR.getInputStream());
@@ -34,11 +34,11 @@ public class ThreadWaitingRoom extends Thread {
                 
 				
 				info = in.readUTF().split(",");
-				while(Integer.parseInt(info[0])==lastTime){
+				while(info[0].equals(lastTime)){
 					info = in.readUTF().split(",");
 				}
 				
-				lastTime=Integer.parseInt(info[0]);
+				lastTime=info[0];
 
 				
 

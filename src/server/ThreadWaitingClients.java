@@ -40,6 +40,14 @@ public class ThreadWaitingClients extends Thread {
 					
 				
 					server.setNumberOfClients(server.getNumberOfClients() + 1);
+					
+					if(server.getNumberOfClients()>1){
+						server.activateBtnWindow();
+						server.refreshPlayersWindow();
+					}else if(server.getNumberOfClients()==1){
+						server.refreshPlayersWindow();
+					}
+					
 					if (!server.getTimer().isAlive()) {
 						server.getTimer().start();
 
