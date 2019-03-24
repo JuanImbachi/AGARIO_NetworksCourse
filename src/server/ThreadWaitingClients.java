@@ -42,11 +42,17 @@ public class ThreadWaitingClients extends Thread {
 		
 				if(mensaje.equals(Server.CONNECTED_CLIENT)){
 					
+					
 					server.setNumberOfClients(server.getNumberOfClients()+1);
 					if(!server.getTimer().isAlive()){
 						server.getTimer().start();	
-						server.getThreadSIWR().start();
+						
 					}
+					
+					ThreadSendInfoWR th = new ThreadSendInfoWR(server);
+					th.start();
+//					server.getThreadSIWR().add(new ThreadSendInfoWR(server));
+					
 					out.writeUTF(Server.CONNECTED_CLIENT);
 					
 					

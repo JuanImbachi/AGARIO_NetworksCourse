@@ -32,7 +32,7 @@ public class Server {
 	private ArrayList<String> players;
 	
 	
-	private ThreadSendInfoWR threadSIWR;
+	private ArrayList<ThreadSendInfoWR> threadSIWR;
 	
 	private  ServerSocket serverSocket;
 	
@@ -47,7 +47,7 @@ public class Server {
 		waitingClients = true;
 		threadWC.start();
 		timer = new ThreadTimer(this);
-		setThreadSIWR(new ThreadSendInfoWR(this));
+		threadSIWR=new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
 		
 	}
@@ -182,12 +182,12 @@ public class Server {
 	}
 
 
-	public ThreadSendInfoWR getThreadSIWR() {
+	public ArrayList<ThreadSendInfoWR> getThreadSIWR() {
 		return threadSIWR;
 	}
 
 
-	public void setThreadSIWR(ThreadSendInfoWR threadSIWR) {
+	public void setThreadSIWR(ArrayList<ThreadSendInfoWR> threadSIWR) {
 		this.threadSIWR = threadSIWR;
 	}
 
