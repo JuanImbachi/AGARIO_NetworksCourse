@@ -54,7 +54,7 @@ public class ThreadSendInfoWR extends Thread {
 				
 				
 			}
-			outInfo.writeUTF("END");
+			outInfo.writeUTF(Server.START_GAME);
 			outInfo.close();
 			socketInfo.close();
 			

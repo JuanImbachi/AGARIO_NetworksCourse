@@ -11,8 +11,6 @@ import server.ThreadWaitingClients;
 public class ThreadWaitingClientsDB extends Thread {
 
 	private DataBaseServer serverDB;
-	
-	
 
 	public ThreadWaitingClientsDB(DataBaseServer s) {
 		serverDB = s;
@@ -21,64 +19,67 @@ public class ThreadWaitingClientsDB extends Thread {
 
 	@Override
 	public void run() {
+		try {
+			while (serverDB.isWaitingClients()) {
 
-		while (serverDB.isWaitingClients()) {
-			try {
-   
 				Socket socket = serverDB.getServerSocket().accept();
-				
+
 				// server.agregarSocketAActivos(socket);
-				DataInputStream in = new DataInputStream(socket.getInputStream());
-				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+				DataInputStream in = new DataInputStream(
+						socket.getInputStream());
+				DataOutputStream out = new DataOutputStream(
+						socket.getOutputStream());
 				String mensaje = in.readUTF();
-				
-				if(!mensaje.equalsIgnoreCase("")){
+
+				if (!mensaje.equalsIgnoreCase("")) {
 					String[] info = mensaje.split(",");
 					String mode = info[0];
-					
-					if(mode.equals(DataBaseServer.LOGIN_DB)) {
-						
+
+					if (mode.equals(DataBaseServer.LOGIN_DB)) {
+
 						String email = info[1];
 						String password = info[2];
 						String result = serverDB.loginPlayer(email, password);
-						if(result!=null){
-							new ThreadWaitingClients(serverDB.getServer()).start();
+						if (result != null) {
+							new ThreadWaitingClients(serverDB.getServer())
+									.start();
 							out.writeUTF(DataBaseServer.CONF_ACCESS);
 							out.writeUTF(result);
 							serverDB.addPlayer(result);
-							
-						}else{
+
+						} else {
 							out.writeUTF(DataBaseServer.DENIED_ACCESS);
 						}
-						
-					}else if(mode.equals(DataBaseServer.REGISTER_DB)) {
-						
+
+					} else if (mode.equals(DataBaseServer.REGISTER_DB)) {
+
 						String nick = info[1];
 						String password = info[2];
 						String email = info[3];
-						String result = serverDB.registerPlayer(nick, password, email);
-						if(result!=null){
-							new ThreadWaitingClients(serverDB.getServer()).start();
+						String result = serverDB.registerPlayer(nick, password,
+								email);
+						if (result != null) {
+							new ThreadWaitingClients(serverDB.getServer())
+									.start();
 							out.writeUTF(DataBaseServer.PLAYER_SAVED);
 							out.writeUTF(result);
 
 							serverDB.addPlayer(result);
-							
-							
-						}else{
+
+						} else {
 							out.writeUTF(DataBaseServer.PLAYER_NOTSAVED);
 						}
-						
+
 					}
-					
+
 				}
-				
-				
-			} catch (Exception e) {
-				
-				
+
+				serverDB.getServerSocket().close();
 			}
+		} catch (Exception e) {
+
 		}
+
 	}
 
 }

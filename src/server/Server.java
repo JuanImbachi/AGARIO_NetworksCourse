@@ -17,6 +17,8 @@ public class Server {
 	public static final int PORT = 36556;
 	public static final int PORT_WR = 33000;
 	public final static String CONNECTED_CLIENT = "connected_client";
+	
+	public final static String START_GAME = "Start game";
 
 	// private Socket socket;
 
