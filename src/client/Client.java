@@ -34,6 +34,7 @@ public class Client {
 	private boolean waitingForPlay;
 
 	private boolean startedGame;
+	
 
 	private String nickname;
 

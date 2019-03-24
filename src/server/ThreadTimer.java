@@ -12,11 +12,11 @@ public class ThreadTimer extends Thread {
 
 	private int seconds;
 
-	private ServerSocket SsocketInfo;
+	
 
 	public ThreadTimer(Server s) throws IOException {
 		server = s;
-		SsocketInfo = new ServerSocket(Server.PORT_WR);
+		
 	}
 
 	@Override
@@ -26,27 +26,6 @@ public class ThreadTimer extends Thread {
 
 			seconds++;
 
-			try {
-				System.out.println("entra timer");
-				Socket socketInfo = SsocketInfo.accept();
-				DataOutputStream outInfo = new DataOutputStream(
-						socketInfo.getOutputStream());
-
-				String clients = new String();
-				ArrayList<String> clientsArray = server.getPlayers();
-				for (int i = 0; i < clientsArray.size(); i++) {
-					if (i == clientsArray.size() - 1) {
-						clients += clientsArray.get(i);
-					} else {
-						String m = clientsArray.get(i) + ",";
-						clients += m;
-					}
-				}
-				outInfo.writeUTF(server.getTimer().getSeconds() + "," + clients);
-	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			
 			
 			if (seconds < 120 && server.getNumberOfClients() < 5) {

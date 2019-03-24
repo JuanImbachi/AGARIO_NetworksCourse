@@ -8,41 +8,34 @@ import java.net.UnknownHostException;
 import server.Server;
 
 public class ThreadWaitingRoom extends Thread {
-	
+
 	private Client client;
-	
+
 	private Socket socketWR;
-	
-	public ThreadWaitingRoom(Client c) throws UnknownHostException, IOException{
+
+	public ThreadWaitingRoom(Client c) throws UnknownHostException, IOException {
 		client = c;
-		socketWR = new Socket(Server.IP_SERVER	, Server.PORT_WR);
+		socketWR = new Socket(Server.IP_SERVER, Server.PORT_WR);
 	}
-	
-	
+
 	@Override
 	public void run() {
-		while(client.isWaitingForPlay()){
-			try {
-				
-				
-				
-				DataInputStream in = new DataInputStream(socketWR.getInputStream());
-				
+
+		try {
+			DataInputStream in = new DataInputStream(socketWR.getInputStream());
+			while (client.isWaitingForPlay()) {
+
 				String info[] = in.readUTF().split(",");
-				
+
 				client.refreshWaitingRoom(info);
+
 				
 				this.sleep(1000);
-				
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 	}
-	
 
 }
