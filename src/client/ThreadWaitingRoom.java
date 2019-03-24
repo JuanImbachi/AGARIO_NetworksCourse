@@ -37,12 +37,16 @@ public class ThreadWaitingRoom extends Thread {
 
 				if (info[0].equals("END")) {
 					client.setWaitingForPlay(false);
+				}else{
+				
+					lastTime = info[0];
+
+					client.refreshWaitingRoom(info);
+
+					
 				}
-				lastTime = info[0];
-
-				client.refreshWaitingRoom(info);
-
-				// this.sleep(1000);
+				
+				
 			}
 
 			in.close();
