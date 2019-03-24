@@ -84,7 +84,8 @@ public class Gui_WaitingRoom extends JDialog {
 	}
 
 	public void refresh(String[] data) {
-		lblTimer.setText(data[0]);
+		int time =120- Integer.parseInt(data[0]);
+		lblTimer.setText(time+"");
 
 		ArrayList<String> newPlayers = new ArrayList<String>();
 

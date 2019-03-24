@@ -43,10 +43,16 @@ public class ThreadWaitingRoom extends Thread {
 				
 
 				client.refreshWaitingRoom(info);
+				
+				
 
 				
 //				this.sleep(1000);
 			}
+			
+			in.close();
+			socketWR.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

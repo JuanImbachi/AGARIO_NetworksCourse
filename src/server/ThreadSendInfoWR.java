@@ -52,6 +52,9 @@ public class ThreadSendInfoWR extends Thread {
 				
 				
 			}
+			
+			socketInfo.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

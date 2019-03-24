@@ -65,6 +65,13 @@ public class ThreadWaitingClients extends Thread {
 				out.writeUTF(Server.CONNECTED_CLIENT);
 
 			}
+			
+			
+			
+			in.close();
+			out.flush();
+			out.close();
+			socket.close();
 
 		} catch (Exception e) {
 			

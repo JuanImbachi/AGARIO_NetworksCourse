@@ -67,6 +67,18 @@ public class Server {
 	public void refreshPlayersWindow() {
 		adminWindow.refreshNumPlayers(numberOfClients + "");
 	}
+	
+	
+	
+	public void startGame(){
+		
+		waitingClients = false;
+		
+		
+		
+		
+	}
+	
 
 	public static void main(String[] args) {
 
