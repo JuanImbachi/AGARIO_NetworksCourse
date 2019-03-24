@@ -51,8 +51,10 @@ public class ThreadWaitingClients extends Thread {
 
 					// server.getThreadSIWR().add(new ThreadSendInfoWR(server));
 
-					out.writeUTF(Server.CONNECTED_CLIENT);
+//					out.writeUTF(Server.CONNECTED_CLIENT);
 				}
+				
+				out.writeUTF(Server.CONNECTED_CLIENT);
 
 			}
 

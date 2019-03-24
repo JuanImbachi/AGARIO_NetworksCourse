@@ -7,13 +7,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ThreadSendInfoWR extends Thread {
-	private ServerSocket SsocketInfo;
+	
 
 	private Server server;
 
 	public ThreadSendInfoWR(Server s) throws IOException {
 
-		SsocketInfo = new ServerSocket(Server.PORT_WR);
 		server = s;
 	}
 
@@ -22,7 +21,7 @@ public class ThreadSendInfoWR extends Thread {
 
 		try {
 			
-			Socket socketInfo= SsocketInfo.accept();	
+			Socket socketInfo= server.getSsocketInfo().accept();	
 			
 			int lastTime = 0;
 			while (server.isWaitingClients()) {

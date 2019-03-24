@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import server.Server;
+import server.ThreadWaitingClients;
 
 public class ThreadWaitingClientsDB extends Thread {
 
@@ -41,9 +42,11 @@ public class ThreadWaitingClientsDB extends Thread {
 						String password = info[2];
 						String result = serverDB.loginPlayer(email, password);
 						if(result!=null){
+							new ThreadWaitingClients(serverDB.getServer()).start();
 							out.writeUTF(DataBaseServer.CONF_ACCESS);
 							out.writeUTF(result);
 							serverDB.addPlayer(result);
+							
 						}else{
 							out.writeUTF(DataBaseServer.DENIED_ACCESS);
 						}
@@ -55,10 +58,13 @@ public class ThreadWaitingClientsDB extends Thread {
 						String email = info[3];
 						String result = serverDB.registerPlayer(nick, password, email);
 						if(result!=null){
+							new ThreadWaitingClients(serverDB.getServer()).start();
 							out.writeUTF(DataBaseServer.PLAYER_SAVED);
 							out.writeUTF(result);
 
 							serverDB.addPlayer(result);
+							
+							
 						}else{
 							out.writeUTF(DataBaseServer.PLAYER_NOTSAVED);
 						}

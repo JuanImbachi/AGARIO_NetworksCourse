@@ -20,6 +20,7 @@ public class Server {
 	
 //	private Socket socket;
 	
+	private ServerSocket SsocketInfo;
 
 	private DataBaseServer dbServer;
 	
@@ -40,12 +41,13 @@ public class Server {
 	
 	public Server() throws IOException {
 		
+		SsocketInfo = new ServerSocket(PORT_WR);
 		players=new ArrayList<String>();
 		serverSocket = new ServerSocket(PORT);
-		System.out.println("Servidor en línea");
+		System.out.println("Server online");
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
-		threadWC.start();
+//		threadWC.start();
 		timer = new ThreadTimer(this);
 		threadSIWR=new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
@@ -189,6 +191,16 @@ public class Server {
 
 	public void setThreadSIWR(ArrayList<ThreadSendInfoWR> threadSIWR) {
 		this.threadSIWR = threadSIWR;
+	}
+
+
+	public ServerSocket getSsocketInfo() {
+		return SsocketInfo;
+	}
+
+
+	public void setSsocketInfo(ServerSocket ssocketInfo) {
+		SsocketInfo = ssocketInfo;
 	}
 
 	
