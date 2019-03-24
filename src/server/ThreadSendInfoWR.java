@@ -23,11 +23,13 @@ public class ThreadSendInfoWR extends Thread {
 			
 			Socket socketInfo= server.getSsocketInfo().accept();	
 			
+			DataOutputStream outInfo = new DataOutputStream(
+					socketInfo.getOutputStream());
+			
 			int lastTime = 0;
 			while (server.isWaitingClients()) {
 
-				DataOutputStream outInfo = new DataOutputStream(
-						socketInfo.getOutputStream());
+				
 
 				String clients = new String();
 				ArrayList<String> clientsArray = server.getPlayers();
@@ -52,7 +54,8 @@ public class ThreadSendInfoWR extends Thread {
 				
 				
 			}
-			
+			outInfo.writeUTF("END");
+			outInfo.close();
 			socketInfo.close();
 			
 		} catch (Exception e) {

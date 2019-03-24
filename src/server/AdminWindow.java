@@ -71,9 +71,9 @@ public class AdminWindow extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		String event = e.getActionCommand();
-		if(e.equals(START)){
+		if(event.equals(START)){
 			
-			
+			server.startGame();
 			
 			
 			
