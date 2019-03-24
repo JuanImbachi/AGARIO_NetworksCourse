@@ -42,8 +42,8 @@ public class ThreadSendInfoWR extends Thread {
 
 				// --------------------------------
 
-				System.out.println(server.getTimer().getSeconds());
-				outInfo.writeUTF(server.getTimer().getSeconds() + "," + clients);
+				int theTime = server.getTimer().getSeconds();
+				outInfo.writeUTF(theTime + "," + clients);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

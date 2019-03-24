@@ -23,10 +23,17 @@ public class ThreadWaitingRoom extends Thread {
 
 		try {
 			DataInputStream in = new DataInputStream(socketWR.getInputStream());
+			String info[]=null;
+			
 			while (client.isWaitingForPlay()) {
 
-				String info[] = in.readUTF().split(",");
+				
+				info = in.readUTF().split(",");
+				
+				
 
+				System.out.println(info[0]);
+				
 				client.refreshWaitingRoom(info);
 
 				

@@ -79,7 +79,6 @@ public class Gui_WaitingRoom extends JDialog  {
 	
 	public void refresh(String[] data){
 		lblTimer.setText(data[0]);
-		System.out.println(data[0]);
 		jlPlayers.clearSelection();
 		for(int i=data.length-1;i>0;i--){
 			jlPlayers.add(new JLabel(data[i]));

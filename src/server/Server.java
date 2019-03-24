@@ -13,7 +13,7 @@ import dataBaseServer.DataBaseServer;
 public class Server {
 
 //	public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER="192.168.1.22";
+	public final static String IP_SERVER="192.168.1.18";
 	public static final int PORT = 36556;
 	public static final int PORT_WR = 33000;
 	public final static String CONNECTED_CLIENT = "connected_client";
