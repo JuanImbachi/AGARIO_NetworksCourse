@@ -80,8 +80,9 @@ public class Gui_WaitingRoom extends JDialog  {
 	
 	
 	public void refresh(String[] data){
-		int timeLeft = 120 - Integer.parseInt(data[0]);
-		lblTimer.setText(timeLeft+"");
+		//int timeLeft = 120 - Integer.parseInt(data[0]);
+		//lblTimer.setText(timeLeft+"");
+		lblTimer.setText(data[0]);
 //		jlPlayers.clearSelection();
 //		for(int i=data.length-1;i>0;i--){
 //			jlPlayers.add(new JLabel(data[i]));
@@ -112,8 +113,28 @@ public class Gui_WaitingRoom extends JDialog  {
 		return lblTimer;
 	}
 
-	public void setLblTimer(JLabel lblTimer) {
-		this.lblTimer = lblTimer;
+	public void setLblTimer(String time) {
+		int seconds=Integer.parseInt(time);
+		
+		int minutes= (int)seconds/60;
+		seconds = seconds%60;
+		String hora="";
+		
+		if(minutes<10) {
+			hora= "0"+minutes;
+		}else {
+			hora=minutes+"";
+		}
+		
+		hora= hora+":";
+		
+		if(seconds<10) {
+			hora= hora+"0"+seconds;
+		}else {
+			hora= hora+seconds;
+		}
+		
+		this.lblTimer.setText(hora);
 	}
 
 	public JLabel getLblInfo() {
@@ -140,4 +161,5 @@ public class Gui_WaitingRoom extends JDialog  {
 		this.listModel = listModel;
 	}
 
+	
 }
