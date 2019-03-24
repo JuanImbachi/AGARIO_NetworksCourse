@@ -20,8 +20,8 @@ import javax.swing.border.TitledBorder;
 public class Gui_WaitingRoom extends JDialog {
 
 	private JLabel lblTitle, lblTimer, lblInfo;
-	private JList<Comparable> jlPlayers;
-	private DefaultListModel<Comparable> listModel;
+	private JList jlPlayers;
+	private DefaultListModel listModel;
 	
 	private ArrayList<String> playersInRoom;
 
@@ -32,7 +32,7 @@ public class Gui_WaitingRoom extends JDialog {
 		
 		playersInRoom = new ArrayList<String>();
 		
-		listModel = new DefaultListModel<Comparable>();
+		listModel = new DefaultListModel();
 
 		setTitle("Icesi Games SA - AgarIO");
 		setLayout(new BorderLayout());
@@ -49,7 +49,7 @@ public class Gui_WaitingRoom extends JDialog {
 		lblInfo = new JLabel("La partida comenzará en: ");
 		lblInfo.setHorizontalAlignment(JLabel.CENTER);
 
-		jlPlayers = new JList<Comparable>();
+		jlPlayers = new JList();
 
 		jlPlayers.setModel(listModel);
 		JScrollPane scrollPane = new JScrollPane(jlPlayers);
