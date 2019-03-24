@@ -23,20 +23,22 @@ public class ThreadWaitingRoom extends Thread {
 
 		try {
 			DataInputStream in = new DataInputStream(socketWR.getInputStream());
-			String info[]=null;
-			
+			String info[] = null;
+            int lastTime=0;
 			while (client.isWaitingForPlay()) {
-
+                
 				
 				info = in.readUTF().split(",");
+				while(Integer.parseInt(info[0])==lastTime){
+					info = in.readUTF().split(",");
+				}
 				
+				lastTime=Integer.parseInt(info[0]);
+
 				
 
-				System.out.println(info[0]);
-				
 				client.refreshWaitingRoom(info);
 
-				
 				this.sleep(1000);
 			}
 		} catch (Exception e) {

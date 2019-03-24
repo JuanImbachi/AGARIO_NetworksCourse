@@ -19,14 +19,14 @@ import javax.swing.border.TitledBorder;
 public class Gui_WaitingRoom extends JDialog  {
 
 	private JLabel lblTitle,lblTimer,lblInfo;
-	private JList jlPlayers;
-	private DefaultListModel listModel;
+	private JList<Comparable> jlPlayers;
+	private DefaultListModel<Comparable> listModel;
 	
 	private GUI_principal principal;
 	
 	public Gui_WaitingRoom(GUI_principal pri) {
 		principal=pri;
-		listModel = new DefaultListModel();
+		listModel = new DefaultListModel<Comparable>();
 		
 		setTitle("Icesi Games SA - AgarIO");
 		setLayout(new BorderLayout());
@@ -44,20 +44,22 @@ public class Gui_WaitingRoom extends JDialog  {
 		lblInfo.setHorizontalAlignment(JLabel.CENTER);
 		
 		
-		jlPlayers = new JList();
+		jlPlayers = new JList<Comparable>();
+		
 		jlPlayers.setModel(listModel);
 		JScrollPane scrollPane = new JScrollPane(jlPlayers); 
 		scrollPane.setBounds(10,30,200,110); 
+		
 		
 		jlPlayers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jlPlayers.setLayoutOrientation(JList.VERTICAL);
 		
 		JPanel p1 = new JPanel();
-		p1.setLayout(null);
+		p1.setLayout(new BorderLayout());
 		TitledBorder border1 = BorderFactory.createTitledBorder("Players in room");
 		border1.setTitleColor(Color.BLUE);
 		p1.setBorder(border1);
-		p1.add(scrollPane);
+		p1.add(jlPlayers,BorderLayout.CENTER);
 		
 		JPanel p2= new JPanel();
 		p2.setLayout(new FlowLayout());
@@ -78,11 +80,19 @@ public class Gui_WaitingRoom extends JDialog  {
 	
 	
 	public void refresh(String[] data){
-		lblTimer.setText(data[0]);
-		jlPlayers.clearSelection();
-		for(int i=data.length-1;i>0;i--){
-			jlPlayers.add(new JLabel(data[i]));
+		int timeLeft = 120 - Integer.parseInt(data[0]);
+		lblTimer.setText(timeLeft+"");
+//		jlPlayers.clearSelection();
+//		for(int i=data.length-1;i>0;i--){
+//			jlPlayers.add(new JLabel(data[i]));
+//		}
+		
+		
+		listModel.removeAllElements();
+		for(int i = 1; i<data.length; i++){
+		        listModel.addElement(data[i]);
 		}
+		jlPlayers.setModel(listModel);
 	}
 	
 

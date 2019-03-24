@@ -22,8 +22,7 @@ public class ThreadSendInfoWR extends Thread {
 
 		try {
 			Socket socketInfo = SsocketInfo.accept();
-			// AQUI HAY ALGUN PROBLEMA
-
+			int lastTime = 0;
 			while (server.isWaitingClients()) {
 
 				DataOutputStream outInfo = new DataOutputStream(
@@ -40,10 +39,17 @@ public class ThreadSendInfoWR extends Thread {
 					}
 				}
 
-				// --------------------------------
-
 				int theTime = server.getTimer().getSeconds();
+
+				while(theTime==lastTime){
+					theTime = server.getTimer().getSeconds();
+				}
+				
+				
 				outInfo.writeUTF(theTime + "," + clients);
+				
+				
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
