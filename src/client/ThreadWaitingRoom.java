@@ -45,7 +45,7 @@ public class ThreadWaitingRoom extends Thread {
 				client.refreshWaitingRoom(info);
 
 				
-				this.sleep(1000);
+//				this.sleep(1000);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
