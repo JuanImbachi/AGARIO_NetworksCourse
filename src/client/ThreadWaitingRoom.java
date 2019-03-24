@@ -25,9 +25,13 @@ public class ThreadWaitingRoom extends Thread {
 			
 			String info[] = null;
             int lastTime=0;
+            
+
+			DataInputStream in = new DataInputStream(socketWR.getInputStream());
+            
+            
 			while (client.isWaitingForPlay()) {
                 
-				DataInputStream in = new DataInputStream(socketWR.getInputStream());
 				
 				info = in.readUTF().split(",");
 				while(Integer.parseInt(info[0])==lastTime){
@@ -40,7 +44,6 @@ public class ThreadWaitingRoom extends Thread {
 
 				client.refreshWaitingRoom(info);
 
-				in.close();
 				
 				this.sleep(1000);
 			}

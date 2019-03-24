@@ -22,24 +22,23 @@ public class ThreadWaitingClients extends Thread {
 		try {
 
 			Socket socket = server.getServerSocket().accept();
+			DataInputStream in = new DataInputStream(
+					socket.getInputStream());
+			DataOutputStream out = new DataOutputStream(
+					socket.getOutputStream());
 			
-			int n =0;
-
 			while (server.isWaitingClients()) {
 
 				// server.agregarSocketAActivos(socket);
-				DataInputStream in = new DataInputStream(
-						socket.getInputStream());
-				DataOutputStream out = new DataOutputStream(
-						socket.getOutputStream());
+				
+				
 				String mensaje = in.readUTF();
 				
 				System.out.println(mensaje);
 
 				if (mensaje.equals(Server.CONNECTED_CLIENT)) {
 					
-					n++;
-
+				
 					server.setNumberOfClients(server.getNumberOfClients() + 1);
 					if (!server.getTimer().isAlive()) {
 						server.getTimer().start();
