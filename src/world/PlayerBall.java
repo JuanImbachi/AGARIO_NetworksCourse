@@ -16,13 +16,16 @@ public class PlayerBall extends Ball {
 	
 	private double vectorY;
 	
-	public PlayerBall( String nickname, int posXmax, int posYmax) {
+	private int id;
+	
+	public PlayerBall( int id,String nickname, int posXmax, int posYmax) {
 		super(posXmax, posYmax);
 		this.setFood(false);
 		this.velocity = 0;
 		this.vectorX = 0;
 		this.vectorY = 0;
 		this.isPlaying = true;
+		this.id = id;
 	}
 
 	public String getNickname() {
@@ -63,6 +66,14 @@ public class PlayerBall extends Ball {
 
 	public void setVectorY(double vectorY) {
 		this.vectorY = vectorY;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void calculateVelocity() {
@@ -106,6 +117,7 @@ public class PlayerBall extends Ball {
 
 		return true;
 	}
+	
 	
 	public boolean checkCollisionFood(Ball ball) {
 		  int collision = super.checkCollision(ball);

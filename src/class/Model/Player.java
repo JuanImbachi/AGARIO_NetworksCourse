@@ -17,7 +17,7 @@ public class Player implements Serializable {
     
     private int id;
     private String nickname;
-    private ArrayList<Cell> cells;
+    private ArrayList<String> cells;
     private double vel;
     private double vectorX, vectorY;
     
@@ -30,7 +30,7 @@ public class Player implements Serializable {
         Cell cell = new Cell(xMax, yMax);
         cell.setVirus(false);
         cell.setPrincipal(true);
-        this.cells = new ArrayList<>();
+        this.cells = new ArrayList<String>();
         this.cells.add(cell);
         this.vectorX = this.vectorY = this.vel = 0;
         this.mustDie = false;

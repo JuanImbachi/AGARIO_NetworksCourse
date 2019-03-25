@@ -63,7 +63,6 @@ public class WindowGame extends JFrame{
         try {
             this.id = this.players.addNewPlayer(nick, this.getWidth(), this.getHeight());
             this.ds.setID(this.id);
-            this.getWi
         } catch (RemoteException ex) {
             Logger.getLogger(WindowGame.class.getName()).log(Level.SEVERE, null, ex);
         }

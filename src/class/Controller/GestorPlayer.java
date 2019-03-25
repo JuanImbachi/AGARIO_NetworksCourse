@@ -103,6 +103,7 @@ public class GestorPlayer extends UnicastRemoteObject implements IGestorPlayer{
         
         if (playersTop.size() > n) {
             playersTop.subList(n, playersTop.size()).clear();
+            
             return playersTop;
         } else {
             return playersTop;

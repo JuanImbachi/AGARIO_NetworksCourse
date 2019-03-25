@@ -19,6 +19,8 @@ public class Ball {
 	
 	private int foodID;
 	
+	private int ttl;
+	
     private static Random rand = new Random();
 
     public Ball( int posXmax, int posYmax) {
@@ -30,6 +32,7 @@ public class Ball {
         int b = rand.nextInt(256);
         this.color = new Color(r,g,b);
 		this.mass = INIT_MASS;
+		this.ttl = 0;
 		}
     
 	public Ball( int posXmax, int posYmax,boolean food, int foodID) {
@@ -43,6 +46,8 @@ public class Ball {
 		this.mass = INIT_MASS/2;
 		this.food = food;
 		this.foodID = foodID;
+		this.ttl = 0;
+		
 	}
 
 	public Color getColor() {
@@ -79,6 +84,22 @@ public class Ball {
 
 	public boolean isFood() {
 		return food;
+	}
+
+	public int getFoodID() {
+		return foodID;
+	}
+
+	public void setFoodID(int foodID) {
+		this.foodID = foodID;
+	}
+
+	public int getTtl() {
+		return ttl;
+	}
+
+	public void setTtl(int ttl) {
+		this.ttl = ttl;
 	}
 
 	public void setFood(boolean food) {
