@@ -66,6 +66,8 @@ public class ThreadWaitingClients extends Thread {
 			}
 			
 			
+			
+			
 			in.close();
 			out.flush();
 			out.close();

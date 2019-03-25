@@ -56,7 +56,14 @@ public class ThreadSendInfoWR extends Thread {
 			}
 			server.addActiveSocket(socketInfo);
 			
-			server.startMulticast();
+			
+			if(server.isRunningGame()==false) {
+			  
+				server.startMulticast();
+				System.out.println("enters");
+			}
+			
+			
 			
 			outInfo.writeUTF(Server.START_GAME);
 			

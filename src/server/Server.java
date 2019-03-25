@@ -81,19 +81,31 @@ public class Server {
 	public void refreshPlayersWindow() {
 		adminWindow.refreshNumPlayers(numberOfClients + "");
 	}
+	
+	
+	private int indi;
 
 	public void startMulticast() {
 
-		if (!runningGame) {
+		
+		
+		    runningGame = true;
+		
+		
 			System.out.println("starts multicast");
-			runningGame = true;
-			ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
-			for (int i = 0; i < socketsWithClients.size(); i++) {
-				ThreadInfoGameServer th = new ThreadInfoGameServer(this, socketsWithClients.get(i));
-				th.start();
-				ArrayThreadIGS.add(th);
-			}
-		}
+			
+			
+			ThreadInfoGameServer th = new ThreadInfoGameServer(this, socketsWithClients.get(indi));
+			indi++;
+			th.start();
+			
+//			ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
+//			for (int i = 0; i < socketsWithClients.size(); i++) {
+//				ThreadInfoGameServer th = new ThreadInfoGameServer(this, socketsWithClients.get(i));
+//				th.start();
+//				ArrayThreadIGS.add(th);
+//			}
+		
 
 	}
 
