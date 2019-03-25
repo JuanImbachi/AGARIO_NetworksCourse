@@ -27,6 +27,7 @@ public class ThreadWaitingClients extends Thread {
 			DataOutputStream out = new DataOutputStream(
 					socket.getOutputStream());
 			
+			
 			while (server.isWaitingClients()) {
 
 				
@@ -72,6 +73,8 @@ public class ThreadWaitingClients extends Thread {
 			out.flush();
 			out.close();
 			socket.close();
+			
+			
 			
 			
 

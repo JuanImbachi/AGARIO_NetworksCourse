@@ -43,6 +43,8 @@ public class Client {
 	private GUI_principal gui;
 
 	private Socket clientSocket;
+	
+	private Socket gameSocket;
 
 	private MulticastSocket mcSocket;
 
@@ -58,7 +60,8 @@ public class Client {
 	public Client(GUI_principal theGui) throws IOException {
 		gui = theGui;
 		
-		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
+		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
+		gameSocket = new Socket(Server.IP_SERVER,Server.PORT_INFO);
 
 	}
 
@@ -287,6 +290,14 @@ public class Client {
 
 	public void setThreadIGC(ThreadInfoGameClient threadIGC) {
 		this.threadIGC = threadIGC;
+	}
+
+	public Socket getGameSocket() {
+		return gameSocket;
+	}
+
+	public void setGameSocket(Socket gameSocket) {
+		this.gameSocket = gameSocket;
 	}
 
 }

@@ -30,16 +30,14 @@ public class ThreadInfoGameClient extends Thread {
 			
 			
 			
-			DataInputStream in = new DataInputStream(client.getClientSocket().getInputStream());
+			DataInputStream in = new DataInputStream(client.getGameSocket().getInputStream());
 			
-			DataOutputStream out = new DataOutputStream(client.getClientSocket().getOutputStream());
+			DataOutputStream out = new DataOutputStream(client.getGameSocket().getOutputStream());
 			
 			while(client.isStartedGame()) {
 				
 				
-				
-				
-				System.out.println(in.readUTF());
+//				System.out.println(in.readUTF());
 				
 				out.writeUTF("Hi im a client and my nickname is: "+client.getNickname());
 				

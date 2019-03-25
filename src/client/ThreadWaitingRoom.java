@@ -49,7 +49,7 @@ public class ThreadWaitingRoom extends Thread {
 				
 			}
 
-//			in.close();
+			in.close();
 			client.startGame();
 			
 

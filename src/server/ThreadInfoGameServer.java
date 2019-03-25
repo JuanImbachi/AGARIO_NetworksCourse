@@ -8,19 +8,19 @@ public class ThreadInfoGameServer extends Thread {
 
 	private Server server;
 	
-	private Socket socket;
 
-	public ThreadInfoGameServer(Server s, Socket so) {
+	public ThreadInfoGameServer(Server s) {
 
 		server = s;
 		
-		socket = so;
 	}
 
 	@Override
 	public void run() {
  
 		try {
+			
+			Socket socket = server.getServerSocketGame().accept();
 			
 			DataInputStream in = new DataInputStream(socket.getInputStream());
 			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
