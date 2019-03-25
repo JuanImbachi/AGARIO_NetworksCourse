@@ -14,7 +14,6 @@ import java.net.Socket;
 
 //import Cliente.HiloAtentoAlMulticast;
 
-
 import dataBaseServer.DataBaseServer;
 import server.Server;
 
@@ -28,18 +27,19 @@ public class Client {
 	private Socket clientConnectionDB;
 
 	private Socket clientConnectionServer;
-	
+
 	private ThreadWaitingRoom threadWR;
 
 	private boolean waitingForPlay;
 
 	private boolean startedGame;
-	
+
+	private ThreadInfoGameClient threadIGC;
 
 	private String nickname;
 
 	private int score;
-	
+
 	private GUI_principal gui;
 
 	private Socket clientSocket;
@@ -57,28 +57,35 @@ public class Client {
 
 	public Client(GUI_principal theGui) throws IOException {
 		gui = theGui;
+		
+		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
 
 	}
 
 	public void registerPlayer(String email, String pass, String nick) throws IOException {
 
-		
-		String message = DataBaseServer.REGISTER_DB + "," + nick + ","+ pass + "," + email;
+		String message = DataBaseServer.REGISTER_DB + "," + nick + "," + pass + "," + email;
 		connectWithDB(message);
 
 	}
-	
-	
-	public void loginPlayer(String email, String password) throws IOException{
-		
-		
-		String message = DataBaseServer.LOGIN_DB + "," + email + ","+ password;
+
+	public void loginPlayer(String email, String password) throws IOException {
+
+		String message = DataBaseServer.LOGIN_DB + "," + email + "," + password;
 		connectWithDB(message);
 
-		
 	}
-	
-	
+
+	public void startGame() {
+		
+		startedGame = true;
+		
+		threadIGC = new ThreadInfoGameClient(this);
+		
+		threadIGC.start();
+		
+
+	}
 
 	// public void connectWithServer() throws IOException {
 	//
@@ -105,27 +112,24 @@ public class Client {
 
 		try {
 
-			clientConnectionDB = new Socket(Server.IP_SERVER,
-					DataBaseServer.DB_PORT);
-			DataInputStream in = new DataInputStream(
-					clientConnectionDB.getInputStream());
-			DataOutputStream out = new DataOutputStream(
-					clientConnectionDB.getOutputStream());
+			clientConnectionDB = new Socket(Server.IP_SERVER, DataBaseServer.DB_PORT);
+			DataInputStream in = new DataInputStream(clientConnectionDB.getInputStream());
+			DataOutputStream out = new DataOutputStream(clientConnectionDB.getOutputStream());
 
 			out.writeUTF(message);
-			
+
 			String result = in.readUTF();
 
 			gui.connectionResult(result);
 			boolean r = false;
-			if(result.equals(DataBaseServer.CONF_ACCESS)||result.equals(DataBaseServer.PLAYER_SAVED)){
+			if (result.equals(DataBaseServer.CONF_ACCESS) || result.equals(DataBaseServer.PLAYER_SAVED)) {
 				r = true;
 				String information = in.readUTF();
 				nickname = information;
 				connectWithServer();
 			}
 			gui.setConnectionResult(r);
-			
+
 			clientConnectionDB.close();
 
 		} catch (Exception e) {
@@ -133,38 +137,31 @@ public class Client {
 		}
 
 	}
-	
-	
-	private void connectWithServer(){
-		
-		try {
-		    
 
-			clientConnectionServer = new Socket(Server.IP_SERVER,
-					Server.PORT);
-			DataInputStream in = new DataInputStream(
-					clientConnectionServer.getInputStream());
-			DataOutputStream out = new DataOutputStream(
-					clientConnectionServer.getOutputStream());
-			
+	private void connectWithServer() {
+
+		try {
+
+			clientConnectionServer = new Socket(Server.IP_SERVER, Server.PORT);
+			DataInputStream in = new DataInputStream(clientConnectionServer.getInputStream());
+			DataOutputStream out = new DataOutputStream(clientConnectionServer.getOutputStream());
+
 			out.writeUTF(Server.CONNECTED_CLIENT);
-			
-			if(in.readUTF().equals(Server.CONNECTED_CLIENT)){
+
+			if (in.readUTF().equals(Server.CONNECTED_CLIENT)) {
 				gui.goToWaitingRoom();
-				waitingForPlay=true;
+				waitingForPlay = true;
 				threadWR = new ThreadWaitingRoom(this);
 				threadWR.start();
 			}
-			
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
-	
-	public void refreshWaitingRoom(String[] data){
+
+	public void refreshWaitingRoom(String[] data) {
 		gui.refreshWR(data);
 	}
 
@@ -224,41 +221,41 @@ public class Client {
 		this.mcSocket = mcSocket;
 	}
 
-//	public static void main(String[] args) throws IOException {
-//
-//		Client c = new Client();
-//
-//		// DataInputStream in;
-//		//
-//		// DataOutputStream out;
-//		//
-//		// try {
-//		// clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
-//		//
-//		// while(true) {
-//		//
-//		// // BufferedReader clientReader = new BufferedReader(new
-//		// InputStreamReader(System.in));
-//		// // String palabra= clientReader.readLine();
-//		// //
-//		// //
-//		// //
-//		// // String n="";
-//		// in = new DataInputStream(clientConnection.getInputStream());
-//		// out = new DataOutputStream(clientConnection.getOutputStream());
-//		//
-//		// out.writeUTF(Server.CONNECTED_CLIENT);
-//		// System.out.println(in.readUTF());
-//		// }
-//		// // clientConnection.close();
-//		// // in.close();
-//		// // out.close();
-//		//
-//		// } catch (Exception e) {
-//		// System.out.println("Se generó una excepcion");
-//		// }
-//
-//	}
+	// public static void main(String[] args) throws IOException {
+	//
+	// Client c = new Client();
+	//
+	// // DataInputStream in;
+	// //
+	// // DataOutputStream out;
+	// //
+	// // try {
+	// // clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
+	// //
+	// // while(true) {
+	// //
+	// // // BufferedReader clientReader = new BufferedReader(new
+	// // InputStreamReader(System.in));
+	// // // String palabra= clientReader.readLine();
+	// // //
+	// // //
+	// // //
+	// // // String n="";
+	// // in = new DataInputStream(clientConnection.getInputStream());
+	// // out = new DataOutputStream(clientConnection.getOutputStream());
+	// //
+	// // out.writeUTF(Server.CONNECTED_CLIENT);
+	// // System.out.println(in.readUTF());
+	// // }
+	// // // clientConnection.close();
+	// // // in.close();
+	// // // out.close();
+	// //
+	// // } catch (Exception e) {
+	// // System.out.println("Se generó una excepcion");
+	// // }
+	//
+	// }
 
 	public Socket getClientConnectionDB() {
 		return clientConnectionDB;
@@ -282,6 +279,14 @@ public class Client {
 
 	public void setThreadWR(ThreadWaitingRoom threadWR) {
 		this.threadWR = threadWR;
+	}
+
+	public ThreadInfoGameClient getThreadIGC() {
+		return threadIGC;
+	}
+
+	public void setThreadIGC(ThreadInfoGameClient threadIGC) {
+		this.threadIGC = threadIGC;
 	}
 
 }

@@ -29,7 +29,6 @@ public class ThreadWaitingClients extends Thread {
 			
 			while (server.isWaitingClients()) {
 
-				// server.agregarSocketAActivos(socket);
 				
 				
 				String mensaje = in.readUTF();
@@ -67,11 +66,12 @@ public class ThreadWaitingClients extends Thread {
 			}
 			
 			
-			
 			in.close();
 			out.flush();
 			out.close();
 			socket.close();
+			
+			
 
 		} catch (Exception e) {
 			

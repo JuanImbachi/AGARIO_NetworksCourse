@@ -41,7 +41,7 @@ import world.PlayerBall;
 			jdLogIn = new Gui_LogIn(this);
 			jdFirstPanel = new FirstPanel(this);
 			jdIp= new Gui_IP(this);
-			
+			jdIp.setVisible(true);
 			player= new Client(this);
 			
 		}
@@ -222,7 +222,7 @@ import world.PlayerBall;
 			try {
 				
 				GUI_principal principal = new GUI_principal();
-				principal.initializeGameSpace();			
+//				principal.initializeGameSpace();			
 				//principal.firstPanel();
 				
 				

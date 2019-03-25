@@ -54,9 +54,18 @@ public class ThreadSendInfoWR extends Thread {
 				
 				
 			}
+			server.addActiveSocket(socketInfo);
+			
+			server.startMulticast();
+			
 			outInfo.writeUTF(Server.START_GAME);
-			outInfo.close();
-			socketInfo.close();
+			
+			
+			
+			
+//			outInfo.close();
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

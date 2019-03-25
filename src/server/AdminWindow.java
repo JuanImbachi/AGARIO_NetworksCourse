@@ -40,7 +40,7 @@ public class AdminWindow extends JFrame implements ActionListener{
 		
 		lblNumPlayers = new JLabel("  Number of players connected: 0  ");
 		
-		btnStart.setEnabled(false);
+//		btnStart.setEnabled(false);
 		
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(1,2));

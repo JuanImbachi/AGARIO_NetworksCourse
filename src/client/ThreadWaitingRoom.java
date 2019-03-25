@@ -11,11 +11,10 @@ public class ThreadWaitingRoom extends Thread {
 
 	private Client client;
 
-	private Socket socketWR;
 
 	public ThreadWaitingRoom(Client c) throws UnknownHostException, IOException {
 		client = c;
-		socketWR = new Socket(Server.IP_SERVER, Server.PORT_WR);
+		
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class ThreadWaitingRoom extends Thread {
 			String info[] = null;
 			String lastTime = "0";
 
-			DataInputStream in = new DataInputStream(socketWR.getInputStream());
+			DataInputStream in = new DataInputStream(client.getClientSocket().getInputStream());
 
 			while (client.isWaitingForPlay()) {
 
@@ -37,6 +36,7 @@ public class ThreadWaitingRoom extends Thread {
 
 				if (info[0].equals(Server.START_GAME)) {
 					client.setWaitingForPlay(false);
+					
 				}else{
 				
 					lastTime = info[0];
@@ -49,8 +49,9 @@ public class ThreadWaitingRoom extends Thread {
 				
 			}
 
-			in.close();
-			socketWR.close();
+//			in.close();
+			client.startGame();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

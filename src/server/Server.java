@@ -13,14 +13,16 @@ import dataBaseServer.DataBaseServer;
 public class Server {
 
 	// public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER = "192.168.1.15";
+	public final static String IP_SERVER = "192.168.43.139";
 	public static final int PORT = 36556;
-	public static final int PORT_WR = 33000;
+	public static final int PORT_INFO = 33000;
 	public final static String CONNECTED_CLIENT = "connected_client";
-	
+
 	public final static String START_GAME = "Start game";
 
 	// private Socket socket;
+
+	private ArrayList<Socket> socketsWithClients;
 
 	private ServerSocket SsocketInfo;
 
@@ -28,9 +30,13 @@ public class Server {
 
 	private boolean waitingClients;
 
+	private boolean runningGame;
+
 	private ThreadWaitingClients threadWC;
 
 	private ThreadTimer timer;
+
+	private ArrayList<ThreadInfoGameServer> ArrayThreadIGS;
 
 	private ArrayList<String> players;
 
@@ -44,9 +50,11 @@ public class Server {
 
 	public Server() throws IOException {
 
+		socketsWithClients = new ArrayList<Socket>();
+
 		adminWindow = new AdminWindow(this);
 		adminWindow.setVisible(true);
-		SsocketInfo = new ServerSocket(PORT_WR);
+		SsocketInfo = new ServerSocket(PORT_INFO);
 		players = new ArrayList<String>();
 		serverSocket = new ServerSocket(PORT);
 		System.out.println("Server online");
@@ -59,6 +67,10 @@ public class Server {
 
 	}
 
+	public void addActiveSocket(Socket s) {
+		socketsWithClients.add(s);
+	}
+
 	public void activateBtnWindow() {
 		if (!adminWindow.btnEnabled()) {
 			adminWindow.activateButton();
@@ -69,18 +81,27 @@ public class Server {
 	public void refreshPlayersWindow() {
 		adminWindow.refreshNumPlayers(numberOfClients + "");
 	}
-	
-	
-	
-	public void startGame(){
-		
-		waitingClients = false;
-		
-		
-		
-		
+
+	public void startMulticast() {
+
+		if (!runningGame) {
+			System.out.println("starts multicast");
+			runningGame = true;
+			ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
+			for (int i = 0; i < socketsWithClients.size(); i++) {
+				ThreadInfoGameServer th = new ThreadInfoGameServer(this, socketsWithClients.get(i));
+				th.start();
+				ArrayThreadIGS.add(th);
+			}
+		}
+
 	}
-	
+
+	public void startGame() {
+
+		waitingClients = false;
+
+	}
 
 	public static void main(String[] args) {
 
@@ -132,6 +153,14 @@ public class Server {
 		// e.printStackTrace();
 		// }
 
+	}
+
+	public boolean isRunningGame() {
+		return runningGame;
+	}
+
+	public void setRunningGame(boolean b) {
+		runningGame = b;
 	}
 
 	public ThreadWaitingClients getThreadWC() {
@@ -221,6 +250,14 @@ public class Server {
 
 	public void setAdminWindow(AdminWindow adminWindow) {
 		this.adminWindow = adminWindow;
+	}
+
+	public ArrayList<Socket> getSocketsWithClients() {
+		return socketsWithClients;
+	}
+
+	public void setSocketsWithClients(ArrayList<Socket> socketsWithClients) {
+		this.socketsWithClients = socketsWithClients;
 	}
 
 }
