@@ -29,7 +29,7 @@ public class ThreadInfoGameServer extends Thread {
 			while(server.isRunningGame()) {
 				
 				out.writeUTF("welcome to server");
-				System.out.println(in.readUTF());
+//				System.out.println(in.readUTF());
 				
 				
 			}

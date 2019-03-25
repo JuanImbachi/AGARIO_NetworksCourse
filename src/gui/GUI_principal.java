@@ -44,6 +44,8 @@ import world.PlayerBall;
 			jdIp.setVisible(true);
 			player= new Client(this);
 			
+			
+			
 		}
 		
 		public void initializeGameSpace() {
