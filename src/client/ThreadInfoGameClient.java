@@ -14,12 +14,7 @@ public class ThreadInfoGameClient extends Thread {
 	
 	public ThreadInfoGameClient(Client c) {
 		
-		client = c;
-		
-		
-		
-		
-		
+		client = c;		
 	}
 	
 	
@@ -36,10 +31,32 @@ public class ThreadInfoGameClient extends Thread {
 			
 			while(client.isStartedGame()) {
 				
+				String info = in.readUTF();
+				if(info.equals("BEGIN")) {
+					
+					//CREA TODO
+				}else {
+					
+					
+					double x = client.getGame().getPlayer(0).getPosX();
+					double y = client.getGame().getPlayer(0).getPosY();
+					
+					int size = client.getGame().getPlayer(0).getRadio();
+					
+					boolean isPlaying = client.getGame().getPlayer(0).isPlaying();
+					out.writeUTF(x+"/"+y+"/"+size+"/"+isPlaying);
+					
+					
+					
+				}
+				
 				
 //				System.out.println(in.readUTF());
 				
-				out.writeUTF("Hi im a client and my nickname is: "+client.getNickname());
+//				out.writeUTF("Hi im a client and my nickname is: "+client.getNickname());
+				
+				
+				
 				
 				
 				

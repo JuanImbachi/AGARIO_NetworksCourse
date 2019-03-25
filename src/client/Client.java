@@ -16,6 +16,7 @@ import java.net.Socket;
 
 import dataBaseServer.DataBaseServer;
 import server.Server;
+import world.AgarIO;
 
 public class Client {
 
@@ -35,6 +36,8 @@ public class Client {
 	private boolean startedGame;
 
 	private ThreadInfoGameClient threadIGC;
+	
+	private AgarIO game;
 
 	private String nickname;
 
@@ -298,6 +301,14 @@ public class Client {
 
 	public void setGameSocket(Socket gameSocket) {
 		this.gameSocket = gameSocket;
+	}
+
+	public AgarIO getGame() {
+		return game;
+	}
+
+	public void setGame(AgarIO game) {
+		this.game = game;
 	}
 
 }

@@ -62,6 +62,7 @@ public class Server {
 		SsocketInfo = new ServerSocket(PORT_WR);
 		players = new ArrayList<String>();
 		serverSocket = new ServerSocket(PORT);
+		
 		System.out.println("Server online");
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
