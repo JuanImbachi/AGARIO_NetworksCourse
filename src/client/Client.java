@@ -2,6 +2,7 @@ package client;
 
 import gui.GUI_principal;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -14,9 +15,13 @@ import java.net.Socket;
 
 //import Cliente.HiloAtentoAlMulticast;
 
+import java.util.ArrayList;
+
 import dataBaseServer.DataBaseServer;
 import server.Server;
 import world.AgarIO;
+import world.Ball;
+import world.PlayerBall;
 
 public class Client {
 
@@ -36,7 +41,7 @@ public class Client {
 	private boolean startedGame;
 
 	private ThreadInfoGameClient threadIGC;
-	
+
 	private AgarIO game;
 
 	private String nickname;
@@ -46,7 +51,7 @@ public class Client {
 	private GUI_principal gui;
 
 	private Socket clientSocket;
-	
+
 	private Socket gameSocket;
 
 	private MulticastSocket mcSocket;
@@ -62,15 +67,17 @@ public class Client {
 
 	public Client(GUI_principal theGui) throws IOException {
 		gui = theGui;
-		
+
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
-		gameSocket = new Socket(Server.IP_SERVER,Server.PORT_INFO);
+		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
 
 	}
 
-	public void registerPlayer(String email, String pass, String nick) throws IOException {
+	public void registerPlayer(String email, String pass, String nick)
+			throws IOException {
 
-		String message = DataBaseServer.REGISTER_DB + "," + nick + "," + pass + "," + email;
+		String message = DataBaseServer.REGISTER_DB + "," + nick + "," + pass
+				+ "," + email;
 		connectWithDB(message);
 
 	}
@@ -83,13 +90,12 @@ public class Client {
 	}
 
 	public void startGame() {
-		
+
 		startedGame = true;
-		
+
 		threadIGC = new ThreadInfoGameClient(this);
-		
+
 		threadIGC.start();
-		
 
 	}
 
@@ -118,9 +124,12 @@ public class Client {
 
 		try {
 
-			clientConnectionDB = new Socket(Server.IP_SERVER, DataBaseServer.DB_PORT);
-			DataInputStream in = new DataInputStream(clientConnectionDB.getInputStream());
-			DataOutputStream out = new DataOutputStream(clientConnectionDB.getOutputStream());
+			clientConnectionDB = new Socket(Server.IP_SERVER,
+					DataBaseServer.DB_PORT);
+			DataInputStream in = new DataInputStream(
+					clientConnectionDB.getInputStream());
+			DataOutputStream out = new DataOutputStream(
+					clientConnectionDB.getOutputStream());
 
 			out.writeUTF(message);
 
@@ -128,7 +137,8 @@ public class Client {
 
 			gui.connectionResult(result);
 			boolean r = false;
-			if (result.equals(DataBaseServer.CONF_ACCESS) || result.equals(DataBaseServer.PLAYER_SAVED)) {
+			if (result.equals(DataBaseServer.CONF_ACCESS)
+					|| result.equals(DataBaseServer.PLAYER_SAVED)) {
 				r = true;
 				String information = in.readUTF();
 				nickname = information;
@@ -149,8 +159,10 @@ public class Client {
 		try {
 
 			clientConnectionServer = new Socket(Server.IP_SERVER, Server.PORT);
-			DataInputStream in = new DataInputStream(clientConnectionServer.getInputStream());
-			DataOutputStream out = new DataOutputStream(clientConnectionServer.getOutputStream());
+			DataInputStream in = new DataInputStream(
+					clientConnectionServer.getInputStream());
+			DataOutputStream out = new DataOutputStream(
+					clientConnectionServer.getOutputStream());
 
 			out.writeUTF(Server.CONNECTED_CLIENT);
 
@@ -309,6 +321,51 @@ public class Client {
 
 	public void setGame(AgarIO game) {
 		this.game = game;
+	}
+
+	public void initializeWorld(String[] infoPlayers, String[] infoBalls) {
+		
+
+		ArrayList<PlayerBall> p1 = new ArrayList<PlayerBall>();
+
+		for (int i = 0; i < infoPlayers.length; i++) {
+			String[] playerInfo = infoPlayers[i].split("/");
+			int id = Integer.parseInt(playerInfo[0]);
+			String nickname = playerInfo[1];
+			double posX = Double.parseDouble(playerInfo[2]);
+			double posY = Double.parseDouble(playerInfo[3]);
+			int rgb = Integer.parseInt(playerInfo[4]);
+
+			PlayerBall pb = new PlayerBall(id, nickname, 0, 0);
+			pb.setColor(new Color(rgb));
+			pb.setPosX(posX);
+			pb.setPosY(posY);
+
+			p1.add(pb);
+		}
+
+		ArrayList<Ball> b = new ArrayList<Ball>();
+
+		for (int i = 0; i < infoBalls.length; i++) {
+			
+			String[] ballInfo = infoBalls[i].split("/");
+			
+			int rgb = Integer.parseInt(ballInfo[0]);
+			double posX = Double.parseDouble(ballInfo[1]);
+			double posY = Double.parseDouble(ballInfo[2]);
+			int id = Integer.parseInt(ballInfo[3]);
+            Ball bl = new Ball(0, 0, true, id);
+			bl.setColor(new Color(rgb));
+			bl.setPosX(posX);
+			bl.setPosY(posY);
+
+			b.add(bl);
+		}
+		
+		gui.initializeWorld(p1, b);
+		
+		
+
 	}
 
 }

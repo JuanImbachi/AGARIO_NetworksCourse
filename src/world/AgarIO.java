@@ -1,5 +1,7 @@
 package world;
 
+import gui.GUI_principal;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +44,7 @@ public class AgarIO {
 	
 	private boolean gameEnded;
 	
-	public AgarIO( ) {
+	public AgarIO() {
 		
 		players = new ArrayList<PlayerBall>();
 		isRunning = false;
@@ -54,6 +56,18 @@ public class AgarIO {
 		foodCounter = 0;
 		playersCounter = 0;
 		
+	}
+	
+	public AgarIO(ArrayList<PlayerBall> players, ArrayList<Ball> foods){
+		this.players = players;
+		isRunning = false;
+		winner = null;
+		status = WAITING;
+		winnerExist=false;
+		gameEnded = false;
+		this.foods = foods;
+		foodCounter = 0;
+		playersCounter = 0;
 	}
 	
 	public void initializePlayers(ArrayList<String> nicks) {
@@ -112,6 +126,7 @@ public class AgarIO {
 	
 	public  void checkCollisionPlayerFood(int idPlayer) {
 		
+		int foodEliminated=-1;
 		PlayerBall player= getPlayer(idPlayer);
 		
 		if(player != null) {
@@ -236,6 +251,7 @@ public class AgarIO {
 	public void setFoodCounter(int foodCounter) {
 		this.foodCounter = foodCounter;
 	}
-    
+
+
 	
 }

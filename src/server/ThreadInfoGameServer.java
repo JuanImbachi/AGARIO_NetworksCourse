@@ -8,6 +8,8 @@ public class ThreadInfoGameServer extends Thread {
 
 	private Server server;
 	
+	private boolean firstSend;
+	
 
 	public ThreadInfoGameServer(Server s) {
 
@@ -28,8 +30,16 @@ public class ThreadInfoGameServer extends Thread {
 			
 			while(server.isRunningGame()) {
 				
-				out.writeUTF("welcome to server");
-//				System.out.println(in.readUTF());
+				if(!firstSend){
+					
+				    out.writeUTF(server.sendInfoFirstTime());
+					firstSend = true;
+					
+				}else{
+					
+					
+					
+				}
 				
 				
 			}

@@ -54,6 +54,9 @@ public class ThreadWaitingClients extends Thread {
 					}
 
 					
+					
+					
+					
 
 					new ThreadSendInfoWR(server).start();
 

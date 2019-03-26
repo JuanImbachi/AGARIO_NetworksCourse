@@ -32,9 +32,19 @@ public class ThreadInfoGameClient extends Thread {
 			while(client.isStartedGame()) {
 				
 				String info = in.readUTF();
-				if(info.equals("BEGIN")) {
+				if(info.startsWith("#f#")) {
 					
-					//CREA TODO
+					String[] infoBig = info.split("*");
+					
+					String[] infoPlayers = infoBig[0].split("{");
+					String[] infoBalls = infoBig[1].split("{");
+					
+					client.initializeWorld(infoPlayers,infoBalls);
+					
+					
+					
+					
+					
 				}else {
 					
 					

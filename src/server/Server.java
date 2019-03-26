@@ -1,5 +1,8 @@
 package server;
 
+import gui.ThreadFeeding;
+
+import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,6 +10,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import world.AgarIO;
+import world.Ball;
+import world.PlayerBall;
 import client.Client;
 import dataBaseServer.DataBaseServer;
 
@@ -47,10 +53,13 @@ public class Server {
 
 	private ServerSocket serverSocket;
 	
+	private ThreadFeeding feeding;
 	
 	private ServerSocket serverSocketGame;
 
 	private int numberOfClients;
+	
+	private AgarIO game;
 	
 
 	public Server() throws IOException{
@@ -64,6 +73,13 @@ public class Server {
 		serverSocket = new ServerSocket(PORT);
 		
 		System.out.println("Server online");
+		
+		game = new AgarIO();
+		
+		feeding = new ThreadFeeding(this);
+		
+		feeding.start();
+		
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
 		// threadWC.start();
@@ -95,6 +111,9 @@ public class Server {
 	public void startMulticast() throws IOException {
 
 		
+		
+            game.initializePlayers(players);		
+		
 		    
 		
 		
@@ -117,6 +136,54 @@ public class Server {
 		
 
 	}
+	
+	
+	public String sendInfoFirstTime(){
+		
+		String message="#f#";
+		
+		ArrayList<PlayerBall> p1 = game.getPlayers();
+		for (int i = 0; i < p1.size(); i++) {
+			String id= p1.get(i).getId()+"";
+			String nickname = p1.get(i).getNickname();
+			String posX = p1.get(i).getPosX() +"";
+			String posY = p1.get(i).getPosY() + "";
+			String rgb= p1.get(i).getColor().getRGB()+"";
+			String player = "";
+			
+			if(i<p1.size()-1){
+				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb+"{";	
+			}else{
+				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb;
+			}
+			
+			message += player;
+		}
+		
+		message+="*";
+		
+		ArrayList<Ball> food= game.getFoods();
+		
+		for (int i = 0; i < food.size(); i++) {
+			String rgb= food.get(i).getColor().getRGB()+"";
+			String posX = food.get(i).getPosX() +"";
+			String posY = food.get(i).getPosY() + "";
+			String id = food.get(i).getFoodID() + "";
+			String ball="";
+			
+			ball += rgb+"/"+posX+"/"+posY+"/"+id;
+			
+			if(i <food.size()-1){
+				ball += "{";
+			}
+			
+			message += ball;
+		}
+		
+		return message;
+		
+		
+	}
 
 	public void startGame() {
 
@@ -132,6 +199,11 @@ public class Server {
 			e.printStackTrace();
 		}
 		
+	}
+	public void createFood() {
+		if(game.getFoods().size()<game.MAX_FOOD) {
+			game.createFood();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -289,6 +361,14 @@ public class Server {
 
 	public void setServerSocketGame(ServerSocket serverSocketGame) {
 		this.serverSocketGame = serverSocketGame;
+	}
+
+	public AgarIO getGame() {
+		return game;
+	}
+
+	public void setGame(AgarIO game) {
+		this.game = game;
 	}
 
 }

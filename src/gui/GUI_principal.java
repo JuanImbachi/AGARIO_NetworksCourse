@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import client.Client;
 import world.AgarIO;
+import world.Ball;
 import world.PlayerBall;
 
 	public  class GUI_principal extends JFrame
@@ -62,8 +63,8 @@ import world.PlayerBall;
 
 			gameSpace.setVisible(true);
 		}
-		public void initializeWorld( ) {
-			agario = new AgarIO();
+		public void initializeWorld( ArrayList<PlayerBall> players, ArrayList<Ball> foods) {
+			agario = new AgarIO(players,foods);
 		}
 		
 		public void initializePlayers(ArrayList<String> nicks) {
@@ -140,11 +141,7 @@ import world.PlayerBall;
 			this.connectionResult = connectionResult;
 		}
 		
-		public void createFood() {
-			if(agario.getFoods().size()<agario.MAX_FOOD) {
-				agario.createFood();
-			}
-		}
+		
 		
 		public void movePlayer(int id,double posX, double posY) {
 			agario.movePlayer(id, posX, posY);

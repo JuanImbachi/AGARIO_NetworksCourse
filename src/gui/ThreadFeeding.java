@@ -1,19 +1,21 @@
 package gui;
 
+import server.Server;
+
 public class ThreadFeeding extends Thread{
 
     private static final int TIME_FEED = 1000;  
 
-    private GUI_principal principal;
-	public ThreadFeeding(GUI_principal principal) {
+    private Server server;
+	public ThreadFeeding(Server server) {
 		
-		this.principal = principal;
+		this.server = server;
 	}
 
 	public void run() {
 		while(true) {
 			try {
-				principal.createFood();
+				server.createFood();
 				Thread.sleep(TIME_FEED);
 			}catch(Exception e) {
 				e.printStackTrace();

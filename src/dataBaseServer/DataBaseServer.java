@@ -160,6 +160,8 @@ public class DataBaseServer {
 		a.add(result);
 		server.setPlayers(a);
 		
+		
+		
 	}
 
 }
