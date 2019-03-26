@@ -14,6 +14,7 @@ public class ThreadInfoGameServer extends Thread {
 
 		server = s;
 
+		firstSend = false;
 	}
 
 	@Override
@@ -24,30 +25,44 @@ public class ThreadInfoGameServer extends Thread {
 			Socket socket = server.getServerSocketGame().accept();
 
 			DataInputStream in = new DataInputStream(socket.getInputStream());
-			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
+			DataOutputStream out = new DataOutputStream(
+					socket.getOutputStream());
+			
 			while (server.isRunningGame()) {
 
 				if (!firstSend) {
 
 					out.writeUTF(server.sendInfoFirstTime());
 					firstSend = true;
+					
+					
 
 				} else {
 					
-					out.writeUTF(server.infoGame());
 					
+
+					out.writeUTF(server.infoGame());
+
 				}
 
+//				Thread th = new Thread();
+//				th.start();
+//				th.sleep(100);
+				
+				//System.out.println("======== LLEGA");
 				String received = in.readUTF();
+				//System.out.println("======== PASA");
 
-				String[] s1 = received.split("**");
+				String[] s1 = received.split(",");
 				String[] player = s1[0].split("/");
-				String[] food = s1[1].split("/");
-				
-				
-				server.updateGame(player, food);
+				String[] food = new String[0];
+				if (s1.length > 1) {
+					food = s1[1].split("/");
+				}
 
+				server.updateGame(player, food);
+				//System.out.println("===== Ciclo: "+i);
+				
 			}
 
 		} catch (Exception e) {

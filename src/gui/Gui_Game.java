@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.rmi.*;
 import java.util.ArrayList;
 
@@ -17,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import world.AgarIO;
 import world.Ball;
 import world.PlayerBall;
-public class Gui_Game extends JPanel{
+public class Gui_Game extends JPanel implements MouseMotionListener{
 	
     private ArrayList<PlayerBall> players;
     private ArrayList<Ball> foods;
@@ -28,6 +31,7 @@ public class Gui_Game extends JPanel{
     	this.players = players;
     	this.foods = foods;
     	this.principal = principal;
+    	addMouseMotionListener(this);
 	}
     
 	@Override
@@ -118,4 +122,22 @@ public class Gui_Game extends JPanel{
 	            pos += 1;
 	        }
 	 }
+
+	
+
+
+
+
+	public void mouseDragged(MouseEvent e) {
+//		System.out.println("DRAGGED");
+		
+		principal.posXMouse=e.getX();
+		principal.posYMouse = e.getY();
+		
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		
+		
+	}
 }

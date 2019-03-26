@@ -156,9 +156,8 @@ public class DataBaseServer {
 	}
 
 	public void addPlayer(String result) {
-		ArrayList<String> a = server.getPlayers();
-		a.add(result);
-		server.setPlayers(a);
+		
+		server.addPlayer(result);
 		
 		
 		

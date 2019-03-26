@@ -47,6 +47,9 @@ public class GUI_principal extends JFrame {
 		player = new Client(this);
 
 	}
+	
+	public int posXMouse;
+	public int posYMouse;
 
 	public void initializeGameSpace() {
 		Dimension d = new Dimension(AgarIO.GAME_WIDTH, AgarIO.GAME_HEIGHT);
@@ -68,6 +71,16 @@ public class GUI_principal extends JFrame {
 
 	public void initializeWorld(ArrayList<PlayerBall> players, ArrayList<Ball> foods) {
 		agario = new AgarIO(players, foods);
+		
+		
+		initializeGameSpace();
+		collisionPlayers = new ThreadCollisionPlayers(this);
+		collisionPlayers.start();
+		movingPlayers = new ThreadMovingPlayers(player.getId(), this);
+		movingPlayers.start();
+		
+		repaint = new ThreadRepaint(this);
+		repaint.start();
 	}
 
 	public void initializePlayers(ArrayList<String> nicks) {
@@ -77,14 +90,7 @@ public class GUI_principal extends JFrame {
 			JOptionPane.showMessageDialog(null, "More players than the allowed.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
-		movingPlayers = new ThreadMovingPlayers(player.getId(), this);
-		movingPlayers.start();
 		
-		collisionPlayers = new ThreadCollisionPlayers(this);
-		collisionPlayers.start();
-		initializeGameSpace();
-		repaint = new ThreadRepaint(this);
-		repaint.start();
 	}
 	
 	public void repaint() {

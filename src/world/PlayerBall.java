@@ -26,6 +26,7 @@ public class PlayerBall extends Ball {
 		this.vectorY = 0;
 		this.isPlaying = true;
 		this.id = id;
+		this.nickname=nickname;
 	}
 
 	public String getNickname() {

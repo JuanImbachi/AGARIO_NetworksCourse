@@ -24,7 +24,7 @@ public class Ball {
     private static Random rand = new Random();
 
     public Ball( int posXmax, int posYmax) {
-		
+		System.out.println(posXmax+"  "+posYmax);
 		this.posX =  rand.nextInt(3*posXmax/4)+ posXmax/8;
 		this.posY =  rand.nextInt(3*posYmax/4)+ posYmax/8;
 		int r = rand.nextInt(256);

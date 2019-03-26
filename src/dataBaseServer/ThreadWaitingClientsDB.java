@@ -45,6 +45,7 @@ public class ThreadWaitingClientsDB extends Thread {
 									.start();
 							out.writeUTF(DataBaseServer.CONF_ACCESS);
 							out.writeUTF(result);
+							
 							serverDB.addPlayer(result);
 
 						} else {

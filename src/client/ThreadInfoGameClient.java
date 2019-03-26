@@ -35,10 +35,14 @@ public class ThreadInfoGameClient extends Thread {
 				String info = in.readUTF();
 				if(info.startsWith("#f#")) {
 					
-					String[] infoBig = info.split("*");
+					info=info.substring(3);
 					
-					String[] infoPlayers = infoBig[0].split("{");
-					String[] infoBalls = infoBig[1].split("{");
+					System.out.println(info);
+					
+					String[] infoBig = info.split("_");
+					
+					String[] infoPlayers = infoBig[0].split(",");
+					String[] infoBalls = infoBig[1].split(",");
 					
 					client.initializeWorld(infoPlayers,infoBalls);
 					
@@ -46,11 +50,11 @@ public class ThreadInfoGameClient extends Thread {
 					
 				}else {
 					
+//					System.out.println(info);
+					String[] infoBig = info.split("_");
 					
-					String[] infoBig = info.split("*");
-					
-					String[] infoPlayers = infoBig[0].split("{");
-					String[] infoBalls = infoBig[1].split("{");
+					String[] infoPlayers = infoBig[0].split(",");
+					String[] infoBalls = infoBig[1].split(",");
 					
 					client.updateGame(infoPlayers, infoBalls);
 					
@@ -58,6 +62,7 @@ public class ThreadInfoGameClient extends Thread {
 				
 				
 				int id =  client.getId();
+//				System.out.println(id);
 				double x = client.getGame().getPlayer(id).getPosX();
 				double y = client.getGame().getPlayer(id).getPosY();
 				boolean isPlaying = client.getGame().getPlayer(id).isPlaying();
@@ -77,7 +82,7 @@ public class ThreadInfoGameClient extends Thread {
 					}
 				}
 				
-				out.writeUTF(id+"/"+x+"/"+y+"/"+isPlaying+"/"+mass+"**"+b);
+				out.writeUTF(id+"/"+x+"/"+y+"/"+isPlaying+"/"+mass+","+b);
 				
 				
 				

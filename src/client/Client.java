@@ -69,7 +69,7 @@ public class Client {
 
 	public Client(GUI_principal theGui) throws IOException {
 		gui = theGui;
-
+		
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
 		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
 		eatenBalls = new ArrayList<Integer>();
@@ -124,16 +124,16 @@ public class Client {
 			
 			boolean isPlaying=false;
 			
-			if(player[4]=="true") {
+			if(player[3]=="true") {
 				isPlaying = true;
 			}
 			
-			 int mass =Integer.parseInt(player[5]) ;
+			 int mass =Integer.parseInt(player[4]) ;
 			 game.updatePlayer(id,x,y,isPlaying,mass);
 		}
 		
 		 
-		 game.updateFood(food);
+		 game.upDateFoodList(food);
 		
 	}
 
@@ -180,6 +180,7 @@ public class Client {
 				r = true;
 				String information = in.readUTF();
 				nickname = information;
+			
 				connectWithServer();
 			}
 			gui.setConnectionResult(r);
@@ -370,11 +371,14 @@ public class Client {
 			String[] playerInfo = infoPlayers[i].split("/");
 			int id = Integer.parseInt(playerInfo[0]);
 			String nickname = playerInfo[1];
+			if(nickname.equals(this.nickname)){
+				this.id = id;
+			}
 			double posX = Double.parseDouble(playerInfo[2]);
 			double posY = Double.parseDouble(playerInfo[3]);
 			int rgb = Integer.parseInt(playerInfo[4]);
 
-			PlayerBall pb = new PlayerBall(id, nickname, 0, 0);
+			PlayerBall pb = new PlayerBall(id, nickname, 10, 10);
 			pb.setColor(new Color(rgb));
 			pb.setPosX(posX);
 			pb.setPosY(posY);
@@ -392,7 +396,7 @@ public class Client {
 			double posX = Double.parseDouble(ballInfo[1]);
 			double posY = Double.parseDouble(ballInfo[2]);
 			int id = Integer.parseInt(ballInfo[3]);
-            Ball bl = new Ball(0, 0, true, id);
+            Ball bl = new Ball(10, 10, true, id);
 			bl.setColor(new Color(rgb));
 			bl.setPosX(posX);
 			bl.setPosY(posY);
@@ -401,7 +405,7 @@ public class Client {
 		}
 		
 		gui.initializeWorld(p1, b);
-		
+		game = gui.getAgario();
 		
 
 	}

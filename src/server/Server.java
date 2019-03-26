@@ -99,11 +99,11 @@ public class Server {
 		
 		boolean isPlaying=false;
 		
-		if(player[4]=="true") {
+		if(player[3]=="true") {
 			isPlaying = true;
 		}
 		
-		 int mass =Integer.parseInt(player[5]) ;
+		 int mass =Integer.parseInt(player[4]) ;
 		 
 		 game.updatePlayer(id,x,y,isPlaying,mass);
 		 game.updateFood(food);
@@ -132,10 +132,8 @@ public class Server {
 		
 		
             game.initializePlayers(players);		
-		
-		    
-		
-		
+            
+        
 		    runningGame = true;
 		
 		
@@ -171,7 +169,7 @@ public class Server {
 			String player = "";
 			
 			if(i<p1.size()-1){
-				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb+"{";	
+				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb+",";	
 			}else{
 				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb;
 			}
@@ -179,7 +177,7 @@ public class Server {
 			message += player;
 		}
 		
-		message+="*";
+		message+="_";
 		
 		ArrayList<Ball> food= game.getFoods();
 		
@@ -193,7 +191,7 @@ public class Server {
 			ball += rgb+"/"+posX+"/"+posY+"/"+id;
 			
 			if(i <food.size()-1){
-				ball += "{";
+				ball += ",";
 			}
 			
 			message += ball;
@@ -216,7 +214,7 @@ public class Server {
 			String player = "";
 			
 			if(i<p1.size()-1){
-				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass+"{";	
+				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass+",";	
 			}else{
 				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass;
 			}
@@ -224,9 +222,11 @@ public class Server {
 			message += player;
 		}
 		
-		message+="*";
+		message+="_";
 		
 		ArrayList<Ball> food= game.getFoods();
+		
+//		System.out.println(food.size()+"   .............");
 		
 		for (int i = 0; i < food.size(); i++) {
 			String rgb= food.get(i).getColor().getRGB()+"";
@@ -238,7 +238,7 @@ public class Server {
 			ball += rgb+"/"+posX+"/"+posY+"/"+id;
 			
 			if(i <food.size()-1){
-				ball += "{";
+				ball += ",";
 			}
 			
 			message += ball;
@@ -386,6 +386,10 @@ public class Server {
 
 	public ArrayList<String> getPlayers() {
 		return players;
+	}
+	
+	public void addPlayer(String p){
+		players.add(p);
 	}
 
 	public void setPlayers(ArrayList<String> players) {
