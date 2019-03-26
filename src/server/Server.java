@@ -1,7 +1,5 @@
 package server;
 
-import gui.ThreadFeeding;
-
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -89,6 +87,27 @@ public class Server {
 		
 		serverSocketGame = new ServerSocket(PORT_INFO);
 
+	}
+	
+	public void updateGame(String[] player, String[] food) {
+		
+		int id = Integer.parseInt(player[0]);
+		double x = Double.parseDouble(player[1]);
+		double y = Double.parseDouble(player[2]);
+		
+		
+		
+		boolean isPlaying=false;
+		
+		if(player[4]=="true") {
+			isPlaying = true;
+		}
+		
+		 int mass =Integer.parseInt(player[5]) ;
+		 
+		 game.updatePlayer(id,x,y,isPlaying,mass);
+		 game.updateFood(food);
+		
 	}
 
 //	public void addActiveSocket(Socket s) {
@@ -185,6 +204,50 @@ public class Server {
 		
 	}
 
+	public String infoGame() {
+		String message="";
+		ArrayList<PlayerBall> p1 = game.getPlayers();
+		for (int i = 0; i < p1.size(); i++) {
+			String id= p1.get(i).getId()+"";
+			String posX = p1.get(i).getPosX() +"";
+			String posY = p1.get(i).getPosY() + "";
+			String isPlaying =p1.get(i).isPlaying()+"";
+			String mass = p1.get(i).getMass()+"";
+			String player = "";
+			
+			if(i<p1.size()-1){
+				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass+"{";	
+			}else{
+				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass;
+			}
+			
+			message += player;
+		}
+		
+		message+="*";
+		
+		ArrayList<Ball> food= game.getFoods();
+		
+		for (int i = 0; i < food.size(); i++) {
+			String rgb= food.get(i).getColor().getRGB()+"";
+			String posX = food.get(i).getPosX() +"";
+			String posY = food.get(i).getPosY() + "";
+			String id = food.get(i).getFoodID() + "";
+			String ball="";
+			
+			ball += rgb+"/"+posX+"/"+posY+"/"+id;
+			
+			if(i <food.size()-1){
+				ball += "{";
+			}
+			
+			message += ball;
+		}
+		
+		return message;
+		
+		
+	}
 	public void startGame() {
 
 		waitingClients = false;

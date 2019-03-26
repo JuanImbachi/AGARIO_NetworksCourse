@@ -1,6 +1,4 @@
-package gui;
-
-import server.Server;
+package server;
 
 public class ThreadFeeding extends Thread{
 

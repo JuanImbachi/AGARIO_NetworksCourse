@@ -3,6 +3,7 @@ package client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 
 public class ThreadInfoGameClient extends Thread {
@@ -43,27 +44,40 @@ public class ThreadInfoGameClient extends Thread {
 					
 					
 					
-					
-					
 				}else {
 					
 					
-					double x = client.getGame().getPlayer(0).getPosX();
-					double y = client.getGame().getPlayer(0).getPosY();
+					String[] infoBig = info.split("*");
 					
-					int size = client.getGame().getPlayer(0).getRadio();
+					String[] infoPlayers = infoBig[0].split("{");
+					String[] infoBalls = infoBig[1].split("{");
 					
-					boolean isPlaying = client.getGame().getPlayer(0).isPlaying();
-					out.writeUTF(x+"/"+y+"/"+size+"/"+isPlaying);
-					
-					
+					client.updateGame(infoPlayers, infoBalls);
 					
 				}
 				
 				
-//				System.out.println(in.readUTF());
+				int id =  client.getId();
+				double x = client.getGame().getPlayer(id).getPosX();
+				double y = client.getGame().getPlayer(id).getPosY();
+				boolean isPlaying = client.getGame().getPlayer(id).isPlaying();
+				 int mass = client.getGame().getPlayer(id).getMass();
 				
-//				out.writeUTF("Hi im a client and my nickname is: "+client.getNickname());
+				
+				ArrayList<Integer> eatenBalls= client.getEatenBalls();
+				client.setEatenBalls(new ArrayList<Integer>());
+				
+				String b = "";
+				for(int i=0;i<eatenBalls.size();i++) {
+					if(i<eatenBalls.size()-1) {
+						String m = eatenBalls.get(i)+"/";
+						b+=m;
+					}else{
+						b+=(eatenBalls.get(i)+"");
+					}
+				}
+				
+				out.writeUTF(id+"/"+x+"/"+y+"/"+isPlaying+"/"+mass+"**"+b);
 				
 				
 				

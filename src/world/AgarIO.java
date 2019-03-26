@@ -13,7 +13,7 @@ public class AgarIO {
 	
 	public static final int GAME_HEIGHT = 800;
 	    
-	public static final int  GAME_MINUTES = 2;
+	public static final int  GAME_MINUTES = 5;
 	
 	public static final int MAX_PLAYERS = 5;
 	
@@ -124,9 +124,9 @@ public class AgarIO {
 		}
 	}
 	
-	public  void checkCollisionPlayerFood(int idPlayer) {
+	public  int checkCollisionPlayerFood(int idPlayer) {
 		
-		int foodEliminated=-1;
+		
 		PlayerBall player= getPlayer(idPlayer);
 		
 		if(player != null) {
@@ -136,11 +136,20 @@ public class AgarIO {
 				boolean eated=player.checkCollisionFood(food);
 			
 				if(eated) {
-					foods.remove(food);
-					break; 
+					
+					return i;
+					//foods.remove(food);
+					
+					//break; 
 				}
 			}
 		}
+		
+		return -1;
+	}
+	
+	public void removeFood(int idFood) {
+		foods.remove(idFood);
 	}
 	
 	public void checkCollisionPlayers() {
@@ -250,6 +259,44 @@ public class AgarIO {
 
 	public void setFoodCounter(int foodCounter) {
 		this.foodCounter = foodCounter;
+	}
+
+	public void updatePlayer(int id, double x, double y, boolean isPlaying, int mass) {
+		
+		players.get(id).setPosX(x);
+		players.get(id).setPosY(y);
+		players.get(id).setMass(mass);
+		players.get(id).setPlaying(isPlaying);
+		
+		
+		
+	}
+	
+	public void upDateFoodList(String[] food) {
+		ArrayList<Ball> foods = new ArrayList<Ball>();
+		for (int i = 0; i < food.length; i++) {
+			String[] fd = food[i].split("/");
+			int rgb= Integer.parseInt(fd[0]);
+			double posX = Double.parseDouble(fd[1]);
+			double posY = Double.parseDouble(fd[2]);
+			int id = Integer.parseInt(fd[3]);
+			
+			Ball b = new Ball(0, 0, true, id);
+			b.setPosX(posX);
+			b.setColor(new Color(rgb));
+			b.setPosY(posY);
+			foods.add(b);
+		}
+		
+		setFoods(foods);
+	}
+
+	public void updateFood(String[] food) {
+		
+		for(int i=0; i<food.length;i++) {
+			eatFood(Integer.parseInt(food[i]));
+		}
+		
 	}
 
 

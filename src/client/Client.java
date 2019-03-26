@@ -46,7 +46,7 @@ public class Client {
 
 	private String nickname;
 
-	private int score;
+	private int id;
 
 	private GUI_principal gui;
 
@@ -55,6 +55,8 @@ public class Client {
 	private Socket gameSocket;
 
 	private MulticastSocket mcSocket;
+	
+	private ArrayList<Integer> eatenBalls;
 
 	// public Client(String nickname, String IpServer) {
 	//
@@ -70,8 +72,20 @@ public class Client {
 
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
 		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
+		eatenBalls = new ArrayList<Integer>();
 
 	}
+	
+	public ArrayList<Integer> getEatenBalls() {
+		return eatenBalls;
+	}
+	
+	
+	public void setEatenBalls(ArrayList<Integer> e) {
+		eatenBalls=e;
+	}
+	
+	
 
 	public void registerPlayer(String email, String pass, String nick)
 			throws IOException {
@@ -97,6 +111,30 @@ public class Client {
 
 		threadIGC.start();
 
+	}
+	public void updateGame(String[] players, String[] food) {
+		
+		for (int i = 0; i < players.length; i++) {
+			String[] player = players[i].split("/");
+			int id = Integer.parseInt(player[i]);
+			double x = Double.parseDouble(player[i]);
+			double y = Double.parseDouble(player[i]);
+			
+			
+			
+			boolean isPlaying=false;
+			
+			if(player[4]=="true") {
+				isPlaying = true;
+			}
+			
+			 int mass =Integer.parseInt(player[5]) ;
+			 game.updatePlayer(id,x,y,isPlaying,mass);
+		}
+		
+		 
+		 game.updateFood(food);
+		
 	}
 
 	// public void connectWithServer() throws IOException {
@@ -215,12 +253,12 @@ public class Client {
 		this.nickname = nickname;
 	}
 
-	public int getScore() {
-		return score;
+	public int getId() {
+		return id;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Socket getClientSocket() {
