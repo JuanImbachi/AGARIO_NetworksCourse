@@ -27,6 +27,7 @@ public class GUI_principal extends JFrame {
 	private ThreadCollisionPlayers collisionPlayers;
 	private ThreadRepaint repaint;
 	private boolean connectionResult;
+	private Gui_Game space;
 
 	private Client player;
 
@@ -48,14 +49,13 @@ public class GUI_principal extends JFrame {
 
 	}
 	
-	public int posXMouse;
-	public int posYMouse;
 
 	public void initializeGameSpace() {
 		Dimension d = new Dimension(AgarIO.GAME_WIDTH, AgarIO.GAME_HEIGHT);
-
+		 space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+		 
 		gameSpace = new JFrame("Icesi Games SA - AgarIO");
-		Gui_Game space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+		
 		gameSpace.add(space);
 
 		gameSpace.setSize(d);
@@ -93,8 +93,21 @@ public class GUI_principal extends JFrame {
 		
 	}
 	
-	public void repaint() {
-		gameSpace.repaint();
+	public void repaintGame() {
+		space.setPlayers(agario.getPlayers());
+		space.setFoods( agario.getFoods());
+		space.updateUI();
+		//space.repaint();
+		
+		//space.revalidate();
+		//gameSpace.revalidate();
+	}
+	public int getPosX() {
+		return space.getPosX();
+	}
+	
+	public int getPosY() {
+		return space.getPosY();
 	}
 
 	public void jdIp() {
@@ -242,6 +255,48 @@ public class GUI_principal extends JFrame {
 		this.gameSpace = gameSpace;
 	}
 
+	public ThreadMovingPlayers getMovingPlayers() {
+		return movingPlayers;
+	}
+
+
+	public void setMovingPlayers(ThreadMovingPlayers movingPlayers) {
+		this.movingPlayers = movingPlayers;
+	}
+
+
+	public ThreadCollisionPlayers getCollisionPlayers() {
+		return collisionPlayers;
+	}
+
+
+	public void setCollisionPlayers(ThreadCollisionPlayers collisionPlayers) {
+		this.collisionPlayers = collisionPlayers;
+	}
+
+
+	public ThreadRepaint getRepaint() {
+		return repaint;
+	}
+
+
+	public void setRepaint(ThreadRepaint repaint) {
+		this.repaint = repaint;
+	}
+
+
+	public Gui_Game getSpace() {
+		return space;
+	}
+
+
+	public void setSpace(Gui_Game space) {
+		this.space = space;
+	}
+
+	public boolean getMoved(){
+		return space.isMoved();
+	}
 	public static void main(String[] args) {
 
 		try {

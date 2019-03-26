@@ -16,8 +16,8 @@ public class ThreadRepaint extends Thread{
 	@Override
 	public void run() {
 	
-		while (principal.getAgario().getStatus().equals(AgarIO.PLAYING)) {
-				principal.repaint();
+		while (true) {
+				principal.repaintGame();
 			
 		}
 		

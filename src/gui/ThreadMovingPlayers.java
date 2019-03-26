@@ -29,16 +29,17 @@ public class ThreadMovingPlayers extends Thread implements MouseMotionListener{
 	    		
 	    		try {
 	    			
-	    			if(first==false){
+	    			if(principal.getMoved()==true){
 	    				first=true;
 	    				Thread th = new Thread();
 //	    				th.start();
 //	    				th.sleep(1000);
-	    			}
+	    			
 	    			this.updatePositionMouse();
 	    			
 		    		principal.movePlayer(id, posXfinal, posYfinal);
 		    		principal.checkCollisionPlayerFood(id);
+	    			}
 					Thread.sleep(TIME);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -52,11 +53,13 @@ public class ThreadMovingPlayers extends Thread implements MouseMotionListener{
 	
 	 private void updatePositionMouse(){
 //		 Point mouse = MouseInfo.getPointerInfo().getLocation();
-		 Point mouse = new Point(principal.posXMouse,principal.posYMouse);
+		// Point mouse = new Point(principal.getPosX(),principal.getPosY());
 		 
-		 Point window = this.principal.getGameSpace().getLocationOnScreen();
-		 this.posXfinal = mouse.x - window.x;
-		 this.posYfinal = mouse.y - window.y;
+		 this.posXfinal = principal.getPosX();
+		 this.posYfinal = principal.getPosY();
+		// this.posXfinal = mouse.x - window.x;
+		// this.posYfinal = mouse.y - window.y;
+		 System.out.println("XMOVIMING " + posXfinal + "YMOVING "+posYfinal);
 	 }
 
 

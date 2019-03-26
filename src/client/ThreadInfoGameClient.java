@@ -37,7 +37,7 @@ public class ThreadInfoGameClient extends Thread {
 					
 					info=info.substring(3);
 					
-					System.out.println(info);
+					//System.out.println(info);
 					
 					String[] infoBig = info.split("_");
 					

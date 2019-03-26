@@ -17,7 +17,7 @@ import dataBaseServer.DataBaseServer;
 public class Server {
 
 	// public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER = "172.30.171.153";
+	public final static String IP_SERVER = "172.30.171.215";
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
@@ -131,8 +131,8 @@ public class Server {
 
 		
 		
-            game.initializePlayers(players);		
-            
+            game.initializePlayers(players);	
+        
         
 		    runningGame = true;
 		
@@ -160,12 +160,12 @@ public class Server {
 		String message="#f#";
 		
 		ArrayList<PlayerBall> p1 = game.getPlayers();
-		for (int i = 0; i < p1.size(); i++) {
-			String id= p1.get(i).getId()+"";
-			String nickname = p1.get(i).getNickname();
-			String posX = p1.get(i).getPosX() +"";
-			String posY = p1.get(i).getPosY() + "";
-			String rgb= p1.get(i).getColor().getRGB()+"";
+		for (int i = 0; i < game.getPlayers().size(); i++) {
+			String id= game.getPlayers().get(i).getId()+"";
+			String nickname = game.getPlayers().get(i).getNickname();
+			String posX = game.getPlayers().get(i).getPosX() +"";
+			String posY = game.getPlayers().get(i).getPosY() + "";
+			String rgb= game.getPlayers().get(i).getColor().getRGB()+"";
 			String player = "";
 			
 			if(i<p1.size()-1){

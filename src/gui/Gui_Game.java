@@ -20,11 +20,14 @@ import javax.swing.border.EmptyBorder;
 import world.AgarIO;
 import world.Ball;
 import world.PlayerBall;
-public class Gui_Game extends JPanel implements MouseMotionListener{
+public class Gui_Game extends JPanel implements MouseMotionListener,MouseListener{
 	
     private ArrayList<PlayerBall> players;
     private ArrayList<Ball> foods;
     private  GUI_principal principal;
+    private int posX;
+    private int posY;
+    private boolean moved;
     
     public Gui_Game(ArrayList<PlayerBall> players, ArrayList<Ball> foods, GUI_principal principal) {
 		// TODO Auto-generated constructor stub
@@ -32,15 +35,12 @@ public class Gui_Game extends JPanel implements MouseMotionListener{
     	this.foods = foods;
     	this.principal = principal;
     	addMouseMotionListener(this);
+    	addMouseListener(this);
+    	moved = false;
 	}
     
-	@Override
-	public void update(Graphics g) {
-		// TODO Auto-generated method stub
-		super.update(g);
-	}
-	 @Override
-	public void paint(Graphics g) {
+  
+	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponents(g);
 		
@@ -59,6 +59,7 @@ public class Gui_Game extends JPanel implements MouseMotionListener{
         
         if(this.players != null) {
         	showPlayers(players, g);
+       
         }else {
         	System.out.println("Players null");
         }
@@ -72,8 +73,8 @@ public class Gui_Game extends JPanel implements MouseMotionListener{
         
         ArrayList<PlayerBall> playersTop = principal.getPlayersTop();
         paintTop(playersTop, g);
-        
         g.dispose();
+        
 	 }
 	
 	 private void showPlayers(ArrayList<PlayerBall> players , Graphics g) {
@@ -90,7 +91,6 @@ public class Gui_Game extends JPanel implements MouseMotionListener{
             g.setFont(font);
             
             g.drawString(player.getNickname(), xt , yt);
-			
 		}
 	 }
 	 
@@ -129,15 +129,103 @@ public class Gui_Game extends JPanel implements MouseMotionListener{
 
 
 	public void mouseDragged(MouseEvent e) {
-//		System.out.println("DRAGGED");
-		
-		principal.posXMouse=e.getX();
-		principal.posYMouse = e.getY();
+		System.out.println("DRAGGED");
+
 		
 	}
 
+
 	public void mouseMoved(MouseEvent e) {
+		if(moved == false) {
+			moved = true;
+		}
+	//	System.out.println(" x -> "+ e.getX() + " y -> "+e.getY());
 		
+		setPosX(e.getX());
+		setPosY(e.getY());
+	}
+
+	public ArrayList<PlayerBall> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(ArrayList<PlayerBall> players) {
+		this.players = players;
+	}
+
+	public ArrayList<Ball> getFoods() {
+		return foods;
+	}
+
+	public void setFoods(ArrayList<Ball> foods) {
+		this.foods = foods;
+	}
+
+	public GUI_principal getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(GUI_principal principal) {
+		this.principal = principal;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+
+	public boolean isMoved() {
+		return moved;
+	}
+
+
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+
+
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("Mouse X: "+ e.getX() + " Mouse Y: "+e.getY());
+	}
+
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
+
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
 }

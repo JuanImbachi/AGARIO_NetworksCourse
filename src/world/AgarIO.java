@@ -23,7 +23,7 @@ public class AgarIO {
 	
 	public static final String  GAME_FINISHED = "¡La partida ha terminado!";
 	
-	public static final int MAX_FOOD = 50;
+	public static final int MAX_FOOD = 90;
 	
 	private ArrayList<PlayerBall> players;
 	
@@ -42,6 +42,7 @@ public class AgarIO {
 	private boolean winnerExist;
 	
 	private boolean gameEnded;
+	
 	
 	public AgarIO() {
 		
@@ -75,6 +76,7 @@ public class AgarIO {
 			
 			String nick = nicks.get(i);			
 			PlayerBall player = new PlayerBall(playersCounter,nick, GAME_WIDTH, GAME_HEIGHT);
+			//System.out.println("AGARIO INITIALIZE PLAYERS pos X: "+player.getPosX()+" pos y: "+ player.getPosY());
 			players.add(player);
 			playersCounter +=1;
 		}
@@ -120,6 +122,7 @@ public class AgarIO {
 		PlayerBall player= this.getPlayer(id);
 		if(player!= null) {
 			player.moveBall(posX, posY);
+			
 		}
 	}
 	
@@ -300,8 +303,5 @@ public class AgarIO {
 			eatFood(Integer.parseInt(food[i]));
 		}
 		
-	}
-
-
-	
+	}	
 }
