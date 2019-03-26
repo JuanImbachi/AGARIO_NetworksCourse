@@ -5,6 +5,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import javax.net.ssl.SSLSocket;
+
 import server.Server;
 import server.ThreadWaitingClients;
 
@@ -21,8 +23,12 @@ public class ThreadWaitingClientsDB extends Thread {
 	public void run() {
 		try {
 			while (serverDB.isWaitingClients()) {
+				
+				System.out.println("Pasa");
 
 				Socket socket = serverDB.getServerSocket().accept();
+				
+				
 
 				// server.agregarSocketAActivos(socket);
 				DataInputStream in = new DataInputStream(
