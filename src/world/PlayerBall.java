@@ -103,7 +103,11 @@ public class PlayerBall extends Ball {
 		// TODO Auto-generated method stub
 		this.calculateVelocity();
 		this.calculateVector(x, y);
-		super.moveBall(this.vectorX, this.vectorY);
+//		super.moveBall(this.vectorX, this.vectorY);
+		super.moveBall(x, y);
+		
+//		System.out.println("ORIGINAL:  "+x+"  "+y);
+//		System.out.println("VECTOR:  "+vectorX+"  "+vectorY);
 	}
 
 	public boolean checkCollision(PlayerBall player) {

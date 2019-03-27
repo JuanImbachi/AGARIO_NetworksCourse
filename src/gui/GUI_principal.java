@@ -52,7 +52,8 @@ public class GUI_principal extends JFrame {
 
 	public void initializeGameSpace() {
 		Dimension d = new Dimension(AgarIO.GAME_WIDTH, AgarIO.GAME_HEIGHT);
-		 space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+//		System.out.println(agario.getPlayers().get(0).getPosX()+"  "+agario.getPlayers().get(0).getPosY());
+		space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
 		 
 		gameSpace = new JFrame("Icesi Games SA - AgarIO");
 		
@@ -96,8 +97,9 @@ public class GUI_principal extends JFrame {
 	public void repaintGame() {
 		space.setPlayers(agario.getPlayers());
 		space.setFoods( agario.getFoods());
-		space.updateUI();
-		//space.repaint();
+//		space.updateUI();
+		space.removeAll();
+		space.repaint();
 		
 		//space.revalidate();
 		//gameSpace.revalidate();

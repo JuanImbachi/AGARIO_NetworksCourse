@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class ThreadMovingPlayers extends Thread implements MouseMotionListener{
+public class ThreadMovingPlayers extends Thread{
 
 		public static final int TIME = 20;
 		
@@ -31,9 +31,6 @@ public class ThreadMovingPlayers extends Thread implements MouseMotionListener{
 	    			
 	    			if(principal.getMoved()==true){
 	    				first=true;
-	    				Thread th = new Thread();
-//	    				th.start();
-//	    				th.sleep(1000);
 	    			
 	    			this.updatePositionMouse();
 	    			
@@ -57,9 +54,12 @@ public class ThreadMovingPlayers extends Thread implements MouseMotionListener{
 		 
 		 this.posXfinal = principal.getPosX();
 		 this.posYfinal = principal.getPosY();
+		 
+		 
+		 
 		// this.posXfinal = mouse.x - window.x;
 		// this.posYfinal = mouse.y - window.y;
-		 System.out.println("XMOVIMING " + posXfinal + "YMOVING "+posYfinal);
+//		 System.out.println("XMOVIMING " + posXfinal + "YMOVING "+posYfinal);
 	 }
 
 

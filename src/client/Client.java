@@ -42,7 +42,7 @@ public class Client {
 
 	private ThreadInfoGameClient threadIGC;
 
-	private AgarIO game;
+	// private AgarIO game;
 
 	private String nickname;
 
@@ -55,7 +55,7 @@ public class Client {
 	private Socket gameSocket;
 
 	private MulticastSocket mcSocket;
-	
+
 	private ArrayList<Integer> eatenBalls;
 
 	// public Client(String nickname, String IpServer) {
@@ -69,23 +69,25 @@ public class Client {
 
 	public Client(GUI_principal theGui) throws IOException {
 		gui = theGui;
-		
+
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
 		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
 		eatenBalls = new ArrayList<Integer>();
+		cond = false;
 
 	}
-	
+
 	public ArrayList<Integer> getEatenBalls() {
 		return eatenBalls;
 	}
-	
-	
-	public void setEatenBalls(ArrayList<Integer> e) {
-		eatenBalls=e;
+
+	public GUI_principal getGui() {
+		return gui;
 	}
-	
-	
+
+	public void setEatenBalls(ArrayList<Integer> e) {
+		eatenBalls = e;
+	}
 
 	public void registerPlayer(String email, String pass, String nick)
 			throws IOException {
@@ -112,29 +114,39 @@ public class Client {
 		threadIGC.start();
 
 	}
+
+	private boolean cond;
+
 	public void updateGame(String[] players, String[] food) {
-		
+
 		for (int i = 0; i < players.length; i++) {
-			String[] player = players[i].split("/");
-			int id = Integer.parseInt(player[i]);
-			double x = Double.parseDouble(player[i]);
-			double y = Double.parseDouble(player[i]);
-			
-			
-			
-			boolean isPlaying=false;
-			
-			if(player[3]=="true") {
-				isPlaying = true;
+			if (i != id) {
+				String[] player = players[i].split("/");
+				int id = Integer.parseInt(player[i]);
+				double x = Double.parseDouble(player[i]);
+				double y = Double.parseDouble(player[i]);
+
+				boolean isPlaying = false;
+
+				if (player[3] == "true") {
+					isPlaying = true;
+				}
+
+				int mass = Integer.parseInt(player[4]);
+				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);
+				if (!cond) {
+					System.out.println(x + "  " + y
+							+ "   INFO ENVIADA POR SERVER");
+					cond = true;
+				}
 			}
-			
-			 int mass =Integer.parseInt(player[4]) ;
-			 game.updatePlayer(id,x,y,isPlaying,mass);
+
 		}
-		
-		 
-		 game.upDateFoodList(food);
-		
+
+		gui.getAgario().upDateFoodList(food);
+
+		// gui.setAgario(game);
+
 	}
 
 	// public void connectWithServer() throws IOException {
@@ -180,7 +192,7 @@ public class Client {
 				r = true;
 				String information = in.readUTF();
 				nickname = information;
-			
+
 				connectWithServer();
 			}
 			gui.setConnectionResult(r);
@@ -354,16 +366,15 @@ public class Client {
 		this.gameSocket = gameSocket;
 	}
 
-	public AgarIO getGame() {
-		return game;
-	}
-
-	public void setGame(AgarIO game) {
-		this.game = game;
-	}
+	// public AgarIO getGame() {
+	// return game;
+	// }
+	//
+	// public void setGame(AgarIO game) {
+	// this.game = game;
+	// }
 
 	public void initializeWorld(String[] infoPlayers, String[] infoBalls) {
-		
 
 		ArrayList<PlayerBall> p1 = new ArrayList<PlayerBall>();
 
@@ -371,7 +382,7 @@ public class Client {
 			String[] playerInfo = infoPlayers[i].split("/");
 			int id = Integer.parseInt(playerInfo[0]);
 			String nickname = playerInfo[1];
-			if(nickname.equals(this.nickname)){
+			if (nickname.equals(this.nickname)) {
 				this.id = id;
 			}
 			double posX = Double.parseDouble(playerInfo[2]);
@@ -389,24 +400,26 @@ public class Client {
 		ArrayList<Ball> b = new ArrayList<Ball>();
 
 		for (int i = 0; i < infoBalls.length; i++) {
-			
+
 			String[] ballInfo = infoBalls[i].split("/");
-			
+
 			int rgb = Integer.parseInt(ballInfo[0]);
 			double posX = Double.parseDouble(ballInfo[1]);
 			double posY = Double.parseDouble(ballInfo[2]);
 			int id = Integer.parseInt(ballInfo[3]);
-            Ball bl = new Ball(10, 10, true, id);
+			Ball bl = new Ball(10, 10, true, id);
 			bl.setColor(new Color(rgb));
 			bl.setPosX(posX);
 			bl.setPosY(posY);
 
 			b.add(bl);
 		}
-		
+
 		gui.initializeWorld(p1, b);
-		game = gui.getAgario();
-		
+
+		// System.out.println(p1.get(0).getPosX()+"  "+p1.get(0).getPosY());
+
+		// game = gui.getAgario();
 
 	}
 

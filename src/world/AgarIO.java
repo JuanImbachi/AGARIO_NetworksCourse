@@ -60,6 +60,7 @@ public class AgarIO {
 	
 	public AgarIO(ArrayList<PlayerBall> players, ArrayList<Ball> foods){
 		this.players = players;
+		System.out.println(players.get(0).getPosX()+"  "+players.get(0).getPosY()+" CONSTRUCTOR");
 		isRunning = false;
 		winner = null;
 		status = WAITING;
