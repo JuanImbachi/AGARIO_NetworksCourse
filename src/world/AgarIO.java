@@ -140,7 +140,7 @@ public class AgarIO {
 			
 				if(eated) {
 					
-					return i;
+					return food.getFoodID();
 					//foods.remove(food);
 					
 					//break; 

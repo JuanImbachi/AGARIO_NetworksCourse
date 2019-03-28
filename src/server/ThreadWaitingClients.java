@@ -29,8 +29,6 @@ public class ThreadWaitingClients extends Thread {
 			
 			
 			while (server.isWaitingClients()) {
-
-				//hole tenes micro? espera te voy a llamar mejor
 				
 				String mensaje = in.readUTF();
 				

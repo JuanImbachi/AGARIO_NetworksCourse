@@ -17,7 +17,7 @@ import dataBaseServer.DataBaseServer;
 public class Server {
 
 	// public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER = "172.30.171.215";
+	public final static String IP_SERVER = "localhost";
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;

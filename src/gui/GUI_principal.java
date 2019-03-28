@@ -100,6 +100,7 @@ public class GUI_principal extends JFrame {
 //		space.updateUI();
 		space.removeAll();
 		space.repaint();
+		space.revalidate();
 		
 		//space.revalidate();
 		//gameSpace.revalidate();
@@ -185,6 +186,8 @@ public class GUI_principal extends JFrame {
 	}
 
 	public void checkCollisionPlayerFood(int idPlayer) {
+		//Revisar, estaba recibiendo pos en la lista, pero debe 
+		//recibir identificador de la ball
 		int n = agario.checkCollisionPlayerFood(idPlayer);
 		if (n != -1) {
 			player.getEatenBalls().add(n);
