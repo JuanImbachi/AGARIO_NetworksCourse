@@ -83,50 +83,24 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 
 	private void showPlayers(ArrayList<PlayerBall> players, Graphics g) {
 		for (int i = 0; i < players.size(); i++) {
-			// PlayerBall player = players.get(i);
-			//
-			// double x = player.getPosX();
-			// double y = player.getPosY();
-			//
-			//
-			// System.out.println(x + "  " + y+"  EN EL PANEL");
-			//
-			// int r = player.getRadio();
-			//
-			//
-			//
-			// Font font = new Font("Century Schoolbook", Font.BOLD, r / 2);
-			// FontMetrics metrics = g.getFontMetrics(font);
-			// int xt = (int) x - metrics.stringWidth(player.getNickname()) / 2;
-			// int yt = (int) (y + r / 4);
-			// g.setFont(font);
-			//
-			// g.drawString(player.getNickname(), xt, yt);
 
 			PlayerBall player = players.get(i);
-
-			double x = player.getPosX();
-			double y = player.getPosY();
-			
-			
-//			 System.out.println(x+"_  GUI GAME ___"+y);
-			 
-			 
-			 
-			 
-			int r = player.getRadio();
-			g.setColor(player.getColor());
-			g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
-			g.setColor(Color.BLACK);
-			g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
-			Font font = new Font("Century Schoolbook", Font.BOLD, r / 2);
-			FontMetrics metrics = g.getFontMetrics(font);
-			int xt = (int) x - metrics.stringWidth(player.getNickname()) / 2;
-			int yt = (int) (y + r / 4);
-			g.setFont(font);
-
-			g.drawString(player.getNickname(), xt, yt);
-
+			if(player.isPlaying() == true) {
+				double x = player.getPosX();
+				double y = player.getPosY();
+				int r = player.getRadio();
+				g.setColor(player.getColor());
+				g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
+				g.setColor(Color.BLACK);
+				g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
+				Font font = new Font("Century Schoolbook", Font.BOLD, r / 2);
+				FontMetrics metrics = g.getFontMetrics(font);
+				int xt = (int) x - metrics.stringWidth(player.getNickname()) / 2;
+				int yt = (int) (y + r / 4);
+				g.setFont(font);
+	
+				g.drawString(player.getNickname(), xt, yt);
+			}
 		}
 	}
 

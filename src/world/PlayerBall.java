@@ -115,12 +115,14 @@ public class PlayerBall extends Ball {
 		if(collision == 1) {
 			this.increaseMass(player.getMass());
 			player.setPlaying(false);
+			return true;
 		} else if(collision == -1) {
 			player.increaseMass(this.getMass());
 			this.setPlaying(false);
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 	
 	
