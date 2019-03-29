@@ -48,12 +48,12 @@ public class ThreadInfoGameClient extends Thread {
 
 					String[] infoPlayers = infoBig[0].split(",");
 
-					if (client.getNickname().equals("johu")) {
-
+//					if (client.getNickname().equals("johu")) {
+//
 //						for (int i = 0; i < infoPlayers.length; i++) {
-							System.out.println(infoPlayers[0]);
+//							System.out.println(infoPlayers[0]);
 //						}
-					}
+//					}
 
 					String[] infoBalls = infoBig[1].split(",");
 

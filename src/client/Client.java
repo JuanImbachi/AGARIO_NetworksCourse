@@ -128,7 +128,7 @@ public class Client {
 
 				boolean isPlaying = false;
 
-				if (player[3] == "true") {
+				if (player[3].equals("true")) {
 					isPlaying = true;
 				}
 
