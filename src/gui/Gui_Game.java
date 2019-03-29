@@ -82,7 +82,7 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 	}
 
 	private void showPlayers(ArrayList<PlayerBall> players, Graphics g) {
-		System.out.println(players.size());
+
 		for (int i = 0; i < players.size(); i++) {
 
 			PlayerBall player = players.get(i);

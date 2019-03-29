@@ -128,12 +128,16 @@ public class Client {
 
 				boolean isPlaying = false;
 
+				
 				if (player[3].equals("true")) {
 					isPlaying = true;
+//					System.out.println("Entra"+i);
+					
 				}
 
 				int mass = Integer.parseInt(player[4]);
 				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);
+				gui.getSpace().setPlayers(gui.getAgario().getPlayers());
 //				if (!cond) {
 //					System.out.println(x + "  " + y
 //							+ "   INFO ENVIADA POR SERVER");
@@ -394,6 +398,8 @@ public class Client {
 			pb.setPosX(posX);
 			pb.setPosY(posY);
 
+			
+			
 			p1.add(pb);
 		}
 
