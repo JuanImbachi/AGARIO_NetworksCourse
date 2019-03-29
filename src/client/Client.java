@@ -73,7 +73,7 @@ public class Client {
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
 		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
 		eatenBalls = new ArrayList<Integer>();
-		cond = false;
+//		cond = false;
 
 	}
 
@@ -114,17 +114,17 @@ public class Client {
 		threadIGC.start();
 
 	}
-
-	private boolean cond;
+//
+//	private boolean cond;
 
 	public void updateGame(String[] players, String[] food) {
 
 		for (int i = 0; i < players.length; i++) {
 			if (i != id) {
 				String[] player = players[i].split("/");
-				int id = Integer.parseInt(player[i]);
-				double x = Double.parseDouble(player[i]);
-				double y = Double.parseDouble(player[i]);
+				int id = Integer.parseInt(player[0]);
+				double x = Double.parseDouble(player[1]);
+				double y = Double.parseDouble(player[2]);
 
 				boolean isPlaying = false;
 
@@ -134,11 +134,11 @@ public class Client {
 
 				int mass = Integer.parseInt(player[4]);
 				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);
-				if (!cond) {
-					System.out.println(x + "  " + y
-							+ "   INFO ENVIADA POR SERVER");
-					cond = true;
-				}
+//				if (!cond) {
+//					System.out.println(x + "  " + y
+//							+ "   INFO ENVIADA POR SERVER");
+//					cond = true;
+//				}
 			}
 
 		}

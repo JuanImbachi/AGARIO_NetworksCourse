@@ -88,6 +88,10 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 			if(player.isPlaying() == true) {
 				double x = player.getPosX();
 				double y = player.getPosY();
+				
+				
+				
+				
 				int r = player.getRadio();
 				g.setColor(player.getColor());
 				g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);

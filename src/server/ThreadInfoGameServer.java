@@ -39,9 +39,12 @@ public class ThreadInfoGameServer extends Thread {
 
 				} else {
 					
-					
+					String info = server.infoGame();
 
-					out.writeUTF(server.infoGame());
+					out.writeUTF(info);
+				
+					
+					
 
 				}
 

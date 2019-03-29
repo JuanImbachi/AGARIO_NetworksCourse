@@ -103,7 +103,7 @@ public class PlayerBall extends Ball {
 		// TODO Auto-generated method stub
 		this.calculateVelocity();
 		this.calculateVector(x, y);
-//		super.moveBall(this.vectorX, this.vectorY);
+//		super.moveBall(x+this.vectorX, y+this.vectorY);
 		super.moveBall(x, y);
 		
 //		System.out.println("ORIGINAL:  "+x+"  "+y);
