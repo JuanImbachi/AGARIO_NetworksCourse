@@ -86,6 +86,9 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 		for (int i = 0; i < players.size(); i++) {
 
 			PlayerBall player = players.get(i);
+			
+			//HAY UN PROBLEMA CON ESTE IF
+			
 			if(player.isPlaying() == true) {
 				double x = player.getPosX();
 				double y = player.getPosY();
