@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class PlayerBall extends Ball {
 
-	private static final double INIT_VEL = 3.5;
+	private static final double INIT_VEL = 6;
 	
 	private String nickname;
 	
@@ -78,15 +78,15 @@ public class PlayerBall extends Ball {
 	}
 
 	public void calculateVelocity() {
-		int totalMass = this.getMass();
-		this.velocity = INIT_VEL -1/Math.log10(totalMass);
+		
+		this.velocity = INIT_VEL/Math.log10(this.getMass());
 	}
 	
 	public void calculateVector(double posXfinal, double posYfinal) {
 		 	double y = posYfinal - this.getPosY();
 	        double x = posXfinal - this.getPosX();
 	        double r = Math.sqrt(y*y + x*x);
-	        if(this.getRadio() > r){
+	        if(this.getRadio()/3 > r){
 	            y = 0;
 	            x = 0;
 	        }
@@ -94,17 +94,20 @@ public class PlayerBall extends Ball {
 	            x = 0;
 	        if((this.getPosY() >= AgarIO.GAME_HEIGHT && y > 0) || (this.getPosY() <= 0 && y < 0))
 	            y = 0;
-	        this.vectorY = velocity * y/r;
-	        this.vectorX = velocity * x/r;
+	        this.vectorY = (velocity * y/r)+this.getPosY();
+	        this.vectorX = (velocity * x/r)+this.getPosX();
+	        
+	        
 	}
-	
+
+
 	@Override
 	public void moveBall(double x, double y) {
 		// TODO Auto-generated method stub
 		this.calculateVelocity();
 		this.calculateVector(x, y);
 //		super.moveBall(x+this.vectorX, y+this.vectorY);
-		super.moveBall(x, y);
+		super.moveBall(this.getVectorX(), this.getVectorY());
 		
 //		System.out.println("ORIGINAL:  "+x+"  "+y);
 //		System.out.println("VECTOR:  "+vectorX+"  "+vectorY);

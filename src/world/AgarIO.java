@@ -1,7 +1,5 @@
 package world;
 
-import gui.GUI_principal;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +21,7 @@ public class AgarIO {
 	
 	public static final String  GAME_FINISHED = "¡La partida ha terminado!";
 	
-	public static final int MAX_FOOD = 90;
+	public static final int MAX_FOOD = 110;
 	
 	private ArrayList<PlayerBall> players;
 	

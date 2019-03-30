@@ -1,23 +1,22 @@
 package server;
 
-import java.awt.Color;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-
-import world.AgarIO;
-import world.Ball;
-import world.PlayerBall;
-import client.Client;
-import dataBaseServer.DataBaseServer;
+	import java.awt.Color;
+	import java.io.DataInputStream;
+	import java.io.DataOutputStream;
+	import java.io.IOException;
+	import java.net.ServerSocket;
+	import java.net.Socket;
+	import java.util.ArrayList;
+	import world.AgarIO;
+	import world.Ball;
+	import world.PlayerBall;
+	import client.Client;
+	import dataBaseServer.DataBaseServer;
 
 public class Server {
 
 	// public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER = "192.168.1.22";
+	public final static String IP_SERVER = "localhost";
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
@@ -59,6 +58,7 @@ public class Server {
 	
 	private AgarIO game;
 	
+	private ThreadGameTime threadGameTime;
 
 	public Server() throws IOException{
 
@@ -84,6 +84,7 @@ public class Server {
 		timer = new ThreadTimer(this);
 		threadSIWR = new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
+		threadGameTime = new ThreadGameTime(this);
 		
 		serverSocketGame = new ServerSocket(PORT_INFO);
 
@@ -121,6 +122,20 @@ public class Server {
 
 	}
 
+	public int numbPlayersPlaying() {
+	 int nPlayers=0;
+	 
+		 for (int i = 0; i < game.getPlayers().size(); i++) {
+			if(game.getPlayers().get(i).isPlaying() == true) {
+				nPlayers++;
+			}
+		}
+		 return nPlayers;
+	}
+	
+	public void endGame() {
+		game.setStatus(AgarIO.GAME_FINISHED);
+	}
 	public void refreshPlayersWindow() {
 		adminWindow.refreshNumPlayers(numberOfClients + "");
 	}
@@ -135,7 +150,7 @@ public class Server {
         
         
 		    runningGame = true;
-		
+		    threadGameTime.run();
 		
 			System.out.println("starts multicast");
 			

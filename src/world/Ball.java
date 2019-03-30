@@ -24,12 +24,19 @@ public class Ball {
     private static Random rand = new Random();
 
     public Ball( int posXmax, int posYmax) {
+    	
 		this.posX =  rand.nextInt(3*posXmax/4)+ posXmax/8;
-		//this.posX = 800;
-		//this.posY = 400;
+		
+		if(this.posX >= posXmax-50) {
+		this.posX = this.posX-posXmax/8;
+		}
+		
 		this.posY =  rand.nextInt(3*posYmax/4)+ posYmax/8;
-		System.out.println("__ POS X BALL: " + posX+"__ POS Y BALL: " + posY);
-
+		
+		if(this.posY >= posYmax-50) {
+			this.posY = this.posY-posYmax/8;
+		}
+		
 		int r = rand.nextInt(256);
         int g = rand.nextInt(256);
         int b = rand.nextInt(256);
