@@ -16,7 +16,7 @@ public class ThreadGameTime extends Thread {
 		while(seconds < 300) {
 			
 			seconds++;
-			
+			//System.out.println("Hilo gameTim #jugadores= "+server.numbPlayersPlaying());
 			if(seconds<300 && server.numbPlayersPlaying()>1) {
 				try {
 					this.sleep(1000);
@@ -25,7 +25,7 @@ public class ThreadGameTime extends Thread {
 					e.printStackTrace();
 				}
 			}else {
-				server.endGame();
+				server.setRunningGame(false);
 			}
 		}
 	}

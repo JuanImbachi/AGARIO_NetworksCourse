@@ -85,6 +85,7 @@ public class Server {
 		timer = new ThreadTimer(this);
 		threadSIWR = new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
+	
 		threadGameTime = new ThreadGameTime(this);
 		
 		serverSocketGame = new ServerSocket(PORT_INFO);
@@ -145,17 +146,16 @@ public class Server {
 	public void startMulticast() throws IOException {
 
 		
-		
+		System.out.println("starts multicast1");
+
             game.initializePlayers(players);	
         
-        
 		    runningGame = true;
-		    threadGameTime.run();
+		    threadGameTime.start();
 		    threadCollisionPlayers = new ThreadCollisionPlayers(game);
+		    threadCollisionPlayers.start();
 		    
 			System.out.println("starts multicast");
-			
-			
 			
 			
 			ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
@@ -166,7 +166,6 @@ public class Server {
 				th.start();
 				ArrayThreadIGS.add(th);
 			}
-		
 
 	}
 	

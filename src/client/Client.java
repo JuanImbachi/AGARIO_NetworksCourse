@@ -422,7 +422,7 @@ public class Client {
 		}
 
 		gui.initializeWorld(p1, b);
-
+		System.out.println("CLIENT game started");
 		// System.out.println(p1.get(0).getPosX()+"  "+p1.get(0).getPosY());
 
 		// game = gui.getAgario();
