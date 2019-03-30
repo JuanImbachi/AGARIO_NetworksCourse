@@ -113,19 +113,46 @@ public class PlayerBall extends Ball {
 //		System.out.println("VECTOR:  "+vectorX+"  "+vectorY);
 	}
 
+	 private double distance(double xi, double yi, double xf, double yf){
+	        return Math.sqrt((yf-yi)*(yf-yi) + (xf-xi)*(xf-xi));
+	 }
 	public boolean checkCollision(PlayerBall player) {
-		int collision= super.checkCollision(player);
-		if(collision == 1) {
-			this.increaseMass(player.getMass());
-			player.setPlaying(false);
-			return true;
-		} else if(collision == -1) {
-			player.increaseMass(this.getMass());
-			this.setPlaying(false);
-			return true;
+		
+		boolean collision =false;
+        double dist = distance(this.getPosX(),this.getPosY(),player.getPosX(), player.getPosY());
+		int radio= this.getRadio();
+		int radioPlayer = player.getRadio();
+		if(dist < radio) {
+			double xMax = this.getPosX() + radio;
+			double xMin = this.getPosX() - radio;
+			
+			double yMax = this.getPosY() + radio;
+			double yMin = this.getPosY() - radio;
+			
+			
+			double xPlayerMax = player.getPosX() + radioPlayer;
+			double xPlayerMin = player.getPosX() - radioPlayer;
+			
+			double yPlayerMax = player.getPosY() + radioPlayer;
+			double yPlayerMin = player.getPosY() - radioPlayer;
+			
+			if(xMax > xPlayerMax && xMin < xPlayerMin && yMax > yPlayerMax && yMin > yPlayerMin) {
+				
+				collision = true;
+			}
 		}
+//	
+//		if(collision == 1) {
+//			this.increaseMass(player.getMass());
+//			player.setPlaying(false);
+//			return true;
+//		} else if(collision == -1) {
+//			player.increaseMass(this.getMass());
+//			this.setPlaying(false);
+//			return true;
+//		}
 
-		return false;
+		return collision;
 	}
 	
 	

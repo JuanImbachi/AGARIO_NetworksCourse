@@ -59,6 +59,7 @@ public class Server {
 	private AgarIO game;
 	
 	private ThreadGameTime threadGameTime;
+	private ThreadCollisionPlayers threadCollisionPlayers;
 
 	public Server() throws IOException{
 
@@ -87,7 +88,6 @@ public class Server {
 		threadGameTime = new ThreadGameTime(this);
 		
 		serverSocketGame = new ServerSocket(PORT_INFO);
-
 	}
 	
 	public void updateGame(String[] player, String[] food) {
@@ -151,7 +151,8 @@ public class Server {
         
 		    runningGame = true;
 		    threadGameTime.run();
-		
+		    threadCollisionPlayers = new ThreadCollisionPlayers(game);
+		    
 			System.out.println("starts multicast");
 			
 			
