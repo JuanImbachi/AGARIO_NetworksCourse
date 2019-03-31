@@ -194,13 +194,27 @@ public class AgarIO {
 	// this.setStatus(GAME_FINISHED);
 	// }
 	// }
-	public void stopGamePlayer(int idPlayer) {
-		getPlayer(idPlayer).setPlaying(false);
-	}
+	
+	public void playerEated(PlayerBall player1, PlayerBall player2){
+		for (int i = 0; i < players.size(); i++) {
+			if(players.get(i).getId()==player2.getId()){
+				players.get(i).setPlaying(false);
+			}else if(players.get(i).getId()==player1.getId()){
+				System.out.println("ANTES    PLayer ID: "+players.get(i).getId() +" Player mass: "+players.get(i).getMass());
+				players.get(i).increaseMass(player2.getMass());
+				System.out.println("DESPUÉS   PLayer ID: "+players.get(i).getId() +" Player mass: "+players.get(i).getMass());
 
-	public void increaseMassPlayer(PlayerBall player1, PlayerBall player2) {
-		getPlayer(player1.getId()).increaseMass(player2.getMass());
+			}
+		}
+		System.out.println("PLAYER EATED "+getPlayer(player2.getId()).isPlaying());
 	}
+//	public void stopGamePlayer(int idPlayer) {
+//		getPlayer(idPlayer).setPlaying(false);
+//	}
+//
+//	public void increaseMassPlayer(PlayerBall player1, PlayerBall player2) {
+//		getPlayer(player1.getId()).increaseMass(player2.getMass());
+//	}
 
 	public ArrayList<PlayerBall> getTop(int maxTop) {
 		ArrayList<PlayerBall> playersTop = new ArrayList<PlayerBall>();
@@ -341,5 +355,12 @@ public class AgarIO {
 			eatFood(Integer.parseInt(food[i]));
 		}
 
+	}
+
+	public void updateOwnPlayer(int id, boolean isPlaying, int mass) {
+		
+		players.get(id).setMass(mass);
+		players.get(id).setPlaying(isPlaying);
+		
 	}
 }

@@ -31,7 +31,6 @@ public class ThreadInfoGameClient extends Thread {
 
 					info = info.substring(3);
 
-					// System.out.println(info);
 
 					String[] infoBig = info.split("_");
 
@@ -43,17 +42,10 @@ public class ThreadInfoGameClient extends Thread {
 
 				} else {
 
-					// System.out.println(info);
 					String[] infoBig = info.split("_");
 
 					String[] infoPlayers = infoBig[0].split(",");
 
-//					if (client.getNickname().equals("johu")) {
-//
-//						for (int i = 0; i < infoPlayers.length; i++) {
-//							System.out.println(infoPlayers[0]);
-//						}
-//					}
 
 					String[] infoBalls = infoBig[1].split(",");
 
@@ -62,7 +54,6 @@ public class ThreadInfoGameClient extends Thread {
 				}
 
 				int id = client.getId();
-				// System.out.println(id);
 				double x = client.getGui().getAgario().getPlayer(id).getPosX();
 				double y = client.getGui().getAgario().getPlayer(id).getPosY();
 				boolean isPlaying = client.getGui().getAgario().getPlayer(id).isPlaying();

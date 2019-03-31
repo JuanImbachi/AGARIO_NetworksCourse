@@ -6,19 +6,20 @@ import world.AgarIO;
 public class ThreadCollisionPlayers extends Thread{
 
 	private static final int TIME = 10;
-	private AgarIO game;
+	private Server server;
 	
-	public ThreadCollisionPlayers(AgarIO game) {
+	public ThreadCollisionPlayers(Server game) {
 		
-		this.game = game;
+		this.server = game;
 	}
 
 	public void run() {
-		while(game.getStatus().equals(AgarIO.PLAYING)) {			
+		while(server.getGame().getStatus().equals(AgarIO.PLAYING)) {			
 //			try {
-				game.checkCollisionPlayers();
-				if(game.getPlayersCounter() <=1) {
-					game.setStatus(AgarIO.GAME_FINISHED);
+				server.checkCollisionPlayers();
+				
+				if(server.getGame().getPlayersCounter() <=1) {
+					server.getGame().setStatus(AgarIO.GAME_FINISHED);
 				}
 //				Thread.sleep(TIME);
 //			} catch (InterruptedException e) {

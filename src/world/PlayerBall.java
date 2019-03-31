@@ -139,7 +139,7 @@ public class PlayerBall extends Ball {
 			double yPlayerMax = player.getPosY() + radioPlayer;
 			double yPlayerMin = player.getPosY() - radioPlayer;
 			
-			if(xMax > xPlayerMax && xMin < xPlayerMin && yMax > yPlayerMax && yMin > yPlayerMin) {
+			if(xMax > xPlayerMax && xMin < xPlayerMin && yMax > yPlayerMax && yMin < yPlayerMin) {
 				
 				collision = true;
 			}

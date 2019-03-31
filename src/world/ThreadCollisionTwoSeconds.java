@@ -25,12 +25,14 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		while (millis < 2000 && eated) {
 	
 
-			System.out.println(millis + " "+eated);
 			
 			
 			millis ++;
 					
 			eated = player1.checkCollision(player2);
+			
+
+			System.out.println(millis + " "+eated);
 			
 			 
 			try {
@@ -42,12 +44,15 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		}
 
 		
-		if(millis == 2000 && eated == true) {
+		if(millis == 2000.0 && eated == true) {
+			
+			System.out.println("ENTRA");
 		
 			game.getPlayer(player1.getId()).setValidating(false);
 			
-			game.stopGamePlayer(player2.getId());
-			game.increaseMassPlayer(player1, player2);
+//			game.stopGamePlayer(player2.getId());
+//			game.increaseMassPlayer(player1, player2);
+			game.playerEated(player1, player2);
 			game.setPlayersCounter(game.getPlayersCounter()-1);;
 		}else{
 			

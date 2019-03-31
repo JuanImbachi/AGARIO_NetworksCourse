@@ -13,6 +13,8 @@ import java.awt.event.MouseMotionListener;
 import java.rmi.*;
 import java.util.ArrayList;
 
+import javafx.scene.shape.Circle;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -97,6 +99,9 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 				g.setColor(player.getColor());
 				g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 				g.setColor(Color.BLACK);
+				
+				
+				
 				g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 				Font font = new Font("Century Schoolbook", Font.BOLD, r / 2);
 				FontMetrics metrics = g.getFontMetrics(font);

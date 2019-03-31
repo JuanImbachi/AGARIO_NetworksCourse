@@ -16,7 +16,7 @@ import dataBaseServer.DataBaseServer;
 public class Server {
 
 	// public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER = "192.168.1.17";
+	public final static String IP_SERVER = "192.168.1.15";
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
@@ -149,7 +149,7 @@ public class Server {
 
 		runningGame = true;
 		// threadGameTime.start();
-		threadCollisionPlayers = new ThreadCollisionPlayers(game);
+		threadCollisionPlayers = new ThreadCollisionPlayers(this);
 		threadCollisionPlayers.start();
 		//
 		System.out.println("starts multicast");
@@ -220,9 +220,6 @@ public class Server {
 			String posX = p1.get(i).getPosX() + "";
 			String posY = p1.get(i).getPosY() + "";
 			String isPlaying = p1.get(i).isPlaying() + "";
-			// if(isPlaying.equals("false")){
-			// System.out.println("esFALSO");
-			// }
 			String mass = p1.get(i).getMass() + "";
 			String player = "";
 
@@ -234,6 +231,12 @@ public class Server {
 						+ mass;
 			}
 
+//			System.out.println("INFO GAME SERVER "+player);
+			
+			if(isPlaying.equals("false")){
+				System.out.println("CAMBIA VALOR INFO GAME SERVER");
+			}
+			
 			message += player;
 		}
 
@@ -450,6 +453,11 @@ public class Server {
 
 	public void setGame(AgarIO game) {
 		this.game = game;
+	}
+
+	public void checkCollisionPlayers() {
+		game.checkCollisionPlayers();
+		
 	}
 
 //	public PlayerBall getPlayer(int id) {
