@@ -24,7 +24,7 @@ public class GUI_principal extends JFrame {
 	private AgarIO agario;
 	private JFrame gameSpace;
 	private ThreadMovingPlayers movingPlayers;
-	private ThreadCollisionPlayers collisionPlayers;
+//	private ThreadCollisionPlayers collisionPlayers;
 	private ThreadRepaint repaint;
 	private boolean connectionResult;
 	private Gui_Game space;
@@ -33,6 +33,9 @@ public class GUI_principal extends JFrame {
 
 	public GUI_principal() throws IOException {
 		// Font normal = new Font("Arial", Font.BOLD, 14);
+		
+
+		player = new Client(this);
 		setTitle("Icesi Games SA - AgarIO");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -45,7 +48,10 @@ public class GUI_principal extends JFrame {
 		jdFirstPanel = new FirstPanel(this);
 		jdIp = new Gui_IP(this);
 		jdIp.setVisible(true);
-		player = new Client(this);
+		
+//		System.out.println("inicializa client");
+//		threadPrueba th = new threadPrueba(this);
+//		th.start();
 
 	}
 	
@@ -75,8 +81,8 @@ public class GUI_principal extends JFrame {
 		
 		
 		initializeGameSpace();
-		collisionPlayers = new ThreadCollisionPlayers(this);
-		collisionPlayers.start();
+	//	collisionPlayers = new ThreadCollisionPlayers(this);
+	//	collisionPlayers.start();
 		movingPlayers = new ThreadMovingPlayers(player.getId(), this);
 		movingPlayers.start();
 		
@@ -130,6 +136,9 @@ public class GUI_principal extends JFrame {
 	}
 
 	public void oldPlayer(String email, String password) throws IOException {
+//		if(player==null){
+//			System.out.println("es null");
+//		}
 		player.loginPlayer(email, password);
 	}
 
@@ -270,14 +279,14 @@ public class GUI_principal extends JFrame {
 	}
 
 
-	public ThreadCollisionPlayers getCollisionPlayers() {
-		return collisionPlayers;
-	}
-
-
-	public void setCollisionPlayers(ThreadCollisionPlayers collisionPlayers) {
-		this.collisionPlayers = collisionPlayers;
-	}
+//	public ThreadCollisionPlayers getCollisionPlayers() {
+//		return collisionPlayers;
+//	}
+//
+//
+//	public void setCollisionPlayers(ThreadCollisionPlayers collisionPlayers) {
+//		this.collisionPlayers = collisionPlayers;
+//	}
 
 
 	public ThreadRepaint getRepaint() {
@@ -307,8 +316,6 @@ public class GUI_principal extends JFrame {
 		try {
 
 			GUI_principal principal = new GUI_principal();
-//				principal.initializeGameSpace();			
-			// principal.firstPanel();
 
 		} catch (IOException e) {
 

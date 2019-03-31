@@ -16,6 +16,8 @@ public class PlayerBall extends Ball {
 	
 	private double vectorY;
 	
+	private boolean validating;
+	
 	private int id;
 	
 	public PlayerBall( int id,String nickname, int posXmax, int posYmax) {
@@ -27,6 +29,7 @@ public class PlayerBall extends Ball {
 		this.isPlaying = true;
 		this.id = id;
 		this.nickname=nickname;
+		validating = false;
 	}
 
 	public String getNickname() {
@@ -165,6 +168,14 @@ public class PlayerBall extends Ball {
           }
 		  
 		  return false;
+	}
+
+	public boolean isValidating() {
+		return validating;
+	}
+
+	public void setValidating(boolean validating) {
+		this.validating = validating;
 	}
 	
 	

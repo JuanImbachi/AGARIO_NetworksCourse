@@ -65,8 +65,8 @@ public class ThreadInfoGameClient extends Thread {
 				// System.out.println(id);
 				double x = client.getGui().getAgario().getPlayer(id).getPosX();
 				double y = client.getGui().getAgario().getPlayer(id).getPosY();
-				boolean isPlaying = client.getGui().getAgario().getPlayer(id)
-						.isPlaying();
+				boolean isPlaying = client.getGui().getAgario().getPlayer(id).isPlaying();
+				
 				int mass = client.getGui().getAgario().getPlayer(id).getMass();
 
 				ArrayList<Integer> eatenBalls = client.getEatenBalls();

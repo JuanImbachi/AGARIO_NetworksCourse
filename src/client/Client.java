@@ -73,7 +73,7 @@ public class Client {
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
 		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
 		eatenBalls = new ArrayList<Integer>();
-//		cond = false;
+
 
 	}
 

@@ -75,7 +75,6 @@ public class AgarIO {
 			
 			String nick = nicks.get(i);			
 			PlayerBall player = new PlayerBall(playersCounter,nick, GAME_WIDTH, GAME_HEIGHT);
-			//System.out.println("AGARIO INITIALIZE PLAYERS pos X: "+player.getPosX()+" pos y: "+ player.getPosY());
 			players.add(player);
 			playersCounter +=1;
 		}
@@ -153,39 +152,45 @@ public class AgarIO {
 		foods.remove(idFood);
 	}
 	
-//	public void checkCollisionPlayers() {
-//		for (int i = 0; i < players.size(); i++) {
-//			PlayerBall player1 = players.get(i);
-//			if(player1.isPlaying()) {
-//				for (int j = 0; j < players.size(); j++) {
-//					if(i != j) {
-//						PlayerBall player2 = players.get(j);
-//						if(player2.isPlaying()) {
-//							ThreadCollisionTwoSeconds coll = new ThreadCollisionTwoSeconds(player1, player2,this);
-//							coll.run();
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
-	
 	public void checkCollisionPlayers() {
 		for (int i = 0; i < players.size(); i++) {
+			
 			PlayerBall player1 = players.get(i);
-			for (int j = i+1; j < players.size(); j++) {
-				PlayerBall player2 = players.get(j);
-				boolean eliminated= player1.checkCollision(player2);
-				if(eliminated) {
-					playersCounter--;
+			
+			
+			
+			if(player1.isPlaying()&&player1.isValidating()==false) {
+				for (int j = 0; j < players.size(); j++) {
+					if(i != j) {
+						PlayerBall player2 = players.get(j);
+						if(player2.isPlaying() && player1.checkCollision(player2) && player2.isValidating()==false) {
+							players.get(i).setValidating(true);
+							players.get(j).setValidating(true);
+							ThreadCollisionTwoSeconds coll = new ThreadCollisionTwoSeconds(player1, player2,this);
+							coll.start();
+						}
+					}
 				}
 			}
 		}
-
-		if(playersCounter <=1) {
-			this.setStatus(GAME_FINISHED);
-		}
 	}
+	
+//	public void checkCollisionPlayers() {
+//		for (int i = 0; i < players.size(); i++) {
+//			PlayerBall player1 = players.get(i);
+//			for (int j = i+1; j < players.size(); j++) {
+//				PlayerBall player2 = players.get(j);
+//				boolean eliminated= player1.checkCollision(player2);
+//				if(eliminated) {
+//					playersCounter--;
+//				}
+//			}
+//		}
+//
+//		if(playersCounter <=1) {
+//			this.setStatus(GAME_FINISHED);
+//		}
+//	}
 	public void stopGamePlayer(int idPlayer) {
 		getPlayer(idPlayer).setPlaying(false);
 	}
