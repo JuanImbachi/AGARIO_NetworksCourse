@@ -142,26 +142,27 @@ public class Client {
 //							+ "   INFO ENVIADA POR SERVER");
 //					cond = true;
 //				}
-			}else{
-				
-				String[] player = players[i].split("/");
-				int id = Integer.parseInt(player[0]);
-				
-
-				boolean isPlaying = false;
-
-				
-				if (player[3].equalsIgnoreCase("true")) {
-					isPlaying = true;
-					
-				}
-
-				int mass = Integer.parseInt(player[4]);
-				gui.getAgario().updateOwnPlayer(id,isPlaying, mass);
-				gui.getSpace().setPlayers(gui.getAgario().getPlayers());
-				
-				
 			}
+//			else{
+//				
+//				String[] player = players[i].split("/");
+//				int id = Integer.parseInt(player[0]);
+//				
+//
+//				boolean isPlaying = false;
+//
+//				
+//				if (player[3].equalsIgnoreCase("true")) {
+//					isPlaying = true;
+//					
+//				}
+//
+//				int mass = Integer.parseInt(player[4]);
+//				gui.getAgario().updateOwnPlayer(id,isPlaying, mass);
+//				gui.getSpace().setPlayers(gui.getAgario().getPlayers());
+//				
+//				
+//			}
 
 		}
 
