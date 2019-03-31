@@ -42,7 +42,6 @@ public class Client {
 
 	private ThreadInfoGameClient threadIGC;
 
-	// private AgarIO game;
 
 	private String nickname;
 
@@ -58,14 +57,7 @@ public class Client {
 
 	private ArrayList<Integer> eatenBalls;
 
-	// public Client(String nickname, String IpServer) {
-	//
-	// this.nickname = nickname;
-	// score=0;
-	// startedGame = false;
-	// waitingForPlay = true;
-	// this.IpServer = IpServer;
-	// }
+
 
 	public Client(GUI_principal theGui) throws IOException {
 		gui = theGui;
@@ -114,8 +106,7 @@ public class Client {
 		threadIGC.start();
 
 	}
-//
-//	private boolean cond;
+
 
 	public void updateGame(String[] players, String[] food) {
 
@@ -136,62 +127,41 @@ public class Client {
 
 				int mass = Integer.parseInt(player[4]);
 				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);
-				gui.getSpace().setPlayers(gui.getAgario().getPlayers());
-//				if (!cond) {
-//					System.out.println(x + "  " + y
-//							+ "   INFO ENVIADA POR SERVER");
-//					cond = true;
-//				}
+//				gui.getSpace().setPlayers(gui.getAgario().getPlayers());		
+			}else{
+				
+				String[] player = players[i].split("/");
+				int id = Integer.parseInt(player[0]);
+				
+
+				boolean isPlaying = false;
+
+				
+				if (player[3].equalsIgnoreCase("true")) {
+					isPlaying = true;
+					
+				}
+
+				int mass = Integer.parseInt(player[4]);
+				
+				if(isPlaying==false){
+					gui.getAgario().updateOwnPlayer(id,isPlaying, mass);
+						
+				}
+				
+				
+				
 			}
-//			else{
-//				
-//				String[] player = players[i].split("/");
-//				int id = Integer.parseInt(player[0]);
-//				
-//
-//				boolean isPlaying = false;
-//
-//				
-//				if (player[3].equalsIgnoreCase("true")) {
-//					isPlaying = true;
-//					
-//				}
-//
-//				int mass = Integer.parseInt(player[4]);
-//				gui.getAgario().updateOwnPlayer(id,isPlaying, mass);
-//				gui.getSpace().setPlayers(gui.getAgario().getPlayers());
-//				
-//				
-//			}
 
 		}
 
+		gui.getSpace().setPlayers(gui.getAgario().getPlayers());
 		gui.getAgario().upDateFoodList(food);
 
-		// gui.setAgario(game);
 
 	}
 
-	// public void connectWithServer() throws IOException {
-	//
-	// //CONEXION TCP
-	//
-	// clientSocket = new Socket(IpServer, PORT_TCP);
-	// DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-	// DataOutputStream out = new
-	// DataOutputStream(clientSocket.getOutputStream());
-	// String nickToServer = this.nickname ;
-	// out.writeUTF(nickToServer);
-	// // String mensaje = in.readUTF();
-	// //System.out.println("MENSAJE OBTENIDO DESDE EL SERVER . " +mensaje);
-	// //if(mensaje.compareToIgnoreCase("BIENVENIDO")==0) {
-	// waitingForPlay = true;
-	// //}
-	//
-	// //HiloAtentoAlMulticast atento = new HiloAtentoAlMulticast(this);
-	// //atento.start();
-	//
-	// }
+
 
 	private void connectWithDB(String message) {
 
@@ -313,41 +283,7 @@ public class Client {
 		this.mcSocket = mcSocket;
 	}
 
-	// public static void main(String[] args) throws IOException {
-	//
-	// Client c = new Client();
-	//
-	// // DataInputStream in;
-	// //
-	// // DataOutputStream out;
-	// //
-	// // try {
-	// // clientConnection = new Socket(Server.IP_SERVER, Server.PORT);
-	// //
-	// // while(true) {
-	// //
-	// // // BufferedReader clientReader = new BufferedReader(new
-	// // InputStreamReader(System.in));
-	// // // String palabra= clientReader.readLine();
-	// // //
-	// // //
-	// // //
-	// // // String n="";
-	// // in = new DataInputStream(clientConnection.getInputStream());
-	// // out = new DataOutputStream(clientConnection.getOutputStream());
-	// //
-	// // out.writeUTF(Server.CONNECTED_CLIENT);
-	// // System.out.println(in.readUTF());
-	// // }
-	// // // clientConnection.close();
-	// // // in.close();
-	// // // out.close();
-	// //
-	// // } catch (Exception e) {
-	// // System.out.println("Se generó una excepcion");
-	// // }
-	//
-	// }
+
 
 	public Socket getClientConnectionDB() {
 		return clientConnectionDB;
@@ -389,13 +325,6 @@ public class Client {
 		this.gameSocket = gameSocket;
 	}
 
-	// public AgarIO getGame() {
-	// return game;
-	// }
-	//
-	// public void setGame(AgarIO game) {
-	// this.game = game;
-	// }
 
 	public void initializeWorld(String[] infoPlayers, String[] infoBalls) {
 
@@ -442,9 +371,7 @@ public class Client {
 
 		gui.initializeWorld(p1, b);
 		System.out.println("CLIENT game started");
-		// System.out.println(p1.get(0).getPosX()+"  "+p1.get(0).getPosY());
 
-		// game = gui.getAgario();
 
 	}
 
