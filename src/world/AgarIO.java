@@ -298,26 +298,39 @@ public class AgarIO {
 	}
 	
 	public void upDateFoodList(String[] food) {
-		ArrayList<Ball> foods = new ArrayList<Ball>();
-		for (int i = 0; i < food.length; i++) {
-			String[] fd = food[i].split("/");
+		int j=0;
+		try {
 			
+			ArrayList<Ball> foods = new ArrayList<Ball>();
 			
-//			System.out.println("======"+food[i]);
+			for (int i = 0; i < food.length; i++) {
+				j=i;
+				String[] fd = food[i].split("/");
+				
+				
 
-			int rgb= Integer.parseInt(fd[0]);
-			double posX = Double.parseDouble(fd[1]);
-			double posY = Double.parseDouble(fd[2]);
-			int id = Integer.parseInt(fd[3]);
-		
-			Ball b = new Ball(10, 10, true, id);
-			b.setPosX(posX);
-			b.setColor(new Color(rgb));
-			b.setPosY(posY);
-			foods.add(b);
+				int rgb= Integer.parseInt(fd[0]);
+				double posX = Double.parseDouble(fd[1]);
+				double posY = Double.parseDouble(fd[2]);
+				int id = Integer.parseInt(fd[3]);
+			
+				Ball b = new Ball(10, 10, true, id);
+				b.setPosX(posX);
+				b.setColor(new Color(rgb));
+				b.setPosY(posY);
+				foods.add(b);
+			}
+			
+			setFoods(foods);
+			
+		} catch (Exception e) {
+			
+			System.out.println(food[j]);
+
 		}
 		
-		setFoods(foods);
+		
+		
 	}
 
 	public void updateFood(String[] food) {
