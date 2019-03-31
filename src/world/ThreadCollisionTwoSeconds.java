@@ -1,8 +1,10 @@
 package world;
 
+import server.Server;
+
 public class ThreadCollisionTwoSeconds extends Thread {
 
-	private static int TIME = 1;
+	private static long TIME = 1;
 	private PlayerBall player1, player2;
 	private double millis;
 	private boolean eated;
@@ -22,10 +24,14 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		
 		while (millis < 2000 && eated) {
 	
-			millis += 10;
-						
+
+			System.out.println(millis + " "+eated);
 			
-				eated = player1.checkCollision(player2);
+			
+			millis ++;
+					
+			eated = player1.checkCollision(player2);
+			
 			 
 			try {
 				Thread.sleep(TIME);
@@ -36,13 +42,17 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		}
 
 		
-		if(millis >= 2000 && eated == true) {
+		if(millis == 2000 && eated == true) {
 		
 			game.getPlayer(player1.getId()).setValidating(false);
 			
 			game.stopGamePlayer(player2.getId());
 			game.increaseMassPlayer(player1, player2);
-			game.setPlayersCounter(game.getPlayersCounter() -1);
+			game.setPlayersCounter(game.getPlayersCounter()-1);;
+		}else{
+			
+			game.getPlayer(player1.getId()).setValidating(false);
+			game.getPlayer(player2.getId()).setValidating(false);
 		}
 	}
 

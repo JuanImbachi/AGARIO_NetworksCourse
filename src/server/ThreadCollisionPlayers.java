@@ -15,15 +15,15 @@ public class ThreadCollisionPlayers extends Thread{
 
 	public void run() {
 		while(game.getStatus().equals(AgarIO.PLAYING)) {			
-			try {
+//			try {
 				game.checkCollisionPlayers();
 				if(game.getPlayersCounter() <=1) {
 					game.setStatus(AgarIO.GAME_FINISHED);
 				}
-				Thread.sleep(TIME);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//				Thread.sleep(TIME);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 }

@@ -304,6 +304,7 @@ public class GUI_principal extends JFrame {
 	}
 
 
+
 	public void setSpace(Gui_Game space) {
 		this.space = space;
 	}

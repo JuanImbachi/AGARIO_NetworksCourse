@@ -1,17 +1,17 @@
 package server;
 
-	import java.awt.Color;
-	import java.io.DataInputStream;
-	import java.io.DataOutputStream;
-	import java.io.IOException;
-	import java.net.ServerSocket;
-	import java.net.Socket;
-	import java.util.ArrayList;
-	import world.AgarIO;
-	import world.Ball;
-	import world.PlayerBall;
-	import client.Client;
-	import dataBaseServer.DataBaseServer;
+import java.awt.Color;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import world.AgarIO;
+import world.Ball;
+import world.PlayerBall;
+import client.Client;
+import dataBaseServer.DataBaseServer;
 
 public class Server {
 
@@ -26,7 +26,7 @@ public class Server {
 
 	// private Socket socket;
 
-//	private ArrayList<Socket> socketsWithClients;
+	// private ArrayList<Socket> socketsWithClients;
 
 	private ServerSocket SsocketInfo;
 
@@ -49,73 +49,71 @@ public class Server {
 	private ArrayList<ThreadSendInfoWR> threadSIWR;
 
 	private ServerSocket serverSocket;
-	
+
 	private ThreadFeeding feeding;
-	
+
 	private ServerSocket serverSocketGame;
 
 	private int numberOfClients;
-	
+
 	private AgarIO game;
-	
-//	private ThreadGameTime threadGameTime;
+
+	// private ThreadGameTime threadGameTime;
 	private ThreadCollisionPlayers threadCollisionPlayers;
 
-	public Server() throws IOException{
+	public Server() throws IOException {
 
-//		socketsWithClients = new ArrayList<Socket>();
+		// socketsWithClients = new ArrayList<Socket>();
 
 		adminWindow = new AdminWindow(this);
 		adminWindow.setVisible(true);
 		SsocketInfo = new ServerSocket(PORT_WR);
 		players = new ArrayList<String>();
 		serverSocket = new ServerSocket(PORT);
-		
+
 		System.out.println("Server online");
-		
+
 		game = new AgarIO();
-		
+
 		feeding = new ThreadFeeding(this);
-		
+
 		feeding.start();
-		
+
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
 		// threadWC.start();
 		timer = new ThreadTimer(this);
 		threadSIWR = new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
-	
-//		threadGameTime = new ThreadGameTime(this);
-		
+
+		// threadGameTime = new ThreadGameTime(this);
+
 		serverSocketGame = new ServerSocket(PORT_INFO);
 	}
-	
+
 	public void updateGame(String[] player, String[] food) {
-		
+
 		int id = Integer.parseInt(player[0]);
 		double x = Double.parseDouble(player[1]);
 		double y = Double.parseDouble(player[2]);
-		
-		
-		
-		boolean isPlaying=false;
-		
-		if(player[3].equalsIgnoreCase("true")) {
+
+		boolean isPlaying = false;
+
+		if (player[3].equalsIgnoreCase("true")) {
 			isPlaying = true;
-			
+
 		}
-		
-		 int mass =Integer.parseInt(player[4]) ;
-		 
-		 game.updatePlayer(id,x,y,isPlaying,mass);
-		 game.updateFood(food);
-		
+
+		int mass = Integer.parseInt(player[4]);
+
+		game.updatePlayer(id, x, y, isPlaying, mass);
+		game.updateFood(food);
+
 	}
 
-//	public void addActiveSocket(Socket s) {
-//		socketsWithClients.add(s);
-//	}
+	// public void addActiveSocket(Socket s) {
+	// socketsWithClients.add(s);
+	// }
 
 	public void activateBtnWindow() {
 		if (!adminWindow.btnEnabled()) {
@@ -125,146 +123,146 @@ public class Server {
 	}
 
 	public int numbPlayersPlaying() {
-	 int nPlayers=0;
-	 
-		 for (int i = 0; i < game.getPlayers().size(); i++) {
-			if(game.getPlayers().get(i).isPlaying() == true) {
+		int nPlayers = 0;
+
+		for (int i = 0; i < game.getPlayers().size(); i++) {
+			if (game.getPlayers().get(i).isPlaying() == true) {
 				nPlayers++;
 			}
 		}
-		 return nPlayers;
+		return nPlayers;
 	}
-	
+
 	public void endGame() {
 		game.setStatus(AgarIO.GAME_FINISHED);
 	}
+
 	public void refreshPlayersWindow() {
 		adminWindow.refreshNumPlayers(numberOfClients + "");
 	}
-	
-	
 
 	public void startMulticast() throws IOException {
 
+		game.setStatus(AgarIO.PLAYING);
 		
-            game.initializePlayers(players);	
-        
-		    runningGame = true;
-//		    threadGameTime.start();
-		    threadCollisionPlayers = new ThreadCollisionPlayers(game);
-		    threadCollisionPlayers.start();
-//		    
-			System.out.println("starts multicast");
-			
-			
-			ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
-			for (int i = 0; i < players.size(); i++) {
-				ThreadInfoGameServer th = new ThreadInfoGameServer(this);
-				
-				
-				th.start();
-				ArrayThreadIGS.add(th);
-			}
+		game.initializePlayers(players);
+
+		runningGame = true;
+		// threadGameTime.start();
+		threadCollisionPlayers = new ThreadCollisionPlayers(game);
+		threadCollisionPlayers.start();
+		//
+		System.out.println("starts multicast");
+
+		ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
+		for (int i = 0; i < players.size(); i++) {
+			ThreadInfoGameServer th = new ThreadInfoGameServer(this);
+
+			th.start();
+			ArrayThreadIGS.add(th);
+		}
 
 	}
-	
-	
-	public String sendInfoFirstTime(){
-		
-		String message="#f#";
-		
+
+	public String sendInfoFirstTime() {
+
+		String message = "#f#";
+
 		ArrayList<PlayerBall> p1 = game.getPlayers();
 		for (int i = 0; i < game.getPlayers().size(); i++) {
-			String id= game.getPlayers().get(i).getId()+"";
+			String id = game.getPlayers().get(i).getId() + "";
 			String nickname = game.getPlayers().get(i).getNickname();
-			String posX = game.getPlayers().get(i).getPosX() +"";
+			String posX = game.getPlayers().get(i).getPosX() + "";
 			String posY = game.getPlayers().get(i).getPosY() + "";
-			String rgb= game.getPlayers().get(i).getColor().getRGB()+"";
+			String rgb = game.getPlayers().get(i).getColor().getRGB() + "";
 			String player = "";
-			
-			if(i<p1.size()-1){
-				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb+",";	
-			}else{
-				player = id+"/"+nickname+"/"+posX+"/"+posY+"/"+rgb;
+
+			if (i < p1.size() - 1) {
+				player = id + "/" + nickname + "/" + posX + "/" + posY + "/"
+						+ rgb + ",";
+			} else {
+				player = id + "/" + nickname + "/" + posX + "/" + posY + "/"
+						+ rgb;
 			}
-			
+
 			message += player;
 		}
-		
-		message+="_";
-		
-		ArrayList<Ball> food= game.getFoods();
-		
+
+		message += "_";
+
+		ArrayList<Ball> food = game.getFoods();
+
 		for (int i = 0; i < food.size(); i++) {
-			String rgb= food.get(i).getColor().getRGB()+"";
-			String posX = food.get(i).getPosX() +"";
+			String rgb = food.get(i).getColor().getRGB() + "";
+			String posX = food.get(i).getPosX() + "";
 			String posY = food.get(i).getPosY() + "";
 			String id = food.get(i).getFoodID() + "";
-			String ball="";
-			
-			ball += rgb+"/"+posX+"/"+posY+"/"+id;
-			
-			if(i <food.size()-1){
+			String ball = "";
+
+			ball += rgb + "/" + posX + "/" + posY + "/" + id;
+
+			if (i < food.size() - 1) {
 				ball += ",";
 			}
-			
+
 			message += ball;
 		}
-		
+
 		return message;
-		
-		
+
 	}
 
 	public String infoGame() {
-		String message="";
+		String message = "";
 		ArrayList<PlayerBall> p1 = game.getPlayers();
 		for (int i = 0; i < p1.size(); i++) {
-			String id= p1.get(i).getId()+"";
-			String posX = p1.get(i).getPosX() +"";
+			String id = p1.get(i).getId() + "";
+			String posX = p1.get(i).getPosX() + "";
 			String posY = p1.get(i).getPosY() + "";
-			String isPlaying =p1.get(i).isPlaying()+"";
-//			if(isPlaying.equals("false")){
-//				System.out.println("esFALSO");
-//			}
-			String mass = p1.get(i).getMass()+"";
+			String isPlaying = p1.get(i).isPlaying() + "";
+			// if(isPlaying.equals("false")){
+			// System.out.println("esFALSO");
+			// }
+			String mass = p1.get(i).getMass() + "";
 			String player = "";
-			
-			if(i<p1.size()-1){
-				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass+",";	
-			}else{
-				player = id+"/"+posX+"/"+posY+"/"+isPlaying+"/"+mass;
+
+			if (i < p1.size() - 1) {
+				player = id + "/" + posX + "/" + posY + "/" + isPlaying + "/"
+						+ mass + ",";
+			} else {
+				player = id + "/" + posX + "/" + posY + "/" + isPlaying + "/"
+						+ mass;
 			}
-			
+
 			message += player;
 		}
-		
-		message+="_";
-		
-		ArrayList<Ball> food= game.getFoods();
-		
-//		System.out.println(food.size()+"   .............");
-		
+
+		message += "_";
+
+		ArrayList<Ball> food = game.getFoods();
+
+		// System.out.println(food.size()+"   .............");
+
 		for (int i = 0; i < food.size(); i++) {
-			String rgb= food.get(i).getColor().getRGB()+"";
-			String posX = food.get(i).getPosX() +"";
+			String rgb = food.get(i).getColor().getRGB() + "";
+			String posX = food.get(i).getPosX() + "";
 			String posY = food.get(i).getPosY() + "";
 			String id = food.get(i).getFoodID() + "";
-			String ball="";
-			
-			ball += rgb+"/"+posX+"/"+posY+"/"+id;
-			
-			if(i <food.size()-1){
+			String ball = "";
+
+			ball += rgb + "/" + posX + "/" + posY + "/" + id;
+
+			if (i < food.size() - 1) {
 				ball += ",";
 			}
-			
+
 			message += ball;
 		}
-		
+
 		return message;
-		
-		
+
 	}
+
 	public void startGame() {
 
 		waitingClients = false;
@@ -278,10 +276,11 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	public void createFood() {
-		if(game.getFoods().size()<AgarIO.MAX_FOOD) {
+		if (game.getFoods().size() < AgarIO.MAX_FOOD) {
 			game.createFood();
 		}
 	}
@@ -404,8 +403,8 @@ public class Server {
 	public ArrayList<String> getPlayers() {
 		return players;
 	}
-	
-	public void addPlayer(String p){
+
+	public void addPlayer(String p) {
 		players.add(p);
 	}
 
@@ -437,8 +436,6 @@ public class Server {
 		this.adminWindow = adminWindow;
 	}
 
-	
-
 	public ServerSocket getServerSocketGame() {
 		return serverSocketGame;
 	}
@@ -454,5 +451,26 @@ public class Server {
 	public void setGame(AgarIO game) {
 		this.game = game;
 	}
+
+//	public PlayerBall getPlayer(int id) {
+//		
+//		return game.getPlayer(id);
+//	}
+//
+//	public void stopGamePlayer(int id) {
+//		game.stopGamePlayer(id);
+//		
+//	}
+//
+//	public void increaseMassPlayer(PlayerBall player1, PlayerBall player2) {
+//		game.increaseMassPlayer(player1, player2);
+//		
+//	}
+//
+//	public void decreasePlayerCounter() {
+//		numberOfClients--;
+//		game.setPlayersCounter(numberOfClients);
+//		
+//	}
 
 }
