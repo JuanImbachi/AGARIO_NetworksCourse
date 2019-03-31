@@ -30,7 +30,7 @@ public class ThreadTimer extends Thread {
 			
 			if (seconds < 120 && server.getNumberOfClients() < 5)  {
 				try {
-					this.sleep(300);
+					this.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

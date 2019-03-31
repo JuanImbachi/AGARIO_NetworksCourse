@@ -1,5 +1,7 @@
 package gui;
 
+import world.AgarIO;
+
 //
 //import world.AgarIO;
 //
@@ -41,7 +43,7 @@ public class ThreadCollisionPlayers extends Thread{
 	}
 
 	public void run() {
-		while(principal.getAgario().getPlayer(principal.getPlayer().getId()).isPlaying()) {			
+		while(principal.getAgario().getPlayer(principal.getPlayer().getId()).isPlaying() && principal.getAgario().getStatus().equals(AgarIO.PLAYING)) {			
 			try {
 				principal.checkCollisionPlayers();
 				Thread.sleep(TIME);

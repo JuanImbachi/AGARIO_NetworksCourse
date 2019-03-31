@@ -28,6 +28,7 @@ public class GUI_principal extends JFrame {
 	private ThreadRepaint repaint;
 	private boolean connectionResult;
 	private Gui_Game space;
+	private Gui_finalTop jdFt;
 
 	private Client player;
 
@@ -57,6 +58,7 @@ public class GUI_principal extends JFrame {
 	
 
 	public void initializeGameSpace() {
+		
 		Dimension d = new Dimension(AgarIO.GAME_WIDTH, AgarIO.GAME_HEIGHT);
 //		System.out.println(agario.getPlayers().get(0).getPosX()+"  "+agario.getPlayers().get(0).getPosY());
 		space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
@@ -75,10 +77,46 @@ public class GUI_principal extends JFrame {
 		
 	
 	}
+	
+	public void finishGame(){
+//		space.removeAll();
+		agario.setStatus(AgarIO.GAME_FINISHED);
+//		space.setVisible(false);
+		gameSpace.dispose();
+		space.setVisible(false);
+		
+		ArrayList<PlayerBall> topPl = getPlayersTop();
+		
+		jdFt = new Gui_finalTop(topPl);
+		
+		if(topPl.get(0).getId()==player.getId()){
+			JOptionPane.showMessageDialog(this, "CONGRATULATIONS, YOU'VE WON", "NUMBER 1", JOptionPane.INFORMATION_MESSAGE );
+		}else if(topPl.get(1).getId()==player.getId()){
+			JOptionPane.showMessageDialog(this, "YOU'VE FINISHED SECOND", "NUMBER 2", JOptionPane.INFORMATION_MESSAGE );
+		}else if(topPl.size()>=2){
+			
+			if(topPl.get(2).getId()==player.getId()){
+				JOptionPane.showMessageDialog(this, "YOU'VE FINISHED THIRD", "NUMBER 3", JOptionPane.INFORMATION_MESSAGE );
+			}
+			
+		}
+		
+		
+		
+		jdFt.setLocationRelativeTo(null);
+//		jdFt.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jdFt.setVisible(true);
+		
+		
+		
+		
+	}
+	
+	
 
 	public void initializeWorld(ArrayList<PlayerBall> players, ArrayList<Ball> foods) {
 		agario = new AgarIO(players, foods);
-		
+		agario.setStatus(AgarIO.PLAYING);
 		
 		initializeGameSpace();
 		collisionPlayers = new ThreadCollisionPlayers(this);

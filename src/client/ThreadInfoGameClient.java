@@ -40,7 +40,15 @@ public class ThreadInfoGameClient extends Thread {
 
 					client.initializeWorld(infoPlayers, infoBalls);
 
-				} else {
+				}else if(info.startsWith("#end#")){
+					
+					client.stopGame();
+					
+					
+				}else {
+				
+				
+				
 
 					String[] infoBig = info.split("_");
 

@@ -199,6 +199,7 @@ public class AgarIO {
 		for (int i = 0; i < players.size(); i++) {
 			if(players.get(i).getId()==player2.getId()){
 				players.get(i).setPlaying(false);
+				playersCounter--;
 			}else if(players.get(i).getId()==player1.getId()){
 				players.get(i).increaseMass(player2.getMass());
 
@@ -243,6 +244,19 @@ public class AgarIO {
 	public int getPlayersCounter() {
 		return playersCounter;
 	}
+	
+	public int numberOfPlayingClients(){
+		int r = 0;
+		for(int i = 0 ; i<players.size();i++){
+			
+			if(players.get(i).isPlaying()==true){
+				r++;
+			}
+		}
+		return r;
+		
+	}
+	
 
 	public void setPlayersCounter(int playersCounter) {
 		this.playersCounter = playersCounter;

@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
+import world.AgarIO;
+
 public class ThreadInfoGameServer extends Thread {
 
 	private Server server;
@@ -33,11 +35,24 @@ public class ThreadInfoGameServer extends Thread {
 				if (!firstSend) {
 
 					out.writeUTF(server.sendInfoFirstTime());
+					
+					
+					
+					
 					firstSend = true;
 					
 					
 
-				} else {
+				}else if(server.getGame().getStatus().equals(AgarIO.GAME_FINISHED)){
+					
+					System.out.println("ENVIA FINAL");
+					
+					
+					out.writeUTF("#end#");
+					server.setRunningGame(false);
+					
+					
+				}else {
 					
 					String info = server.infoGame();
 					

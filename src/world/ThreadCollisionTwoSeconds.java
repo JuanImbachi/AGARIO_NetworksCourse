@@ -31,8 +31,8 @@ public class ThreadCollisionTwoSeconds extends Thread {
 					
 			eated = player1.checkCollision(player2);
 			
-
-			System.out.println(millis + " "+eated);
+//
+//			System.out.println(millis + " "+eated);
 			
 			 
 			try {
@@ -46,7 +46,6 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		
 		if(millis == 2000.0 && eated == true) {
 			
-			System.out.println("ENTRA");
 		
 			game.getPlayer(player1.getId()).setValidating(false);
 			

@@ -58,12 +58,16 @@ public class Server {
 
 	private AgarIO game;
 
+	private ThreadGameTime threadGT;
+
 	// private ThreadGameTime threadGameTime;
-	//private ThreadCollisionPlayers threadCollisionPlayers;
+	// private ThreadCollisionPlayers threadCollisionPlayers;
 
 	public Server() throws IOException {
 
 		// socketsWithClients = new ArrayList<Socket>();
+
+		threadGT = new ThreadGameTime(this);
 
 		adminWindow = new AdminWindow(this);
 		adminWindow.setVisible(true);
@@ -76,8 +80,6 @@ public class Server {
 		game = new AgarIO();
 
 		feeding = new ThreadFeeding(this);
-
-		feeding.start();
 
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
@@ -144,13 +146,18 @@ public class Server {
 	public void startMulticast() throws IOException {
 
 		game.setStatus(AgarIO.PLAYING);
-		
+
 		game.initializePlayers(players);
 
 		runningGame = true;
-//		 threadGameTime.start();
-		//threadCollisionPlayers = new ThreadCollisionPlayers(this);
-		//threadCollisionPlayers.start();
+
+		feeding.start();
+
+		threadGT.start();
+
+		// threadGameTime.start();
+		// threadCollisionPlayers = new ThreadCollisionPlayers(this);
+		// threadCollisionPlayers.start();
 		//
 		System.out.println("starts multicast");
 
@@ -231,12 +238,12 @@ public class Server {
 						+ mass;
 			}
 
-//			System.out.println("INFO GAME SERVER "+player);
-			
-//			if(isPlaying.equals("false")){
-//				System.out.println("CAMBIA VALOR INFO GAME SERVER");
-//			}
-			
+			// System.out.println("INFO GAME SERVER "+player);
+
+			// if(isPlaying.equals("false")){
+			// System.out.println("CAMBIA VALOR INFO GAME SERVER");
+			// }
+
 			message += player;
 		}
 
@@ -247,19 +254,35 @@ public class Server {
 		// System.out.println(food.size()+"   .............");
 
 		for (int i = 0; i < food.size(); i++) {
-			String rgb = food.get(i).getColor().getRGB() + "";
-			String posX = food.get(i).getPosX() + "";
-			String posY = food.get(i).getPosY() + "";
-			String id = food.get(i).getFoodID() + "";
-			String ball = "";
 
-			ball += rgb + "/" + posX + "/" + posY + "/" + id;
+			if (food.get(i) != null && i<food.size()) {
 
-			if (i < food.size() - 1) {
-				ball += ",";
+				
+				try {
+					
+					String rgb = food.get(i).getColor().getRGB() + "";
+					String posX = food.get(i).getPosX() + "";
+					String posY = food.get(i).getPosY() + "";
+					String id = food.get(i).getFoodID() + "";
+					String ball = "";
+
+					ball += rgb + "/" + posX + "/" + posY + "/" + id;
+
+					if (i < food.size() - 1) {
+						ball += ",";
+					}
+
+					message += ball;
+					
+				} catch (Exception e) {
+
+					
+					
+				}
+				
+				
+
 			}
-
-			message += ball;
 		}
 
 		return message;
@@ -458,28 +481,44 @@ public class Server {
 
 	public void checkCollisionPlayers() {
 		game.checkCollisionPlayers();
-		
+
 	}
 
-//	public PlayerBall getPlayer(int id) {
-//		
-//		return game.getPlayer(id);
-//	}
-//
-//	public void stopGamePlayer(int id) {
-//		game.stopGamePlayer(id);
-//		
-//	}
-//
-//	public void increaseMassPlayer(PlayerBall player1, PlayerBall player2) {
-//		game.increaseMassPlayer(player1, player2);
-//		
-//	}
-//
-//	public void decreasePlayerCounter() {
-//		numberOfClients--;
-//		game.setPlayersCounter(numberOfClients);
-//		
-//	}
+	public void stopGame() {
+
+		System.out.println("CAMBIA STATUS AGAR");
+
+		game.setStatus(AgarIO.GAME_FINISHED);
+
+	}
+
+	public ThreadGameTime getThreadGT() {
+		return threadGT;
+	}
+
+	public void setThreadGT(ThreadGameTime threadGT) {
+		this.threadGT = threadGT;
+	}
+
+	// public PlayerBall getPlayer(int id) {
+	//
+	// return game.getPlayer(id);
+	// }
+	//
+	// public void stopGamePlayer(int id) {
+	// game.stopGamePlayer(id);
+	//
+	// }
+	//
+	// public void increaseMassPlayer(PlayerBall player1, PlayerBall player2) {
+	// game.increaseMassPlayer(player1, player2);
+	//
+	// }
+	//
+	// public void decreasePlayerCounter() {
+	// numberOfClients--;
+	// game.setPlayersCounter(numberOfClients);
+	//
+	// }
 
 }

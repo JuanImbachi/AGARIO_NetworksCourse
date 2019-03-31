@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import world.AgarIO;
+
 public class ThreadMovingPlayers extends Thread{
 
 		public static final int TIME = 20;
@@ -25,7 +27,7 @@ public class ThreadMovingPlayers extends Thread{
 	    
 	    public void run() {
 	    	first=false;
-	    	while(true) {
+	    	while(principal.getAgario().getStatus().equals(AgarIO.PLAYING)) {
 	    		
 	    		try {
 	    			

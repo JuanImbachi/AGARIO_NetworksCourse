@@ -22,7 +22,7 @@ public class DataBaseServer {
 	public final static String DENIED_ACCESS = "acces_denied";
 	public final static String PLAYER_SAVED = "player_saved";
 	public final static String PLAYER_NOTSAVED = "player_notsaved";
-	
+
 	public final static String REGISTER_DB = "register_DB";
 
 	public final static String LOGIN_DB = "login_DB";
@@ -30,7 +30,7 @@ public class DataBaseServer {
 	public static final int DB_PORT = 35000;
 
 	public final static String ROOT = "UsersDB/usersDB.txt";
-	
+
 	private int numberOfClients;
 
 	private ServerSocket serverSocket;
@@ -42,7 +42,7 @@ public class DataBaseServer {
 	private ThreadWaitingClientsDB threadWC_DB;
 
 	public DataBaseServer(Server s) throws IOException {
-		numberOfClients =0;
+		numberOfClients = 0;
 		serverSocket = new ServerSocket(DB_PORT);
 		threadWC_DB = new ThreadWaitingClientsDB(this);
 
@@ -71,48 +71,45 @@ public class DataBaseServer {
 	}
 
 	public String loginPlayer(String email, String pass) {
-		
-			try {
-			   
-				String r=null;
-				
-				File text = new File(ROOT);
-				
-				FileReader reader = new FileReader(text);
-				
-				BufferedReader in = new BufferedReader(reader);
 
-				boolean cond = false;
-				
-				
-				while (!cond) {
-					String info[] = in.readLine().split(",");
-					String theEmail = info[2];
-					String thePass = info[1];
-					if (email.equals(theEmail) && pass.equals(thePass)) {
+		try {
 
-						cond = true;
-						r= info[0];
-					}
+			String r = null;
 
+			File text = new File(ROOT);
+
+			FileReader reader = new FileReader(text);
+
+			BufferedReader in = new BufferedReader(reader);
+
+			boolean cond = false;
+
+			while (!cond) {
+				String info[] = in.readLine().split(",");
+				String theEmail = info[2];
+				String thePass = info[1];
+				if (email.equals(theEmail) && pass.equals(thePass)) {
+
+					cond = true;
+					r = info[0];
 				}
-				
-				return r;
 
-				
-			} catch (Exception e) {
-				return null;
 			}
-			
-	
+
+			return r;
+
+		} catch (Exception e) {
+			return null;
+		}
 
 	}
 
 	public String registerPlayer(String nick, String pass, String email) {
 		String information = nick + "," + pass + "," + email;
 		try {
-			
-			String r =null;;
+
+			String r = null;
+			;
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					System.in));
 			File text = new File(ROOT);
@@ -128,19 +125,47 @@ public class DataBaseServer {
 				out.write(information);
 				out.write("\n");
 				out.close();
-				
-				r=nick;;
+
+				r = nick;
+				;
 
 			}
-			
+
 			return r;
-			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
 	}
+
+	public static String encryptWord(String word) {
+
+		char[] array = word.toCharArray();
+
+		for (int i = 0; i < array.length; i++) {
+
+			array[i] = (char) (array[i] + (char) 2);
+
+		}
+
+		return String.valueOf(array);
+	}
+
+	public static String dencryptWord(String word) {
+
+		char[] array = word.toCharArray();
+
+		for (int i = 0; i < array.length; i++) {
+
+			array[i] = (char) (array[i] - (char) 2);
+
+		}
+
+		return String.valueOf(array);
+	}
+	
+	
 
 	public ThreadWaitingClientsDB getThreadWC_DB() {
 		return threadWC_DB;
@@ -159,11 +184,9 @@ public class DataBaseServer {
 	}
 
 	public void addPlayer(String result) {
-		
+
 		server.addPlayer(result);
-		
-		
-		
+
 	}
 
 	public int getNumberOfClients() {
