@@ -145,6 +145,7 @@ public class Client {
 				int mass = Integer.parseInt(player[4]);
 				
 				if(isPlaying==false){
+					System.out.println("ENTRA A UPDATE OWN PLAYEER");
 					gui.getAgario().updateOwnPlayer(id,isPlaying, mass);
 						
 				}
