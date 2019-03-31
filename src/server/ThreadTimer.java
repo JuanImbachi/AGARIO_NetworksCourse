@@ -28,15 +28,27 @@ public class ThreadTimer extends Thread {
 
 			
 			
-			if (seconds < 120 && server.getNumberOfClients() < 5) {
+			if (seconds < 120 && server.getNumberOfClients() < 5)  {
 				try {
-					this.sleep(1000);
+					this.sleep(300);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else {
+			}else if(server.getNumberOfClients()==5){
+				
+				
+				server.startGame();	
 				server.setWaitingClients(false);
+			
+			}else {
+				if( server.getNumberOfClients() <= 1){
+					seconds = 0;
+				}else if(seconds>=120 && server.getNumberOfClients()>1){
+					server.startGame();	
+					server.setWaitingClients(false);
+				}
+				
 			}
 
 		}

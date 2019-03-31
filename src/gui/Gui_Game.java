@@ -12,9 +12,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.rmi.*;
 import java.util.ArrayList;
-
-import javafx.scene.shape.Circle;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;

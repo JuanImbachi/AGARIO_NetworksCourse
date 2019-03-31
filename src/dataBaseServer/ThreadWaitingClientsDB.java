@@ -24,13 +24,11 @@ public class ThreadWaitingClientsDB extends Thread {
 		try {
 			while (serverDB.isWaitingClients()) {
 				
-				System.out.println("Pasa");
 
 				Socket socket = serverDB.getServerSocket().accept();
 				
 				
 
-				// server.agregarSocketAActivos(socket);
 				DataInputStream in = new DataInputStream(
 						socket.getInputStream());
 				DataOutputStream out = new DataOutputStream(
@@ -41,24 +39,28 @@ public class ThreadWaitingClientsDB extends Thread {
 					String[] info = mensaje.split(",");
 					String mode = info[0];
 
-					if (mode.equals(DataBaseServer.LOGIN_DB)) {
+					if (mode.equals(DataBaseServer.LOGIN_DB) && serverDB.getNumberOfClients()<5) {
 
 						String email = info[1];
 						String password = info[2];
 						String result = serverDB.loginPlayer(email, password);
 						if (result != null) {
+						
 							new ThreadWaitingClients(serverDB.getServer())
 									.start();
 							out.writeUTF(DataBaseServer.CONF_ACCESS);
+							
 							out.writeUTF(result);
 							
 							serverDB.addPlayer(result);
+							
+							serverDB.setNumberOfClients(serverDB.getNumberOfClients()+1);
 
 						} else {
 							out.writeUTF(DataBaseServer.DENIED_ACCESS);
 						}
 
-					} else if (mode.equals(DataBaseServer.REGISTER_DB)) {
+					} else if (mode.equals(DataBaseServer.REGISTER_DB)&& serverDB.getNumberOfClients()<5) {
 
 						String nick = info[1];
 						String password = info[2];
@@ -70,8 +72,11 @@ public class ThreadWaitingClientsDB extends Thread {
 									.start();
 							out.writeUTF(DataBaseServer.PLAYER_SAVED);
 							out.writeUTF(result);
+							
 
 							serverDB.addPlayer(result);
+							
+							serverDB.setNumberOfClients(serverDB.getNumberOfClients()+1);
 
 						} else {
 							out.writeUTF(DataBaseServer.PLAYER_NOTSAVED);

@@ -57,8 +57,7 @@ public class AgarIO {
 
 	public AgarIO(ArrayList<PlayerBall> players, ArrayList<Ball> foods) {
 		this.players = players;
-		System.out.println(players.get(0).getPosX() + "  "
-				+ players.get(0).getPosY() + " CONSTRUCTOR");
+		
 		isRunning = false;
 		winner = null;
 		status = WAITING;
@@ -201,13 +200,10 @@ public class AgarIO {
 			if(players.get(i).getId()==player2.getId()){
 				players.get(i).setPlaying(false);
 			}else if(players.get(i).getId()==player1.getId()){
-				System.out.println("ANTES    PLayer ID: "+players.get(i).getId() +" Player mass: "+players.get(i).getMass());
 				players.get(i).increaseMass(player2.getMass());
-				System.out.println("DESPUÉS   PLayer ID: "+players.get(i).getId() +" Player mass: "+players.get(i).getMass());
 
 			}
 		}
-		System.out.println("PLAYER EATED "+getPlayer(player2.getId()).isPlaying());
 	}
 //	public void stopGamePlayer(int idPlayer) {
 //		getPlayer(idPlayer).setPlaying(false);
@@ -344,7 +340,6 @@ public class AgarIO {
 
 		} catch (Exception e) {
 
-			System.out.println(food[j]);
 
 		}
 

@@ -36,6 +36,7 @@ public class ThreadWaitingRoom extends Thread {
 
 				if (info[0].equals(Server.START_GAME)) {
 					client.setWaitingForPlay(false);
+					client.closeWaitingRoom();
 					
 				}else{
 				

@@ -148,7 +148,7 @@ public class Server {
 		game.initializePlayers(players);
 
 		runningGame = true;
-		// threadGameTime.start();
+//		 threadGameTime.start();
 		//threadCollisionPlayers = new ThreadCollisionPlayers(this);
 		//threadCollisionPlayers.start();
 		//
@@ -268,6 +268,7 @@ public class Server {
 
 	public void startGame() {
 
+		adminWindow.setVisible(false);
 		waitingClients = false;
 		Thread th = new Thread();
 		th.start();

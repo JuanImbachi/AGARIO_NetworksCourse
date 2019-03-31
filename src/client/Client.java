@@ -90,6 +90,9 @@ public class Client {
 
 	}
 
+	public void closeWaitingRoom(){
+		gui.closeWatingRoom();
+	}
 	public void loginPlayer(String email, String password) throws IOException {
 
 		String message = DataBaseServer.LOGIN_DB + "," + email + "," + password;

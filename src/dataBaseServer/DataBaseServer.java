@@ -30,6 +30,8 @@ public class DataBaseServer {
 	public static final int DB_PORT = 35000;
 
 	public final static String ROOT = "UsersDB/usersDB.txt";
+	
+	private int numberOfClients;
 
 	private ServerSocket serverSocket;
 
@@ -40,6 +42,7 @@ public class DataBaseServer {
 	private ThreadWaitingClientsDB threadWC_DB;
 
 	public DataBaseServer(Server s) throws IOException {
+		numberOfClients =0;
 		serverSocket = new ServerSocket(DB_PORT);
 		threadWC_DB = new ThreadWaitingClientsDB(this);
 
@@ -161,6 +164,14 @@ public class DataBaseServer {
 		
 		
 		
+	}
+
+	public int getNumberOfClients() {
+		return numberOfClients;
+	}
+
+	public void setNumberOfClients(int numberOfClients) {
+		this.numberOfClients = numberOfClients;
 	}
 
 }

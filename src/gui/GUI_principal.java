@@ -164,6 +164,9 @@ public class GUI_principal extends JFrame {
 		jdWaitingRoom.refresh(data);
 		pack();
 	}
+	public void closeWatingRoom(){
+		jdWaitingRoom.setVisible(false);
+	}
 
 	public Client getPlayer() {
 		return player;
