@@ -203,6 +203,7 @@ public class GUI_principal extends JFrame {
 
 	public void checkCollisionPlayers() {
 		agario.checkCollisionPlayers();
+		
 	}
 
 	public ArrayList<PlayerBall> getPlayersTop() {
@@ -321,6 +322,12 @@ public class GUI_principal extends JFrame {
 			e.printStackTrace();
 		}
 
+	}
+
+
+	public void showDeath() {
+		JOptionPane.showMessageDialog(this, "YOU'VE BEEN ELIMINATED :C", "YOU LOSE", JOptionPane.ERROR_MESSAGE );
+		
 	}
 
 }

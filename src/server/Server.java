@@ -231,7 +231,7 @@ public class Server {
 						+ mass;
 			}
 
-			System.out.println("INFO GAME SERVER "+player);
+//			System.out.println("INFO GAME SERVER "+player);
 			
 //			if(isPlaying.equals("false")){
 //				System.out.println("CAMBIA VALOR INFO GAME SERVER");

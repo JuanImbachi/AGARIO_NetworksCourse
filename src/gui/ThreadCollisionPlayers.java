@@ -41,7 +41,7 @@ public class ThreadCollisionPlayers extends Thread{
 	}
 
 	public void run() {
-		while(true) {			
+		while(principal.getAgario().getPlayer(principal.getPlayer().getId()).isPlaying()) {			
 			try {
 				principal.checkCollisionPlayers();
 				Thread.sleep(TIME);
@@ -49,5 +49,9 @@ public class ThreadCollisionPlayers extends Thread{
 				e.printStackTrace();
 			}
 		}
+		if(principal.getAgario().getPlayer(principal.getPlayer().getId()).isPlaying() == false){
+			principal.showDeath();
+		}
+		
 	}
 }

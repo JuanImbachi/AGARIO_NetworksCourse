@@ -50,8 +50,6 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		
 			game.getPlayer(player1.getId()).setValidating(false);
 			
-//			game.stopGamePlayer(player2.getId());
-//			game.increaseMassPlayer(player1, player2);
 			game.playerEated(player1, player2);
 			game.setPlayersCounter(game.getPlayersCounter()-1);;
 		}else{
