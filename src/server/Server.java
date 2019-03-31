@@ -58,8 +58,8 @@ public class Server {
 	
 	private AgarIO game;
 	
-	private ThreadGameTime threadGameTime;
-	private ThreadCollisionPlayers threadCollisionPlayers;
+//	private ThreadGameTime threadGameTime;
+//	private ThreadCollisionPlayers threadCollisionPlayers;
 
 	public Server() throws IOException{
 
@@ -86,7 +86,7 @@ public class Server {
 		threadSIWR = new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
 	
-		threadGameTime = new ThreadGameTime(this);
+//		threadGameTime = new ThreadGameTime(this);
 		
 		serverSocketGame = new ServerSocket(PORT_INFO);
 	}
@@ -146,15 +146,13 @@ public class Server {
 	public void startMulticast() throws IOException {
 
 		
-		System.out.println("starts multicast1");
-
             game.initializePlayers(players);	
         
 		    runningGame = true;
-		    threadGameTime.start();
-		    threadCollisionPlayers = new ThreadCollisionPlayers(game);
-		    threadCollisionPlayers.start();
-		    
+//		    threadGameTime.start();
+//		    threadCollisionPlayers = new ThreadCollisionPlayers(game);
+//		    threadCollisionPlayers.start();
+//		    
 			System.out.println("starts multicast");
 			
 			
@@ -279,7 +277,7 @@ public class Server {
 		
 	}
 	public void createFood() {
-		if(game.getFoods().size()<game.MAX_FOOD) {
+		if(game.getFoods().size()<AgarIO.MAX_FOOD) {
 			game.createFood();
 		}
 	}

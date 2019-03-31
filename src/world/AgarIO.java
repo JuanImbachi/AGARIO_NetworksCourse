@@ -153,23 +153,39 @@ public class AgarIO {
 		foods.remove(idFood);
 	}
 	
+//	public void checkCollisionPlayers() {
+//		for (int i = 0; i < players.size(); i++) {
+//			PlayerBall player1 = players.get(i);
+//			if(player1.isPlaying()) {
+//				for (int j = 0; j < players.size(); j++) {
+//					if(i != j) {
+//						PlayerBall player2 = players.get(j);
+//						if(player2.isPlaying()) {
+//							ThreadCollisionTwoSeconds coll = new ThreadCollisionTwoSeconds(player1, player2,this);
+//							coll.run();
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+	
 	public void checkCollisionPlayers() {
 		for (int i = 0; i < players.size(); i++) {
 			PlayerBall player1 = players.get(i);
-			if(player1.isPlaying()) {
-				for (int j = 0; j < players.size(); j++) {
-					if(i != j) {
-						PlayerBall player2 = players.get(j);
-						if(player2.isPlaying()) {
-							ThreadCollisionTwoSeconds coll = new ThreadCollisionTwoSeconds(player1, player2,this);
-							coll.run();
-						}
-					}
+			for (int j = i+1; j < players.size(); j++) {
+				PlayerBall player2 = players.get(j);
+				boolean eliminated= player1.checkCollision(player2);
+				if(eliminated) {
+					playersCounter--;
 				}
 			}
 		}
+
+		if(playersCounter <=1) {
+			this.setStatus(GAME_FINISHED);
+		}
 	}
-	
 	public void stopGamePlayer(int idPlayer) {
 		getPlayer(idPlayer).setPlaying(false);
 	}

@@ -89,7 +89,7 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 			
 			//HAY UN PROBLEMA CON ESTE IF
 			
-			if(player.isPlaying() == true) {
+			//if(player.isPlaying() == true) {
 				double x = player.getPosX();
 				double y = player.getPosY();
 				
@@ -105,7 +105,7 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 				g.setFont(font);
 	
 				g.drawString(player.getNickname(), xt, yt);
-			}
+		//	}
 		}
 	}
 
