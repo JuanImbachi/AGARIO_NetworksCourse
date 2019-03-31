@@ -24,7 +24,7 @@ public class GUI_principal extends JFrame {
 	private AgarIO agario;
 	private JFrame gameSpace;
 	private ThreadMovingPlayers movingPlayers;
-//	private ThreadCollisionPlayers collisionPlayers;
+	private ThreadCollisionPlayers collisionPlayers;
 	private ThreadRepaint repaint;
 	private boolean connectionResult;
 	private Gui_Game space;
@@ -81,8 +81,8 @@ public class GUI_principal extends JFrame {
 		
 		
 		initializeGameSpace();
-	//	collisionPlayers = new ThreadCollisionPlayers(this);
-	//	collisionPlayers.start();
+		collisionPlayers = new ThreadCollisionPlayers(this);
+		collisionPlayers.start();
 		movingPlayers = new ThreadMovingPlayers(player.getId(), this);
 		movingPlayers.start();
 		
@@ -103,13 +103,10 @@ public class GUI_principal extends JFrame {
 	public void repaintGame() {
 		space.setPlayers(agario.getPlayers());
 		space.setFoods( agario.getFoods());
-//		space.updateUI();
 		space.removeAll();
 		space.repaint();
 		space.revalidate();
-		
-		//space.revalidate();
-		//gameSpace.revalidate();
+	
 	}
 	public int getPosX() {
 		return space.getPosX();
@@ -279,14 +276,14 @@ public class GUI_principal extends JFrame {
 	}
 
 
-//	public ThreadCollisionPlayers getCollisionPlayers() {
-//		return collisionPlayers;
-//	}
-//
-//
-//	public void setCollisionPlayers(ThreadCollisionPlayers collisionPlayers) {
-//		this.collisionPlayers = collisionPlayers;
-//	}
+	public ThreadCollisionPlayers getCollisionPlayers() {
+		return collisionPlayers;
+	}
+
+
+	public void setCollisionPlayers(ThreadCollisionPlayers collisionPlayers) {
+		this.collisionPlayers = collisionPlayers;
+	}
 
 
 	public ThreadRepaint getRepaint() {

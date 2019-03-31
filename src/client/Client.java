@@ -136,12 +136,14 @@ public class Client {
 
 				boolean isPlaying = false;
 
+//				System.out.println("1==== CLIENT IS PLAYING: " +isPlaying);
 				
+//				System.out.println(player[3]);
 				if (player[3].equalsIgnoreCase("true")) {
 					isPlaying = true;
 					
 				}
-
+//				System.out.println("2===== CLIENT IS PLAYING: " +isPlaying);
 				int mass = Integer.parseInt(player[4]);
 				
 				if(isPlaying==false){

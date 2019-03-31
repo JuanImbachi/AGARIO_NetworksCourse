@@ -59,7 +59,7 @@ public class Server {
 	private AgarIO game;
 
 	// private ThreadGameTime threadGameTime;
-	private ThreadCollisionPlayers threadCollisionPlayers;
+	//private ThreadCollisionPlayers threadCollisionPlayers;
 
 	public Server() throws IOException {
 
@@ -149,8 +149,8 @@ public class Server {
 
 		runningGame = true;
 		// threadGameTime.start();
-		threadCollisionPlayers = new ThreadCollisionPlayers(this);
-		threadCollisionPlayers.start();
+		//threadCollisionPlayers = new ThreadCollisionPlayers(this);
+		//threadCollisionPlayers.start();
 		//
 		System.out.println("starts multicast");
 
@@ -231,7 +231,7 @@ public class Server {
 						+ mass;
 			}
 
-//			System.out.println("INFO GAME SERVER "+player);
+			System.out.println("INFO GAME SERVER "+player);
 			
 //			if(isPlaying.equals("false")){
 //				System.out.println("CAMBIA VALOR INFO GAME SERVER");

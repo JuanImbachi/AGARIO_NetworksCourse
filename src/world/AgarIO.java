@@ -195,6 +195,7 @@ public class AgarIO {
 	// }
 	// }
 	
+
 	public void playerEated(PlayerBall player1, PlayerBall player2){
 		for (int i = 0; i < players.size(); i++) {
 			if(players.get(i).getId()==player2.getId()){

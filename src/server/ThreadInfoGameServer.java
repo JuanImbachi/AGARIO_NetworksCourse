@@ -40,6 +40,8 @@ public class ThreadInfoGameServer extends Thread {
 				} else {
 					
 					String info = server.infoGame();
+					
+					
 
 					out.writeUTF(info);
 				
@@ -48,13 +50,8 @@ public class ThreadInfoGameServer extends Thread {
 
 				}
 
-//				Thread th = new Thread();
-//				th.start();
-//				th.sleep(100);
-				
-				//System.out.println("======== LLEGA");
 				String received = in.readUTF();
-				//System.out.println("======== PASA");
+		
 
 				String[] s1 = received.split(",");
 				String[] player = s1[0].split("/");
@@ -64,7 +61,6 @@ public class ThreadInfoGameServer extends Thread {
 				}
 
 				server.updateGame(player, food);
-				//System.out.println("===== Ciclo: "+i);
 				
 			}
 
