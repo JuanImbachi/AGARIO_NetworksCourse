@@ -27,7 +27,7 @@ public class Gui_finalTop extends JDialog {
 		setTitle("Icesi Games SA - AgarIO TOP PLAYERS");
 		setResizable(false);
 		
-		this.setMinimumSize(new Dimension(350, 200));
+		//this.setMinimumSize(new Dimension(350, 200));
 		setLayout(new BorderLayout());
 		
 		lblTitle = new JLabel("TOP PLAYERS");
@@ -70,7 +70,8 @@ public class Gui_finalTop extends JDialog {
 		add(p1, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
 //		setSize(new Dimension(500, 500));
-		pack();
+	//	pack();
+		setSize(new Dimension(350,160));
 	}
 
 }

@@ -86,12 +86,12 @@ public class DataBaseServer {
 
 			while (!cond) {
 				String info[] = in.readLine().split(",");
-				String theEmail = info[2];
-				String thePass = info[1];
+				String theEmail = decryptWord(info[2]);
+				String thePass = decryptWord(info[1]);
 				if (email.equals(theEmail) && pass.equals(thePass)) {
 
 					cond = true;
-					r = info[0];
+					r = decryptWord(info[0]);
 				}
 
 			}
@@ -105,7 +105,11 @@ public class DataBaseServer {
 	}
 
 	public String registerPlayer(String nick, String pass, String email) {
-		String information = nick + "," + pass + "," + email;
+		String newNick = encryptWord(nick);
+		String newPass = encryptWord(pass);
+		String newEmail = encryptWord(email);
+		
+		String information = newNick + "," + newPass + "," + newEmail;
 		try {
 
 			String r = null;
@@ -152,7 +156,7 @@ public class DataBaseServer {
 		return String.valueOf(array);
 	}
 
-	public static String dencryptWord(String word) {
+	public static String decryptWord(String word) {
 
 		char[] array = word.toCharArray();
 

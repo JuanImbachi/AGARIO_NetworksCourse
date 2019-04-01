@@ -59,6 +59,8 @@ public class Server {
 	private AgarIO game;
 
 	private ThreadGameTime threadGT;
+	
+	private int discClients;
 
 	// private ThreadGameTime threadGameTime;
 	// private ThreadCollisionPlayers threadCollisionPlayers;
@@ -66,7 +68,7 @@ public class Server {
 	public Server() throws IOException {
 
 		// socketsWithClients = new ArrayList<Socket>();
-
+		setDiscClients(0);
 		threadGT = new ThreadGameTime(this);
 
 		adminWindow = new AdminWindow(this);
@@ -498,6 +500,14 @@ public class Server {
 
 	public void setThreadGT(ThreadGameTime threadGT) {
 		this.threadGT = threadGT;
+	}
+
+	public int getDiscClients() {
+		return discClients;
+	}
+
+	public void setDiscClients(int discClients) {
+		this.discClients = discClients;
 	}
 
 	// public PlayerBall getPlayer(int id) {
