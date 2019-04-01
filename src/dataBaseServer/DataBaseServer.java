@@ -10,8 +10,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+
+import com.sun.net.ssl.internal.ssl.Provider;
 
 import server.Server;
 import server.ThreadWaitingClients;
@@ -33,17 +39,30 @@ public class DataBaseServer {
 
 	private int numberOfClients;
 
-	private ServerSocket serverSocket;
+//	private ServerSocket serverSocket;
 
 	private boolean waitingClients;
 
 	private Server server;
+	
+	private SSLServerSocket serverSocketSSL;
 
 	private ThreadWaitingClientsDB threadWC_DB;
 
 	public DataBaseServer(Server s) throws IOException {
+		
+
+		Security.addProvider(new Provider());
+		
+		System.setProperty("javax.net.ssl.keyStore", "myKeystore.jks");
+		System.setProperty("javax.net.ssl.keyStorePassword", "123456");
+//		System.setProperty("javax.net.debug", "all");
+		
+		SSLServerSocketFactory factory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+		setServerSocketSSL((SSLServerSocket) factory.createServerSocket(DB_PORT));
+		
 		numberOfClients = 0;
-		serverSocket = new ServerSocket(DB_PORT);
+//		serverSocket = new ServerSocket(DB_PORT);
 		threadWC_DB = new ThreadWaitingClientsDB(this);
 
 		server = s;
@@ -52,15 +71,15 @@ public class DataBaseServer {
 		threadWC_DB.start();
 	}
 
-	public ServerSocket getServerSocket() {
-		// holas
-
-		return serverSocket;
-	}
-
-	public void setServerSocket(ServerSocket serverSocket) {
-		this.serverSocket = serverSocket;
-	}
+//	public ServerSocket getServerSocket() {
+//		
+//
+//		return serverSocket;
+//	}
+//
+//	public void setServerSocket(ServerSocket serverSocket) {
+//		this.serverSocket = serverSocket;
+//	}
 
 	public boolean isWaitingClients() {
 		return waitingClients;
@@ -199,6 +218,14 @@ public class DataBaseServer {
 
 	public void setNumberOfClients(int numberOfClients) {
 		this.numberOfClients = numberOfClients;
+	}
+
+	public SSLServerSocket getServerSocketSSL() {
+		return serverSocketSSL;
+	}
+
+	public void setServerSocketSSL(SSLServerSocket serverSocketSSL) {
+		this.serverSocketSSL = serverSocketSSL;
 	}
 
 }

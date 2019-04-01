@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.security.Provider;
+import java.security.Security;
 
 import javax.net.ssl.SSLSocket;
 
@@ -17,6 +19,7 @@ public class ThreadWaitingClientsDB extends Thread {
 	public ThreadWaitingClientsDB(DataBaseServer s) {
 		serverDB = s;
 
+		
 	}
 
 	@Override
@@ -24,8 +27,9 @@ public class ThreadWaitingClientsDB extends Thread {
 		try {
 			while (serverDB.isWaitingClients()) {
 				
+				
 
-				Socket socket = serverDB.getServerSocket().accept();
+				SSLSocket socket =(SSLSocket) serverDB.getServerSocketSSL().accept();
 				
 				
 

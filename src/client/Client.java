@@ -12,10 +12,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.MulticastSocket;
 import java.net.Socket;
+import java.security.Security;
 
 //import Cliente.HiloAtentoAlMulticast;
 
 import java.util.ArrayList;
+
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
+import com.sun.net.ssl.internal.ssl.Provider;
 
 import dataBaseServer.DataBaseServer;
 import server.Server;
@@ -30,7 +37,7 @@ public class Client {
 
 	private String IpServer;
 
-	private Socket clientConnectionDB;
+	private SSLSocket clientConnectionDB;
 
 	private Socket clientConnectionServer;
 
@@ -60,6 +67,13 @@ public class Client {
 
 
 	public Client(GUI_principal theGui) throws IOException {
+		
+		Security.addProvider(new Provider());
+		
+		System.setProperty("javax.net.ssl.trustStore", "myTrustStore.jts");
+		System.setProperty("javax.net.ssl.trustStorePassword", "123456");
+//		System.setProperty("javax.net.debug", "all");
+		
 		gui = theGui;
 
 		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
@@ -173,8 +187,10 @@ public class Client {
 
 		try {
 
-			clientConnectionDB = new Socket(Server.IP_SERVER,
-					DataBaseServer.DB_PORT);
+			SSLSocketFactory factory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+			
+			clientConnectionDB = (SSLSocket)factory.createSocket(Server.IP_SERVER, DataBaseServer.DB_PORT);
+			
 			DataInputStream in = new DataInputStream(
 					clientConnectionDB.getInputStream());
 			DataOutputStream out = new DataOutputStream(
@@ -291,13 +307,13 @@ public class Client {
 
 
 
-	public Socket getClientConnectionDB() {
-		return clientConnectionDB;
-	}
-
-	public void setClientConnectionDB(Socket clientConnectionDB) {
-		this.clientConnectionDB = clientConnectionDB;
-	}
+//	public Socket getClientConnectionDB() {
+//		return clientConnectionDB;
+//	}
+//
+//	public void setClientConnectionDB(Socket clientConnectionDB) {
+//		this.clientConnectionDB = clientConnectionDB;
+//	}
 
 	public Socket getClientConnectionServer() {
 		return clientConnectionServer;
