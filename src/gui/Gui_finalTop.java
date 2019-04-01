@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,7 +50,10 @@ public class Gui_finalTop extends JDialog {
 			}
 		}
 		
-		String[] nameColumns = {"  Position","  Nickname", "  Score"};
+		String[] nameColumns = new String[3];
+		nameColumns[0]="   POSITION";
+		nameColumns[1]="   NICKNAME";
+		nameColumns[2]="   SCORE";
 		DefaultTableModel dtm = new DefaultTableModel(data,nameColumns){
 			 @Override
 			public boolean isCellEditable(int row, int column) {
@@ -58,12 +62,13 @@ public class Gui_finalTop extends JDialog {
 		 };
 		jtResults = new JTable(dtm);
 		
+		JScrollPane scroll = new JScrollPane(jtResults);
 		JPanel p1= new JPanel();
 		p1.setLayout(new FlowLayout());
 		p1.add(lblTitle);
 		
 		add(p1, BorderLayout.NORTH);
-		add(jtResults, BorderLayout.CENTER);
+		add(scroll, BorderLayout.CENTER);
 //		setSize(new Dimension(500, 500));
 		pack();
 	}
