@@ -83,7 +83,7 @@ public class ThreadInfoGameServer extends Thread {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+//			e.printStackTrace();
 
 		}
 

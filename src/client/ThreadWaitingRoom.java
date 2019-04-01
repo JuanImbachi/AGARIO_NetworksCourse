@@ -55,7 +55,10 @@ public class ThreadWaitingRoom extends Thread {
 			
 
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			client.getGui().getJdWaitingRoom().dispose();
+			client.getGui().dispose();
+			
 		}
 
 	}

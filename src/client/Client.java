@@ -33,9 +33,10 @@ import world.PlayerBall;
 public class Client {
 
 	public static final int PORT_TCP = 3425;
-	public static final String IP_MULTICAST = "229.5.6.7";
+	
 
 	private String IpServer;
+	
 
 	private SSLSocket clientConnectionDB;
 
@@ -76,8 +77,7 @@ public class Client {
 		
 		gui = theGui;
 
-		clientSocket = new Socket(Server.IP_SERVER, Server.PORT_WR);
-		gameSocket = new Socket(Server.IP_SERVER, Server.PORT_INFO);
+		
 		eatenBalls = new ArrayList<Integer>();
 
 
@@ -189,7 +189,7 @@ public class Client {
 
 			SSLSocketFactory factory = (SSLSocketFactory)SSLSocketFactory.getDefault();
 			
-			clientConnectionDB = (SSLSocket)factory.createSocket(Server.IP_SERVER, DataBaseServer.DB_PORT);
+			clientConnectionDB = (SSLSocket)factory.createSocket(IpServer, DataBaseServer.DB_PORT);
 			
 			DataInputStream in = new DataInputStream(
 					clientConnectionDB.getInputStream());
@@ -224,7 +224,7 @@ public class Client {
 
 		try {
 
-			clientConnectionServer = new Socket(Server.IP_SERVER, Server.PORT);
+			clientConnectionServer = new Socket(IpServer, Server.PORT);
 			DataInputStream in = new DataInputStream(
 					clientConnectionServer.getInputStream());
 			DataOutputStream out = new DataOutputStream(
@@ -401,6 +401,20 @@ public class Client {
 		
 		gui.finishGame();
 		startedGame=false;
+		
+	}
+
+	public boolean stablishConnection(String ip) {
+		try {
+			
+			clientSocket = new Socket(ip, Server.PORT_WR);
+			gameSocket = new Socket(ip, Server.PORT_INFO);
+			IpServer=ip;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
 		
 	}
 

@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import client.Client;
@@ -24,7 +25,9 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 	
 	private JLabel lblTitle, lblEmail, lblPassword;
 	
-	private JTextField txtEmail, txtPassword;
+	private JTextField txtEmail;
+	
+	private JPasswordField txtPassword;
 	
 	private JButton btnLogIn;
 	
@@ -32,6 +35,8 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 	
 	
 	public Gui_LogIn(GUI_principal principal) {
+		
+		setResizable(false);
 		
 		this.principal = principal;
 		setTitle("Icesi Games SA - AgarIO");
@@ -52,7 +57,7 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 		lblPassword.setHorizontalAlignment(JLabel.CENTER);
 		
 		txtEmail = new JTextField();
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		
 		btnLogIn = new JButton(LOG_IN);
 		btnLogIn.setActionCommand(LOG_IN);
@@ -141,7 +146,7 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 
 
 
-	public void setTxtPassword(JTextField txtPassword) {
+	public void setTxtPassword(JPasswordField txtPassword) {
 		this.txtPassword = txtPassword;
 	}
 

@@ -87,7 +87,11 @@ public class ThreadInfoGameClient extends Thread {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			
+			client.getGui().shutDown();
+			
+			
 		}
 	}
 

@@ -21,6 +21,8 @@ public class Gui_IP extends JDialog implements ActionListener{
 	
 	public Gui_IP(GUI_principal principal) {
 		
+		setResizable(false);
+		
 		this.principal = principal;
 		setTitle("Icesi Games SA - AgarIO");
 		setResizable(false);
@@ -74,10 +76,13 @@ public class Gui_IP extends JDialog implements ActionListener{
 				throw new Exception();
 			}
 			if(command.equals(CONNECT)) {
-				this.setVisible(false);
-				btnConnect.setEnabled(false);
-				principal.connectServer(ip);
-				btnConnect.setEnabled(true);
+//				JOptionPane.showMessageDialog(this, "CONNECTING TO SERVER...");
+//				btnConnect.setEnabled(false);
+				boolean result = principal.connectServer(ip);
+				if(result==true){
+					this.setVisible(false);
+				}
+//				btnConnect.setEnabled(true);
 
 			}
 		}catch(Exception ex) {

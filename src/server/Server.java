@@ -15,8 +15,7 @@ import dataBaseServer.DataBaseServer;
 
 public class Server {
 
-	// public final static String IP_SERVER="172.30.179.30";
-	public final static String IP_SERVER = "192.168.1.21";
+//	public final static String IP_SERVER = "localhost";
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
@@ -24,9 +23,7 @@ public class Server {
 
 	public final static String START_GAME = "Start game";
 
-	// private Socket socket;
 
-	// private ArrayList<Socket> socketsWithClients;
 
 	private ServerSocket SsocketInfo;
 
@@ -62,12 +59,9 @@ public class Server {
 	
 	private int discClients;
 
-	// private ThreadGameTime threadGameTime;
-	// private ThreadCollisionPlayers threadCollisionPlayers;
 
 	public Server() throws IOException {
 
-		// socketsWithClients = new ArrayList<Socket>();
 		setDiscClients(0);
 		threadGT = new ThreadGameTime(this);
 
@@ -85,12 +79,10 @@ public class Server {
 
 		threadWC = new ThreadWaitingClients(this);
 		waitingClients = true;
-		// threadWC.start();
 		timer = new ThreadTimer(this);
 		threadSIWR = new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
 
-		// threadGameTime = new ThreadGameTime(this);
 
 		serverSocketGame = new ServerSocket(PORT_INFO);
 	}
@@ -115,9 +107,6 @@ public class Server {
 
 	}
 
-	// public void addActiveSocket(Socket s) {
-	// socketsWithClients.add(s);
-	// }
 
 	public void activateBtnWindow() {
 		if (!adminWindow.btnEnabled()) {
@@ -157,10 +146,7 @@ public class Server {
 
 		threadGT.start();
 
-		// threadGameTime.start();
-		// threadCollisionPlayers = new ThreadCollisionPlayers(this);
-		// threadCollisionPlayers.start();
-		//
+
 		System.out.println("starts multicast");
 
 		ArrayThreadIGS = new ArrayList<ThreadInfoGameServer>();
@@ -240,11 +226,7 @@ public class Server {
 						+ mass;
 			}
 
-			// System.out.println("INFO GAME SERVER "+player);
 
-			// if(isPlaying.equals("false")){
-			// System.out.println("CAMBIA VALOR INFO GAME SERVER");
-			// }
 
 			message += player;
 		}
@@ -253,7 +235,6 @@ public class Server {
 
 		ArrayList<Ball> food = game.getFoods();
 
-		// System.out.println(food.size()+"   .............");
 
 		for (int i = 0; i < food.size(); i++) {
 
@@ -319,48 +300,11 @@ public class Server {
 		try {
 			Server serv = new Server();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
-		// try {
-		//
-		// System.out.println("::Servidor en línea, esperando conexión::");
-		//
-		//
-		// while(true) {
-		// String salida="";
-		// socket = serverSocket.accept();
-		//
-		// System.out.println("Conexión iniciada");
-		// try {
-		// while(!salida.equals("desconectar")) {
-		// in = new DataInputStream(socket.getInputStream());
-		// out = new DataOutputStream(socket.getOutputStream());
-		// String mensajeObtenidoCliente = in.readUTF();
-		// System.out.println("=================" + mensajeObtenidoCliente);
-		// String respuestaServer = "::Bienvenido::";
-		// out.writeUTF(respuestaServer);
-		// salida=mensajeObtenidoCliente;
-		// }
-		// out = new DataOutputStream(socket.getOutputStream());
-		//
-		// out.writeUTF("Se ha desconectado exitosamente");
-		// }catch (Exception e) {
-		// // TODO: handle exception
-		// System.out.println("::Cliente desconectado::");
-		//
-		// }
-		// socket.close();
-		// System.out.println("::Cliente desconectado::");
-		//
-		// }
-		//
-		//
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+
 
 	}
 
@@ -380,14 +324,7 @@ public class Server {
 		this.threadWC = threadWC;
 	}
 
-	// public Socket getSocket() {
-	// return socket;
-	// }
-	//
-	//
-	// public void setSocket(Socket socket) {
-	// this.socket = socket;
-	// }
+
 
 	public ServerSocket getServerSocket() {
 		return serverSocket;
@@ -510,25 +447,6 @@ public class Server {
 		this.discClients = discClients;
 	}
 
-	// public PlayerBall getPlayer(int id) {
-	//
-	// return game.getPlayer(id);
-	// }
-	//
-	// public void stopGamePlayer(int id) {
-	// game.stopGamePlayer(id);
-	//
-	// }
-	//
-	// public void increaseMassPlayer(PlayerBall player1, PlayerBall player2) {
-	// game.increaseMassPlayer(player1, player2);
-	//
-	// }
-	//
-	// public void decreasePlayerCounter() {
-	// numberOfClients--;
-	// game.setPlayersCounter(numberOfClients);
-	//
-	// }
+
 
 }

@@ -32,6 +32,8 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 
 	public Gui_Game(ArrayList<PlayerBall> players, ArrayList<Ball> foods,
 			GUI_principal principal) {
+		
+		
 		// TODO Auto-generated constructor stub
 		this.players = players;
 		this.foods = foods;

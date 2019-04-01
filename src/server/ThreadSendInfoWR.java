@@ -54,14 +54,7 @@ public class ThreadSendInfoWR extends Thread {
 				
 				
 			}
-//			server.addActiveSocket(socketInfo);
-			
-			
-//			if(server.isRunningGame()==false) {
-//			  
-//				server.startMulticast();
-//				System.out.println("enters");
-//			}
+
 			
 			
 			
@@ -75,7 +68,6 @@ public class ThreadSendInfoWR extends Thread {
 			
 			
 		} catch (Exception e) {
-//			e.printStackTrace();
 		}
 
 	}

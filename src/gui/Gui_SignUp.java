@@ -29,6 +29,8 @@ public class Gui_SignUp extends JDialog implements ActionListener{
 	
 	public Gui_SignUp(GUI_principal principal) {
 		
+		setResizable(false);
+		
 		this.principal = principal;
 		setTitle("Icesi Games SA - AgarIO");
 		setResizable(false);

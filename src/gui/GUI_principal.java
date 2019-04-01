@@ -33,7 +33,7 @@ public class GUI_principal extends JFrame {
 	private Client player;
 
 	public GUI_principal() throws IOException {
-		// Font normal = new Font("Arial", Font.BOLD, 14);
+
 		
 
 		player = new Client(this);
@@ -50,9 +50,7 @@ public class GUI_principal extends JFrame {
 		jdIp = new Gui_IP(this);
 		jdIp.setVisible(true);
 		
-//		System.out.println("inicializa client");
-//		threadPrueba th = new threadPrueba(this);
-//		th.start();
+
 
 	}
 	
@@ -60,7 +58,7 @@ public class GUI_principal extends JFrame {
 	public void initializeGameSpace() {
 		
 		Dimension d = new Dimension(AgarIO.GAME_WIDTH, AgarIO.GAME_HEIGHT);
-//		System.out.println(agario.getPlayers().get(0).getPosX()+"  "+agario.getPlayers().get(0).getPosY());
+
 		space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
 		 
 		gameSpace = new JFrame("Icesi Games SA - AgarIO");
@@ -79,9 +77,9 @@ public class GUI_principal extends JFrame {
 	}
 	
 	public void finishGame(){
-//		space.removeAll();
+
 		agario.setStatus(AgarIO.GAME_FINISHED);
-//		space.setVisible(false);
+
 		gameSpace.dispose();
 		space.setVisible(false);
 		
@@ -171,9 +169,7 @@ public class GUI_principal extends JFrame {
 	}
 
 	public void oldPlayer(String email, String password) throws IOException {
-//		if(player==null){
-//			System.out.println("es null");
-//		}
+
 		player.loginPlayer(email, password);
 	}
 
@@ -181,14 +177,17 @@ public class GUI_principal extends JFrame {
 		player.registerPlayer(email, password, nickname);
 	}
 
-	public void connectServer(String ip) {
-		// intenta conectarse al server
-		// en caso de que pueda conectar, hace dispose() del JDialog ip y llama a
-		// firstPanel()
-		// caso contrario, vuelve a mostrarlo para que re ingrese la ip
+	public boolean connectServer(String ip) {
 
-		jdIp.dispose();
-		firstPanel();
+		if(!player.stablishConnection(ip)){
+			JOptionPane.showMessageDialog(this, "WRONG IP", "ERROR IP", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}else{
+			jdIp.dispose();
+			firstPanel();
+			return true;
+		}
+		
 	}
 
 	public void goToWaitingRoom() {
@@ -233,8 +232,7 @@ public class GUI_principal extends JFrame {
 	}
 
 	public void checkCollisionPlayerFood(int idPlayer) {
-		//Revisar, estaba recibiendo pos en la lista, pero debe 
-		//recibir identificador de la ball
+
 		int n = agario.checkCollisionPlayerFood(idPlayer);
 		if (n != -1) {
 			player.getEatenBalls().add(n);
@@ -359,8 +357,7 @@ public class GUI_principal extends JFrame {
 
 		} catch (IOException e) {
 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 	}
@@ -369,6 +366,13 @@ public class GUI_principal extends JFrame {
 	public void showDeath() {
 		JOptionPane.showMessageDialog(this, "YOU'VE BEEN ELIMINATED :C", "YOU LOSE", JOptionPane.ERROR_MESSAGE );
 		
+	}
+
+
+	public void shutDown() {
+		gameSpace.dispose();
+		space.setVisible(false);
+		this.dispose();
 	}
 
 }
