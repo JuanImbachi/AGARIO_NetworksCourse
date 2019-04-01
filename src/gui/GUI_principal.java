@@ -102,7 +102,6 @@ public class GUI_principal extends JFrame {
 		
 		
 		jdFt.setLocationRelativeTo(null);
-//		jdFt.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		jdFt.setVisible(true);
 		
 		

@@ -46,7 +46,7 @@ public class ThreadInfoGameServer extends Thread {
 				} else if (server.getGame().getStatus()
 						.equals(AgarIO.GAME_FINISHED)) {
 
-					System.out.println("ENVIA FINAL");
+				
 
 					out.writeUTF("#end#");
 					server.setRunningGame(false);

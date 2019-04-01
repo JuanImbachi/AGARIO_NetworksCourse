@@ -425,7 +425,7 @@ public class Server {
 
 	public void stopGame() {
 
-		System.out.println("CAMBIA STATUS AGAR");
+		
 
 		game.setStatus(AgarIO.GAME_FINISHED);
 

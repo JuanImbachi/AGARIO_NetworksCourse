@@ -131,15 +131,15 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 	private void paintTop(ArrayList<PlayerBall> playersTop, Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
-		g.drawString("TOP PLAYERS", (int) this.getWidth() - 150, 30);
-		g.drawString("-----------------------", (int) this.getWidth() - 150, 40);
+		g.drawString("TOP PLAYERS", (int) this.getWidth() - 170, 30);
+		g.drawString("---------------------------", (int) this.getWidth() - 180, 40);
 		int i = 30;
 		int pos = 1;
 		for (PlayerBall p : playersTop) {
 			i += 20;
 			g.setFont(new Font("Century Schoolbook", Font.BOLD, 12));
-			g.drawString(pos + ". " + p.getNickname() + ':',
-					(int) this.getWidth() - 150, i);
+			g.drawString(pos + ". " + p.getNickname() ,
+					(int) this.getWidth() - 180, i);
 			g.drawString(p.getMass() + "", (int) this.getWidth() - 75, i);
 			pos += 1;
 		}

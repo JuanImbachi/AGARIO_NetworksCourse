@@ -61,7 +61,6 @@ public class Client {
 
 	private Socket gameSocket;
 
-	private MulticastSocket mcSocket;
 
 	private ArrayList<Integer> eatenBalls;
 
@@ -73,7 +72,7 @@ public class Client {
 		
 		System.setProperty("javax.net.ssl.trustStore", "myTrustStore.jts");
 		System.setProperty("javax.net.ssl.trustStorePassword", "123456");
-//		System.setProperty("javax.net.debug", "all");
+
 		
 		gui = theGui;
 
@@ -297,23 +296,9 @@ public class Client {
 		this.clientSocket = clientSocket;
 	}
 
-	public MulticastSocket getMcSocket() {
-		return mcSocket;
-	}
-
-	public void setMcSocket(MulticastSocket mcSocket) {
-		this.mcSocket = mcSocket;
-	}
 
 
 
-//	public Socket getClientConnectionDB() {
-//		return clientConnectionDB;
-//	}
-//
-//	public void setClientConnectionDB(Socket clientConnectionDB) {
-//		this.clientConnectionDB = clientConnectionDB;
-//	}
 
 	public Socket getClientConnectionServer() {
 		return clientConnectionServer;
@@ -392,7 +377,7 @@ public class Client {
 		}
 
 		gui.initializeWorld(p1, b);
-		System.out.println("CLIENT game started");
+		
 
 
 	}

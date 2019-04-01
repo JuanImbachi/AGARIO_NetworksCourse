@@ -55,13 +55,12 @@ public class DataBaseServer {
 		
 		System.setProperty("javax.net.ssl.keyStore", "myKeystore.jks");
 		System.setProperty("javax.net.ssl.keyStorePassword", "123456");
-//		System.setProperty("javax.net.debug", "all");
+
 		
 		SSLServerSocketFactory factory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
 		setServerSocketSSL((SSLServerSocket) factory.createServerSocket(DB_PORT));
 		
 		numberOfClients = 0;
-//		serverSocket = new ServerSocket(DB_PORT);
 		threadWC_DB = new ThreadWaitingClientsDB(this);
 
 		server = s;
@@ -70,15 +69,7 @@ public class DataBaseServer {
 		threadWC_DB.start();
 	}
 
-//	public ServerSocket getServerSocket() {
-//		
-//
-//		return serverSocket;
-//	}
-//
-//	public void setServerSocket(ServerSocket serverSocket) {
-//		this.serverSocket = serverSocket;
-//	}
+
 
 	public boolean isWaitingClients() {
 		return waitingClients;
@@ -156,7 +147,7 @@ public class DataBaseServer {
 			return r;
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			return null;
 		}
 	}

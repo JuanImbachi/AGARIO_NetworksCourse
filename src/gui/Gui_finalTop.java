@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import world.PlayerBall;
@@ -26,7 +28,7 @@ public class Gui_finalTop extends JDialog {
 		setResizable(false);
 		
 		
-		setTitle("Icesi Games SA - AgarIO TOP PLAYERS");
+		setTitle("Icesi Games SA - AgarIO");
 		setResizable(false);
 		
 		//this.setMinimumSize(new Dimension(350, 200));
@@ -63,6 +65,7 @@ public class Gui_finalTop extends JDialog {
 			}
 		 };
 		jtResults = new JTable(dtm);
+		
 		
 		JScrollPane scroll = new JScrollPane(jtResults);
 		JPanel p1= new JPanel();

@@ -186,6 +186,7 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 			
 			if(email.trim().isEmpty()|| password.trim().isEmpty()) {
 				throw new Exception();
+				
 			}
 			if(command.equals(LOG_IN)) {
 				principal.oldPlayer(email, password);
@@ -196,7 +197,7 @@ public class Gui_LogIn extends JDialog implements ActionListener {
 			}
 		}catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, "Complete all the information","Error", JOptionPane.ERROR_MESSAGE );
-		    ex.printStackTrace();
+//		    ex.printStackTrace();
 		}
 	}
 
