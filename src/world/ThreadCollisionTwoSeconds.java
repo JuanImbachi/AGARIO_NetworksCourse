@@ -3,7 +3,7 @@ package world;
 import server.Server;
 
 public class ThreadCollisionTwoSeconds extends Thread {
-
+	private static long TIME_MAX=1000;
 	private static long TIME = 1;
 	private PlayerBall player1, player2;
 	private double millis;
@@ -22,7 +22,7 @@ public class ThreadCollisionTwoSeconds extends Thread {
 	@Override
 	public void run() {
 		
-		while (millis < 2000 && eated) {
+		while (millis < TIME_MAX && eated) {
 	
 
 			
@@ -44,7 +44,7 @@ public class ThreadCollisionTwoSeconds extends Thread {
 		}
 
 		
-		if(millis == 2000.0 && eated == true) {
+		if(millis == TIME_MAX && eated == true) {
 			
 		
 			game.getPlayer(player1.getId()).setValidating(false);

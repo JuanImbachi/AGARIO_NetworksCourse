@@ -24,10 +24,10 @@ import server.ThreadWaitingClients;
 
 public class DataBaseServer {
 
-	public final static String CONF_ACCESS = "acces_confirmed";
-	public final static String DENIED_ACCESS = "acces_denied";
-	public final static String PLAYER_SAVED = "player_saved";
-	public final static String PLAYER_NOTSAVED = "player_notsaved";
+	public final static String CONF_ACCESS = "Access granted";
+	public final static String DENIED_ACCESS = "Access denied";
+	public final static String PLAYER_SAVED = "Player saved";
+	public final static String PLAYER_NOTSAVED = "Player not saved";
 
 	public final static String REGISTER_DB = "register_DB";
 
@@ -39,7 +39,6 @@ public class DataBaseServer {
 
 	private int numberOfClients;
 
-//	private ServerSocket serverSocket;
 
 	private boolean waitingClients;
 
