@@ -28,7 +28,7 @@ public class ThreadReceiveMusic extends Thread {
 		System.out.println("UDP Multicast Time Client Started");
 		try {
 			
-			Thread.sleep(100);
+			Thread.sleep(500);
 			
 			DatagramSocket socketMusic = new DatagramSocket(); // asigna un puerto aleatoriamente
 
@@ -36,14 +36,6 @@ public class ThreadReceiveMusic extends Thread {
 			InetAddress adressServer = InetAddress.getByName(client.getIpServer());
 			DatagramPacket firstPakcet = new DatagramPacket(firstData,firstData.length, adressServer, Server.PORT_MUSIC);
 			socketMusic.send(firstPakcet);
-
-//			byte[] data = new byte[21];
-//			DatagramPacket packet = new DatagramPacket(data, data.length);
-//			socketMusic.receive(packet);
-//			String message = new String(packet.getData());
-//			System.out.println(" Message: [" + message + "]");
-			
-			
 			
 			int packetsize = 1024;
 			FileOutputStream fos = null;
@@ -59,7 +51,7 @@ public class ThreadReceiveMusic extends Thread {
 
 				socketMusic.receive(receivePacket);
 				byte audioData[] = receivePacket.getData();
-//				System.out.println("Packet:" + (i + 1));
+				System.out.println("Packet:" + (i + 1));
 				bos.write(audioData, 0, audioData.length);
 			}
 			
