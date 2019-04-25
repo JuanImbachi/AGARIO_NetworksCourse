@@ -41,8 +41,7 @@ public class ThreadMovingPlayers extends Thread{
 	    			}
 					Thread.sleep(TIME);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 	    		
 	    	}
@@ -51,29 +50,13 @@ public class ThreadMovingPlayers extends Thread{
 	  
 	
 	 private void updatePositionMouse(){
-//		 Point mouse = MouseInfo.getPointerInfo().getLocation();
-		// Point mouse = new Point(principal.getPosX(),principal.getPosY());
 		 
 		 this.posXfinal = principal.getPosX();
 		 this.posYfinal = principal.getPosY();
 		 
 		 
 		 
-		// this.posXfinal = mouse.x - window.x;
-		// this.posYfinal = mouse.y - window.y;
-//		 System.out.println("XMOVIMING " + posXfinal + "YMOVING "+posYfinal);
 	 }
-
-
-
-	 
-
-
-	
-
-	
-
-
 
 
 

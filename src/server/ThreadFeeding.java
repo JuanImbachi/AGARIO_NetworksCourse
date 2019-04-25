@@ -18,7 +18,7 @@ public class ThreadFeeding extends Thread{
 				
 				Thread.sleep(TIME_FEED);
 			}catch(Exception e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 	}

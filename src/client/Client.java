@@ -34,6 +34,10 @@ public class Client {
 
 	public static final int PORT_TCP = 3425;
 	
+	public static final String MUSIC_ROOT = "gameMusic.wav";
+	
+	public static final int MUSIC_SIZE = 41009;
+	
 
 	private String IpServer;
 	
@@ -50,6 +54,7 @@ public class Client {
 
 	private ThreadInfoGameClient threadIGC;
 
+	private ThreadReceiveMusic threadRM;
 
 	private String nickname;
 
@@ -120,6 +125,12 @@ public class Client {
 		threadIGC = new ThreadInfoGameClient(this);
 
 		threadIGC.start();
+		
+		//THREAD RECEIVE MUSIC ESTA AQUIIII---------------------
+		
+		threadRM = new ThreadReceiveMusic(this);
+		
+		threadRM.start();
 
 	}
 
@@ -142,8 +153,7 @@ public class Client {
 				}
 
 				int mass = Integer.parseInt(player[4]);
-				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);
-//				gui.getSpace().setPlayers(gui.getAgario().getPlayers());		
+				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);	
 			}else{
 				
 				String[] player = players[i].split("/");
@@ -152,14 +162,10 @@ public class Client {
 
 				boolean isPlaying = false;
 
-//				System.out.println("1==== CLIENT IS PLAYING: " +isPlaying);
-				
-//				System.out.println(player[3]);
 				if (player[3].equalsIgnoreCase("true")) {
 					isPlaying = true;
 					
 				}
-//				System.out.println("2===== CLIENT IS PLAYING: " +isPlaying);
 				int mass = Integer.parseInt(player[4]);
 				
 				if(isPlaying==false){

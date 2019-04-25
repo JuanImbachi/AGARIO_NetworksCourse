@@ -2,34 +2,7 @@ package gui;
 
 import world.AgarIO;
 
-//
-//import world.AgarIO;
-//
-//public class ThreadCollisionPlayers extends Thread{
-//
-//	private static final int TIME = 10;
-//	private Server server;
-//	
-//	public ThreadCollisionPlayers(Server game) {
-//		
-//		this.server = game;
-//	}
-//
-//	public void run() {
-//		while(server.getGame().getStatus().equals(AgarIO.PLAYING)) {			
-////			try {
-//				server.checkCollisionPlayers();
-//				
-//				if(server.getGame().getPlayersCounter() <=1) {
-//					server.getGame().setStatus(AgarIO.GAME_FINISHED);
-//				}
-////				Thread.sleep(TIME);
-////			} catch (InterruptedException e) {
-////				e.printStackTrace();
-////			}
-//		}
-//	}
-//}
+
 
 
 public class ThreadCollisionPlayers extends Thread{

@@ -19,6 +19,7 @@ public class Server {
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
+	public final static int PORT_MUSIC = 50000;
 	public final static String CONNECTED_CLIENT = "connected_client";
 
 	public final static String START_GAME = "Start game";
@@ -58,6 +59,8 @@ public class Server {
 	private ThreadGameTime threadGT;
 	
 	private int discClients;
+	
+	private ThreadSendMusic threadSM;
 
 
 	public Server() throws IOException {
@@ -83,6 +86,8 @@ public class Server {
 		threadSIWR = new ArrayList<ThreadSendInfoWR>();
 		dbServer = new DataBaseServer(this);
 
+		threadSM = new ThreadSendMusic(this);
+		
 
 		serverSocketGame = new ServerSocket(PORT_INFO);
 	}
@@ -156,6 +161,10 @@ public class Server {
 			th.start();
 			ArrayThreadIGS.add(th);
 		}
+		
+		//THREAD MUSIC ESTA AQUI-------------------------------------------
+		
+		threadSM.start();
 
 	}
 
