@@ -87,7 +87,8 @@ public class Server {
 		dbServer = new DataBaseServer(this);
 
 		threadSM = new ThreadSendMusic(this);
-		
+		//THREAD MUSIC ESTA AQUI-------------------------------------------
+		threadSM.start();
 
 		serverSocketGame = new ServerSocket(PORT_INFO);
 	}
@@ -162,9 +163,7 @@ public class Server {
 			ArrayThreadIGS.add(th);
 		}
 		
-		//THREAD MUSIC ESTA AQUI-------------------------------------------
 		
-		threadSM.start();
 
 	}
 

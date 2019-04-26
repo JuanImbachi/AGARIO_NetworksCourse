@@ -35,7 +35,7 @@ public class ThreadSendSongToClient extends Thread {
 	
 	public void send(InetAddress clientAddress,int clientPort) throws IOException, InterruptedException {
 		System.out.println("THREAD SEND SONG TO CLIENT");
-		File myFile = new File("Music/elektromania.wav");
+		File myFile = new File("Music/StarParty.wav");
 		DatagramSocket ds = null;
 		BufferedInputStream bis = null;
 		try {
@@ -49,7 +49,7 @@ public class ThreadSendSongToClient extends Thread {
 			for (double i = 0; i < nosofpackets + 1; i++) {
 				byte[] mybytearray = new byte[packetsize];
 				bis.read(mybytearray, 0, mybytearray.length);
-//				System.out.println("Packet:" + (i + 1));
+				System.out.println("Packet:" + (i + 1));
 				dp = new DatagramPacket(mybytearray, mybytearray.length,clientAddress ,clientPort);
 				ds.send(dp);
 			}

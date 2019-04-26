@@ -33,17 +33,11 @@ public class ThreadSendMusic extends Thread{
 				
 				
 				DatagramPacket firstPacket = new DatagramPacket(data, data.length);
-				System.out.println("ANTES");
+				
 				socketMusic.receive(firstPacket);
-				System.out.println("DESPUES");
+				
 				int clientPort = firstPacket.getPort();
 				InetAddress clientAddress = firstPacket.getAddress();
-				
-//				String message =  "HELLO FROM THE SERVER";
-//				System.out.println("Sending: [" + message + "]");
-//				data =  message.getBytes();
-//				packet =  new DatagramPacket(data, data.length, adress, clientPort);			
-//				socketMusic.send(packet);
 				
 				
 				
