@@ -20,6 +20,7 @@ public class Server {
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
 	public final static int PORT_MUSIC = 50000;
+	public final static int PORT_CHAT = 46567;
 	public final static String CONNECTED_CLIENT = "connected_client";
 
 	public final static String START_GAME = "Start game";
@@ -61,8 +62,26 @@ public class Server {
 	private int discClients;
 	
 	private ThreadSendMusic threadSM;
+	
+	private ServerSocket serverSocketChat;
 
+	private boolean runningChatService;
+	
+	private ThreadChatMulticast threadCM;
+	
+	private ThreadUsersMessages threadUM;
+	
+	private ThreadUsersMessagesHandler ThreadUMH;
 
+	private ArrayList<String> messages;
+	
+	private ArrayList<String> users;
+
+	private ArrayList<Socket> chatSockets;
+	
+	private boolean sendMulticast;
+
+	
 	public Server() throws IOException {
 
 		setDiscClients(0);
@@ -91,6 +110,29 @@ public class Server {
 		threadSM.start();
 
 		serverSocketGame = new ServerSocket(PORT_INFO);
+		setChatSockets(new ArrayList<Socket>());
+	}
+	
+	public void startChatService() {
+		try {
+			
+			setServerSocketChat(new ServerSocket(PORT_CHAT));
+			runningChatService = true;
+			
+			threadCM = new ThreadChatMulticast(this);
+			threadCM.start();
+			
+			threadUM = new ThreadUsersMessages(this);
+			threadUM.start();
+			
+			sendMulticast = false;
+
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void updateGame(String[] player, String[] food) {
@@ -455,6 +497,84 @@ public class Server {
 		this.discClients = discClients;
 	}
 
+	public ServerSocket getServerSocketChat() {
+		return serverSocketChat;
+	}
+
+	public void setServerSocketChat(ServerSocket serverSocketChat) {
+		this.serverSocketChat = serverSocketChat;
+	}
+
+	public boolean isRunningChatService() {
+		return runningChatService;
+	}
+
+	public void setRunningChatService(boolean runningChatService) {
+		this.runningChatService = runningChatService;
+	}
+
+	public ArrayList<String> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(ArrayList<String> messages) {
+		this.messages = messages;
+	}
+	
+	public void eraseMessages() {
+		
+		messages = new ArrayList<String>();
+		
+	}
+
+
+	public void newMessage(String userMessage) {
+		
+		messages.add(userMessage);
+		
+	}
+
+	public ArrayList<Socket> getChatSockets() {
+		return chatSockets;
+	}
+
+	public void setChatSockets(ArrayList<Socket> chatSockets) {
+		this.chatSockets = chatSockets;
+	}
+
+	public boolean verifyUserRegistered(Socket socketReceived, String message) throws IOException {
+		String[] components = message.split(";");
+		String userNick = components[0];
+		boolean flag = false;
+		if(users.contains(userNick)) {
+			
+			flag = true;
+		}
+		else {
+			
+			chatSockets.add(socketReceived);
+			users.add(components[0]);
+			ThreadUsersMessagesHandler hilo = new ThreadUsersMessagesHandler(socketReceived, this);
+			hilo.start();
+		}
+		return flag;
+	}
+
+	public ArrayList<String> getUsers() {
+		return users;
+	}
+
+	public void setUsers(ArrayList<String> users) {
+		this.users = users;
+	}
+
+	public boolean isSendMulticast() {
+		return sendMulticast;
+	}
+
+	public void setSendMulticast(boolean sendMulticast) {
+		this.sendMulticast = sendMulticast;
+	}
 
 
 }

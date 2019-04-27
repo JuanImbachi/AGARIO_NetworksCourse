@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.MulticastSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.security.Security;
 
 //import Cliente.HiloAtentoAlMulticast;
@@ -22,7 +23,6 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import com.sun.net.ssl.internal.ssl.Provider;
 
 import dataBaseServer.DataBaseServer;
 import server.Server;
@@ -33,6 +33,8 @@ import world.PlayerBall;
 public class Client {
 
 	public static final int PORT_TCP = 3425;
+	
+	public final static int PORT_CHAT = 46567;
 	
 	public static final String MUSIC_ROOT = "gameMusic.wav";
 	
@@ -66,14 +68,18 @@ public class Client {
 
 	private Socket gameSocket;
 
-
 	private ArrayList<Integer> eatenBalls;
+	
+	private Socket chatSocket;
 
+	private ThreadInfoChatServer ThreadICS;
+	
+	private ThreadSendMessages ThreadSM;
 
-
+	private boolean chatService;
+	
 	public Client(GUI_principal theGui) throws IOException {
 		
-		Security.addProvider(new Provider());
 		
 		System.setProperty("javax.net.ssl.trustStore", "myTrustStore.jts");
 		System.setProperty("javax.net.ssl.trustStorePassword", "123456");
@@ -87,6 +93,20 @@ public class Client {
 
 	}
 
+	public void chatService() {
+		
+		try {
+			chatSocket = new Socket(IpServer, PORT_CHAT);
+			chatService = true;
+			ThreadICS = new ThreadInfoChatServer(this);
+			ThreadICS.start();
+			ThreadSM = new ThreadSendMessages(this);
+			ThreadSM.start();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
 	public ArrayList<Integer> getEatenBalls() {
 		return eatenBalls;
 	}
@@ -407,6 +427,38 @@ public class Client {
 		}
 		
 		
+	}
+
+	public ThreadInfoChatServer getThreadICS() {
+		return ThreadICS;
+	}
+
+	public void setThreadICS(ThreadInfoChatServer threadICS) {
+		ThreadICS = threadICS;
+	}
+
+	public ThreadSendMessages getThreadSM() {
+		return ThreadSM;
+	}
+
+	public void setThreadSM(ThreadSendMessages threadSM) {
+		ThreadSM = threadSM;
+	}
+
+	public Socket getChatSocket() {
+		return chatSocket;
+	}
+
+	public void setChatSocket(Socket chatSocket) {
+		this.chatSocket = chatSocket;
+	}
+
+	public boolean isChatService() {
+		return chatService;
+	}
+
+	public void setChatService(boolean chatService) {
+		this.chatService = chatService;
 	}
 
 }
