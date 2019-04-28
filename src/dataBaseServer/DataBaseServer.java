@@ -17,7 +17,7 @@ import java.util.Scanner;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 
-import com.sun.net.ssl.internal.ssl.Provider;
+
 
 import server.Server;
 import server.ThreadWaitingClients;
@@ -51,7 +51,7 @@ public class DataBaseServer {
 	public DataBaseServer(Server s) throws IOException {
 		
 
-		Security.addProvider(new Provider());
+
 		
 		System.setProperty("javax.net.ssl.keyStore", "myKeystore.jks");
 		System.setProperty("javax.net.ssl.keyStorePassword", "123456");

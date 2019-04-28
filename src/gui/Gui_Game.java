@@ -34,7 +34,6 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 			GUI_principal principal) {
 		
 		
-		// TODO Auto-generated constructor stub
 		this.players = players;
 		this.foods = foods;
 		this.principal = principal;

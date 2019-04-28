@@ -16,7 +16,7 @@ public class ThreadChatMulticast extends Thread{
 		
 		try {
 			
-			DataInputStream in;
+			//DataInputStream in;
 			DataOutputStream out;
 			
 			while (server.isRunningChatService()) {

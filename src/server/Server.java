@@ -110,7 +110,8 @@ public class Server {
 		threadSM.start();
 
 		serverSocketGame = new ServerSocket(PORT_INFO);
-		setChatSockets(new ArrayList<Socket>());
+		chatSockets = new ArrayList<Socket>();
+		startChatService();
 	}
 	
 	public void startChatService() {
@@ -126,7 +127,7 @@ public class Server {
 			threadUM.start();
 			
 			sendMulticast = false;
-
+			System.out.println(":: Chat service ON ::");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -554,8 +555,8 @@ public class Server {
 			
 			chatSockets.add(socketReceived);
 			users.add(components[0]);
-			ThreadUsersMessagesHandler hilo = new ThreadUsersMessagesHandler(socketReceived, this);
-			hilo.start();
+			ThreadUsersMessagesHandler usm = new ThreadUsersMessagesHandler(socketReceived, this);
+			usm.start();
 		}
 		return flag;
 	}

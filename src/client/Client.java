@@ -90,7 +90,6 @@ public class Client {
 		
 		eatenBalls = new ArrayList<Integer>();
 
-
 	}
 
 	public void chatService() {
