@@ -51,9 +51,6 @@ public class GUI_principal extends JFrame {
 		jdIp = new Gui_IP(this);
 		jdIp.setVisible(true);
 		
-		
-		initializeStreaming();
-
 
 	}
 	
@@ -78,14 +75,13 @@ public class GUI_principal extends JFrame {
 	}
 	
 	public void initializeStreaming() {
-		
-		//space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+		space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
 		streamingSpace = new JFrame("Icesi Games SA - AgarIO");
-		
+
 		chat = new Gui_Chat(this);
 		streamingSpace.setLayout(new BorderLayout());
 		
-		//streamingSpace.add(space, BorderLayout.CENTER);
+		streamingSpace.add(space, BorderLayout.CENTER);
 		streamingSpace.add(chat, BorderLayout.EAST);
 		
 		streamingSpace.setResizable(false);
@@ -135,6 +131,7 @@ public class GUI_principal extends JFrame {
 		agario.setStatus(AgarIO.PLAYING);
 		
 		initializeGameSpace();
+		//initializeStreaming();
 		collisionPlayers = new ThreadCollisionPlayers(this);
 		collisionPlayers.start();
 		movingPlayers = new ThreadMovingPlayers(player.getId(), this);
