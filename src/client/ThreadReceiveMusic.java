@@ -38,7 +38,6 @@ public class ThreadReceiveMusic extends Thread {
 		System.out.println("UDP Multicast Time Client Started");
 		try {
 			
-//			Thread.sleep(500);
 			
 			DatagramSocket socketMusic = new DatagramSocket(); // asigna un puerto aleatoriamente
 
@@ -57,8 +56,6 @@ public class ThreadReceiveMusic extends Thread {
 
 			System.out.println(nosofpackets + " " + mybytearray + " "+ packetsize);
 
-//			ThreadWaitsSong th = new ThreadWaitsSong(this);
-//			th.start();
 			
 			for (double i = 0; i < 20000.0; i++) {
 

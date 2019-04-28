@@ -16,16 +16,13 @@ public class ThreadGameTime extends Thread {
 		while (seconds < 300 && server.getGame().numberOfPlayingClients() > 1) {
 
 			
-//			System.out.println(seconds);
 			
 			seconds++;
-			// System.out.println("Hilo gameTim #jugadores= "+server.numbPlayersPlaying());
-			// if(seconds<300 && server.numbPlayersPlaying()>1) {
+			
 
 			try {
 				this.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 //				e.printStackTrace();
 			}
 

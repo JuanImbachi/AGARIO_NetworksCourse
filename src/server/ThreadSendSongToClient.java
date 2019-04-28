@@ -34,7 +34,7 @@ public class ThreadSendSongToClient extends Thread {
 	}
 	
 	public void send(InetAddress clientAddress,int clientPort) throws IOException, InterruptedException {
-		System.out.println("THREAD SEND SONG TO CLIENT");
+//		System.out.println("THREAD SEND SONG TO CLIENT");
 		File myFile = new File("Music/StarParty.wav");
 		DatagramSocket ds = null;
 		BufferedInputStream bis = null;

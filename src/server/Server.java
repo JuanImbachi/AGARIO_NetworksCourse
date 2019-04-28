@@ -20,6 +20,7 @@ public class Server {
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
 	public final static int PORT_MUSIC = 50000;
+	public final static int PORT_UDP = 45000;
 	public final static int PORT_CHAT = 46567;
 	public final static String CONNECTED_CLIENT = "connected_client";
 
