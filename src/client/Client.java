@@ -40,6 +40,9 @@ public class Client {
 	
 	public static final int MUSIC_SIZE = 41009;
 	
+	
+	private boolean viewer;
+	
 
 	private String IpServer;
 	
@@ -472,6 +475,14 @@ public class Client {
 
 	public void setThreadRIUDP(ThreadReceiveInfoUDP threadRIUDP) {
 		this.threadRIUDP = threadRIUDP;
+	}
+
+	public boolean isViewer() {
+		return viewer;
+	}
+
+	public void setViewer(boolean viewer) {
+		this.viewer = viewer;
 	}
 
 }
