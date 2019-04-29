@@ -464,9 +464,9 @@ public class Client {
 		this.chatService = chatService;
 	}
 
-	public void startViewer() {
+	public void startViewer() throws Exception {
 		threadRIUDP = new ThreadReceiveInfoUDP(this);
-		threadRIUDP.start();
+		threadRIUDP.startConnection();
 	}
 
 	public ThreadReceiveInfoUDP getThreadRIUDP() {

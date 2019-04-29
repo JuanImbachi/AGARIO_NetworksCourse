@@ -34,6 +34,11 @@ public class ThreadWaitingViewers extends Thread {
 
 				int clientPort = firstPacket.getPort();
 				InetAddress clientAddress = firstPacket.getAddress();
+				
+				data = "RESPONSE".getBytes();
+				DatagramPacket packet = new DatagramPacket(data, data.length,clientAddress,clientPort);
+				socket.send(packet);
+				
 				ThreadSendInfoUDP th = new ThreadSendInfoUDP(server, clientAddress, clientPort);
 				th.start();
 

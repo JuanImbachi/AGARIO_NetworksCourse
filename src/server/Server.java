@@ -28,8 +28,6 @@ public class Server {
 
 	private ThreadWaitingViewers threadWV;
 	
-	
-
 	private ServerSocket SsocketInfo;
 
 	private DataBaseServer dbServer;

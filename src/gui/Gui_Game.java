@@ -20,8 +20,7 @@ import world.AgarIO;
 import world.Ball;
 import world.PlayerBall;
 
-public class Gui_Game extends JPanel implements MouseMotionListener,
-		MouseListener {
+public class Gui_Game extends JPanel implements MouseMotionListener, MouseListener {
 
 	private ArrayList<PlayerBall> players;
 	private ArrayList<Ball> foods;
@@ -30,24 +29,21 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 	private int posY;
 	private boolean moved;
 
-	public Gui_Game(ArrayList<PlayerBall> players, ArrayList<Ball> foods,
-			GUI_principal principal) {
-		
-		
+	private boolean viewer;
+
+	public Gui_Game(ArrayList<PlayerBall> players, ArrayList<Ball> foods, GUI_principal principal) {
+
 		this.players = players;
 		this.foods = foods;
 		this.principal = principal;
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		moved = false;
-		// cond=false;
 
 	}
 
-	// private boolean cond;
-
 	public void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
+
 		super.paintComponents(g);
 
 		g.setColor(new Color(220, 220, 220));
@@ -86,27 +82,23 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 		for (int i = 0; i < players.size(); i++) {
 
 			PlayerBall player = players.get(i);
-			
-			//HAY UN PROBLEMA CON ESTE IF
-			
-			if(player.isPlaying() == true) {
+
+			if (player.isPlaying() == true) {
 				double x = player.getPosX();
 				double y = player.getPosY();
-				
+
 				int r = player.getRadio();
 				g.setColor(player.getColor());
 				g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 				g.setColor(Color.BLACK);
-				
-				
-				
+
 				g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 				Font font = new Font("Century Schoolbook", Font.BOLD, r / 2);
 				FontMetrics metrics = g.getFontMetrics(font);
 				int xt = (int) x - metrics.stringWidth(player.getNickname()) / 2;
 				int yt = (int) (y + r / 4);
 				g.setFont(font);
-	
+
 				g.drawString(player.getNickname(), xt, yt);
 			}
 		}
@@ -118,11 +110,9 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 			Ball food = foods.get(i);
 			int r = food.getRadio();
 			g.setColor(food.getColor());
-			g.fillOval((int) (food.getPosX() - r), (int) (food.getPosY() - r),
-					2 * r, 2 * r);
+			g.fillOval((int) (food.getPosX() - r), (int) (food.getPosY() - r), 2 * r, 2 * r);
 			g.setColor(Color.BLACK);
-			g.drawOval((int) (food.getPosX() - r), (int) (food.getPosY() - r),
-					2 * r, 2 * r);
+			g.drawOval((int) (food.getPosX() - r), (int) (food.getPosY() - r), 2 * r, 2 * r);
 
 		}
 	}
@@ -137,8 +127,7 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 		for (PlayerBall p : playersTop) {
 			i += 20;
 			g.setFont(new Font("Century Schoolbook", Font.BOLD, 12));
-			g.drawString(pos + ". " + p.getNickname() ,
-					(int) this.getWidth() - 180, i);
+			g.drawString(pos + ". " + p.getNickname(), (int) this.getWidth() - 180, i);
 			g.drawString(p.getMass() + "", (int) this.getWidth() - 75, i);
 			pos += 1;
 		}
@@ -149,14 +138,15 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		if (moved == false) {
-			moved = true;
-		}
-		// System.out.println(" x -> "+ e.getX() + " y -> "+e.getY());
 
-		posX = (e.getX());
-		posY = (e.getY());
-//		System.out.println(e.getX() + "  " + e.getY() + "   POSICION REAL");
+		if (!viewer) {
+
+			if (moved == false) {
+				moved = true;
+			}
+			posX = (e.getX());
+			posY = (e.getY());
+		}
 	}
 
 	public ArrayList<PlayerBall> getPlayers() {
@@ -229,6 +219,14 @@ public class Gui_Game extends JPanel implements MouseMotionListener,
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean isViewer() {
+		return viewer;
+	}
+
+	public void setViewer(boolean viewer) {
+		this.viewer = viewer;
 	}
 
 }

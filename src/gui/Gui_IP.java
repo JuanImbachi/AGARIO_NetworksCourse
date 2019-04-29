@@ -91,7 +91,7 @@ public class Gui_IP extends JDialog implements ActionListener {
 					}
 				} else {
 
-					boolean r = principal.connectAsViewer();
+					boolean r = principal.connectAsViewer(ip);
 					if(r){
 						this.setVisible(false);
 					}
