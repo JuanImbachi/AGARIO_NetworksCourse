@@ -15,7 +15,6 @@ import dataBaseServer.DataBaseServer;
 
 public class Server {
 
-//	public final static String IP_SERVER = "localhost";
 	public static final int PORT = 36556;
 	public static final int PORT_INFO = 38000;
 	public static final int PORT_WR = 33000;
@@ -27,6 +26,7 @@ public class Server {
 	public final static String START_GAME = "Start game";
 
 
+	private ThreadWaitingViewers threadWV;
 
 	private ServerSocket SsocketInfo;
 
@@ -84,6 +84,9 @@ public class Server {
 
 	
 	public Server() throws IOException {
+		
+		threadWV = new ThreadWaitingViewers(this);
+		threadWV.start();
 
 		setDiscClients(0);
 		threadGT = new ThreadGameTime(this);

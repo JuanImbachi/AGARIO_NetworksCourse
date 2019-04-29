@@ -57,11 +57,11 @@ public class ThreadReceiveMusic extends Thread {
 			System.out.println(nosofpackets + " " + mybytearray + " "+ packetsize);
 
 			
-			for (double i = 0; i < 20000.0; i++) {
+			for (double i = 0; i < 23000.0; i++) {
 
 				socketMusic.receive(receivePacket);
 				byte audioData[] = receivePacket.getData();
-				System.out.println("Packet:" + (i + 1));
+//				System.out.println("Packet:" + (i + 1));
 				bos.write(audioData, 0, audioData.length);
 			}
 			

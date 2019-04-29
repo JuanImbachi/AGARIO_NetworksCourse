@@ -49,7 +49,7 @@ public class ThreadSendSongToClient extends Thread {
 			for (double i = 0; i < nosofpackets + 1; i++) {
 				byte[] mybytearray = new byte[packetsize];
 				bis.read(mybytearray, 0, mybytearray.length);
-				System.out.println("Packet:" + (i + 1));
+//				System.out.println("Packet:" + (i + 1));
 				dp = new DatagramPacket(mybytearray, mybytearray.length,clientAddress ,clientPort);
 				ds.send(dp);
 			}

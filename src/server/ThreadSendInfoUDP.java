@@ -24,26 +24,35 @@ public class ThreadSendInfoUDP extends Thread {
 
 			DatagramSocket socket = new DatagramSocket();
 			
-			byte[] waiting = "WAITING".getBytes();
+			byte[] waiting = "WAITING   ".getBytes();
 
-			while (!server.getGame().isRunning()) {
+			while (!server.isRunningGame()) {
 
+//				System.out.println(server.isRunningGame());
+				
+				
 				DatagramPacket packet = new DatagramPacket(waiting, waiting.length,address,port); 
 				socket.send(packet);
 				
 			}
-			
-			byte[] send = server.sendInfoFirstTime().getBytes();
+			String s = server.sendInfoFirstTime()+"   ";
+			byte[] send = s.getBytes();
 			DatagramPacket packet = new DatagramPacket(send,send.length,address,port);
 			socket.send(packet);
 			
-		    while (server.getGame().isRunning()) {
+		    while (server.isRunningGame()) {
 
-				send = server.infoGame().getBytes();
+		    	s = server.infoGame()+"   ";
+				send = s.getBytes();
 				DatagramPacket packet1 = new DatagramPacket(send,send.length,address,port);
 				socket.send(packet1);
 				
 			}
+		    
+		    s="#end#";
+		    send = s.getBytes();
+		    DatagramPacket packet1 = new DatagramPacket(send,send.length,address,port);
+			socket.send(packet1);
 
 		} catch (Exception e) {
 			e.printStackTrace();

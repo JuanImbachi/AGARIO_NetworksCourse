@@ -390,4 +390,17 @@ public class GUI_principal extends JFrame {
 		this.dispose();
 	}
 
+
+	public boolean connectAsViewer() {
+		try {
+			player.startViewer();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
+
 }

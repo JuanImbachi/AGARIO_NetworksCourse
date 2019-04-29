@@ -43,6 +43,7 @@ public class Client {
 
 	private String IpServer;
 	
+	private ThreadReceiveInfoUDP threadRIUDP;
 
 	private SSLSocket clientConnectionDB;
 
@@ -458,6 +459,19 @@ public class Client {
 
 	public void setChatService(boolean chatService) {
 		this.chatService = chatService;
+	}
+
+	public void startViewer() {
+		threadRIUDP = new ThreadReceiveInfoUDP(this);
+		threadRIUDP.start();
+	}
+
+	public ThreadReceiveInfoUDP getThreadRIUDP() {
+		return threadRIUDP;
+	}
+
+	public void setThreadRIUDP(ThreadReceiveInfoUDP threadRIUDP) {
+		this.threadRIUDP = threadRIUDP;
 	}
 
 }
