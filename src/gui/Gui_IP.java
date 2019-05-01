@@ -32,7 +32,7 @@ public class Gui_IP extends JDialog implements ActionListener {
 		setTitle("Icesi Games SA - AgarIO");
 		setResizable(false);
 		setLayout(new BorderLayout());
-		this.setMinimumSize(new Dimension(300, 150));
+		this.setMinimumSize(new Dimension(300, 160));
 
 		lblTitle = new JLabel("Server IP Address");
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
@@ -80,7 +80,7 @@ public class Gui_IP extends JDialog implements ActionListener {
 			String ip = txtIp.getText();
 
 			if (ip.trim().isEmpty()) {
-				throw new Exception();
+				throw new Exception("Complete all the information.");
 			}
 			if (command.equals(CONNECT)) {
 
@@ -100,8 +100,14 @@ public class Gui_IP extends JDialog implements ActionListener {
 
 			}
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Complete all the information",
+			String ExMessage = ex.getMessage();
+			if(ExMessage == null) {
+			JOptionPane.showMessageDialog(null, "Connection failed. Try again.",
 					"Error", JOptionPane.ERROR_MESSAGE);
+			}else {
+				JOptionPane.showMessageDialog(null, ExMessage,
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
