@@ -86,6 +86,7 @@ public class Client {
 	
 	public Client(GUI_principal theGui) throws IOException {
 		
+		viewer = false;
 		
 		System.setProperty("javax.net.ssl.trustStore", "myTrustStore.jts");
 		System.setProperty("javax.net.ssl.trustStorePassword", "123456");
@@ -178,7 +179,7 @@ public class Client {
 	public void updateGame(String[] players, String[] food) {
 
 		for (int i = 0; i < players.length; i++) {
-			if (i != id) {
+			if (i != id && !viewer) {
 				String[] player = players[i].split("/");
 				int id = Integer.parseInt(player[0]);
 				double x = Double.parseDouble(player[1]);
@@ -194,7 +195,7 @@ public class Client {
 
 				int mass = Integer.parseInt(player[4]);
 				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);	
-			}else{
+			}else if(!viewer){
 				
 				String[] player = players[i].split("/");
 				int id = Integer.parseInt(player[0]);
@@ -214,6 +215,25 @@ public class Client {
 						
 				}
 				
+				
+				
+			}else{
+				
+				String[] player = players[i].split("/");
+				int id = Integer.parseInt(player[0]);
+				double x = Double.parseDouble(player[1]);
+				double y = Double.parseDouble(player[2]);
+
+				boolean isPlaying = false;
+
+				
+				if (player[3].equalsIgnoreCase("true")) {
+					isPlaying = true;
+					
+				}
+
+				int mass = Integer.parseInt(player[4]);
+				gui.getAgario().updatePlayer(id, x, y, isPlaying, mass);
 				
 				
 			}
@@ -484,6 +504,7 @@ public class Client {
 	public void startViewer() throws Exception {
 		threadRIUDP = new ThreadReceiveInfoUDP(this);
 		threadRIUDP.startConnection();
+		viewer = true;
 	}
 
 	public ThreadReceiveInfoUDP getThreadRIUDP() {

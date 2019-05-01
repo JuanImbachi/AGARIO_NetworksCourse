@@ -29,9 +29,10 @@ public class Gui_Game extends JPanel implements MouseMotionListener, MouseListen
 	private int posY;
 	private boolean moved;
 
-	private boolean viewer;
 
 	public Gui_Game(ArrayList<PlayerBall> players, ArrayList<Ball> foods, GUI_principal principal) {
+		
+		
 
 		this.players = players;
 		this.foods = foods;
@@ -139,7 +140,7 @@ public class Gui_Game extends JPanel implements MouseMotionListener, MouseListen
 
 	public void mouseMoved(MouseEvent e) {
 
-		if (!viewer) {
+		if (!principal.getPlayer().isViewer()) {
 
 			if (moved == false) {
 				moved = true;
@@ -221,12 +222,5 @@ public class Gui_Game extends JPanel implements MouseMotionListener, MouseListen
 
 	}
 
-	public boolean isViewer() {
-		return viewer;
-	}
-
-	public void setViewer(boolean viewer) {
-		this.viewer = viewer;
-	}
 
 }

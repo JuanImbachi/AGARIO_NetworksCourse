@@ -35,7 +35,9 @@ public class ThreadSendInfoUDP extends Thread {
 				socket.send(packet);
 				
 			}
+			Thread.sleep(100);
 			String s = server.sendInfoFirstTime()+"   ";
+//			System.out.println("INFO SENT BY SERVER: " + s);
 			byte[] send = s.getBytes();
 			DatagramPacket packet = new DatagramPacket(send,send.length,address,port);
 			socket.send(packet);

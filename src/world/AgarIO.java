@@ -329,13 +329,13 @@ public class AgarIO {
 	}
 
 	public void upDateFoodList(String[] food) {
-		int j = 0;
+		
 		try {
 
 			ArrayList<Ball> foods = new ArrayList<Ball>();
 
 			for (int i = 0; i < food.length; i++) {
-				j = i;
+			
 				String[] fd = food[i].split("/");
 
 				int rgb = Integer.parseInt(fd[0]);
@@ -354,6 +354,8 @@ public class AgarIO {
 
 		} catch (Exception e) {
 
+//			e.printStackTrace();
+			
 
 		}
 

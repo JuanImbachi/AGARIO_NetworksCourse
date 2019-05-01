@@ -59,7 +59,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 			while(!cond){
 				
 				
-				System.out.println(firstInfo);
+//				System.out.println(firstInfo);
 				
 				if(firstInfo.startsWith("#f#")){
 
