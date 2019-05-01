@@ -25,7 +25,9 @@ public class ViewersWR extends JFrame {
 		add(lbl,BorderLayout.CENTER);
 		
 		pack();
-		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 	}
 
 }

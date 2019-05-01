@@ -194,19 +194,6 @@ public class GUI_principal extends JFrame {
 		player.registerPlayer(email, password, nickname);
 	}
 
-	public boolean connectServer(String ip) {
-
-		if(!player.stablishConnection(ip)){
-			JOptionPane.showMessageDialog(this, "WRONG IP", "ERROR IP", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}else{
-			jdIp.dispose();
-			firstPanel();
-			return true;
-		}
-		
-	}
-
 	public void goToWaitingRoom() {
 
 		jdWaitingRoom = new Gui_WaitingRoom(this);
@@ -392,7 +379,19 @@ public class GUI_principal extends JFrame {
 		this.dispose();
 	}
 
+	public boolean connectServer(String ip) {
 
+		if(!player.stablishConnection(ip)){
+			JOptionPane.showMessageDialog(this, "WRONG IP", "ERROR IP", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}else{
+			jdIp.dispose();
+			firstPanel();
+			return true;
+		}
+		
+	}
+	
 	public boolean connectAsViewer(String ip) {
 		try {
 			

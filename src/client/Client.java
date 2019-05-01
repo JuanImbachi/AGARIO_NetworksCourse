@@ -1,4 +1,4 @@
-package client;
+	package client;
 
 import gui.GUI_principal;
 
@@ -104,7 +104,7 @@ public class Client {
 		try {
 			chatSocket = new Socket(IpServer, PORT_CHAT);
 			chatService = true;
-			setUserMessages(new ArrayList<String>());
+			userMessages = new ArrayList<String>();
 			ThreadICS = new ThreadInfoChatServer(this);
 			ThreadICS.start();
 			ThreadSM = new ThreadSendMessages(this);
