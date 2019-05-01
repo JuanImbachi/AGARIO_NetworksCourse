@@ -76,7 +76,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 					String[] fInfoBalls = fInfoBig[1].split(",");
 					
 					client.setViewer(true);
-
+					client.chatService();
 					client.initializeWorld(fInfoPlayers, fInfoBalls);
 					
 				}else if(firstInfo.startsWith("#end#")){

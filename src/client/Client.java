@@ -1,4 +1,4 @@
-	package client;
+package client;
 
 import gui.GUI_principal;
 
@@ -441,11 +441,8 @@ public class Client {
 
 			b.add(bl);
 		}
-
-		gui.initializeWorld(p1, b);
 		
-
-
+			gui.initializeWorld(p1, b);
 	}
 
 	public void stopGame() {

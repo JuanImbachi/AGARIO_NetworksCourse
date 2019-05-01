@@ -76,14 +76,14 @@ public class GUI_principal extends JFrame {
 	}
 	
 	public void initializeStreaming() {
-		//space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+		space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
 		Dimension d = new Dimension(AgarIO.GAME_WIDTH + 300, AgarIO.GAME_HEIGHT);
 		streamingSpace = new JFrame("Icesi Games SA - AgarIO");
 		streamingSpace.setSize(d);
 		chat = new Gui_Chat(this);
 		streamingSpace.setLayout(new BorderLayout());
 		
-		//streamingSpace.add(space, BorderLayout.CENTER);
+		streamingSpace.add(space, BorderLayout.CENTER);
 		streamingSpace.add(chat, BorderLayout.EAST);
 		
 		streamingSpace.setResizable(false);
@@ -132,12 +132,18 @@ public class GUI_principal extends JFrame {
 		agario = new AgarIO(players, foods);
 		agario.setStatus(AgarIO.PLAYING);
 		
-		initializeGameSpace();
-		//initializeStreaming();
-		collisionPlayers = new ThreadCollisionPlayers(this);
-		collisionPlayers.start();
-		movingPlayers = new ThreadMovingPlayers(player.getId(), this);
-		movingPlayers.start();
+		if(player.isViewer() == false) {
+			initializeGameSpace();
+			collisionPlayers = new ThreadCollisionPlayers(this);
+			collisionPlayers.start();
+			movingPlayers = new ThreadMovingPlayers(player.getId(), this);
+			movingPlayers.start();
+		}else {
+			initializeStreaming();
+
+		}
+	
+		
 		
 		repaint = new ThreadRepaint(this);
 		repaint.start();
