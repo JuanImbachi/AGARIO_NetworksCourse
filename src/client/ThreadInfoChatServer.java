@@ -14,10 +14,10 @@ public class ThreadInfoChatServer extends Thread{
 		this.client = client;
 	}
 	public void run() {
-		//enviar esta info a un panel en la interfaz para mostrarle al usuario el chat
 		DataInputStream in;
+		//Socket declarlo como atributo para no tener que obtenerlo siempre durante el while, que problema hay con ello
 		Socket socket ;
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
 
 		try {
 			
@@ -25,8 +25,8 @@ public class ThreadInfoChatServer extends Thread{
 				socket = client.getChatSocket();
 				in = new DataInputStream(socket.getInputStream());
 				String serverMessage = in.readUTF();
-				bw.write(serverMessage.replaceAll(";", " : ")+"\n");
-				bw.flush();
+				client.receiveMessage(serverMessage.replaceAll(";", " : ")+"\n");
+				
 			}
 			
 			

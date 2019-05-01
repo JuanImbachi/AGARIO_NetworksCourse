@@ -76,20 +76,21 @@ public class GUI_principal extends JFrame {
 	}
 	
 	public void initializeStreaming() {
-		space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+		//space = new Gui_Game(agario.getPlayers(), agario.getFoods(), this);
+		Dimension d = new Dimension(AgarIO.GAME_WIDTH + 300, AgarIO.GAME_HEIGHT);
 		streamingSpace = new JFrame("Icesi Games SA - AgarIO");
-
+		streamingSpace.setSize(d);
 		chat = new Gui_Chat(this);
 		streamingSpace.setLayout(new BorderLayout());
 		
-		streamingSpace.add(space, BorderLayout.CENTER);
+		//streamingSpace.add(space, BorderLayout.CENTER);
 		streamingSpace.add(chat, BorderLayout.EAST);
 		
 		streamingSpace.setResizable(false);
 		streamingSpace.setLocationRelativeTo(null);
 		streamingSpace.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		streamingSpace.setVisible(true);
-		streamingSpace.pack();
+		
 	}
 	
 	public void finishGame(){
@@ -406,6 +407,18 @@ public class GUI_principal extends JFrame {
 		}
 		
 		
+	}
+
+
+	public void receiveMessage(String message) {
+		
+		chat.receiveMessage(message);
+		
+	}
+
+
+	public void sendMessage(String message) {
+		player.sendMessage(message);
 	}
 
 }

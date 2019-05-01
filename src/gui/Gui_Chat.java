@@ -1,16 +1,17 @@
-package gui;
+                                                            package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import world.AgarIO;
+
 public class Gui_Chat extends JPanel implements ActionListener{
 
 	public final static String SEND = "Send";
@@ -24,7 +25,7 @@ public class Gui_Chat extends JPanel implements ActionListener{
 		this.principal = principal;
 		
 		TitledBorder border = BorderFactory.createTitledBorder(":: Agario Chat ::");
-		setPreferredSize(new Dimension(400,300));
+		setPreferredSize(new Dimension(300,AgarIO.GAME_HEIGHT));
 		border.setTitleColor(Color.BLACK);
 		setBorder(border);
 		
@@ -34,8 +35,10 @@ public class Gui_Chat extends JPanel implements ActionListener{
 		
 		areaChat = new JTextArea();
 		areaChat.setEditable(false);
-		txtMessage = new JTextField(4);
+		areaChat.setLineWrap(true);
+		areaChat.setWrapStyleWord(true);
 		
+		txtMessage = new JTextField(4);
 		setLayout(new BorderLayout());
 		
 		JPanel p1 = new JPanel();
@@ -45,16 +48,28 @@ public class Gui_Chat extends JPanel implements ActionListener{
 		p1.add(btnSend, BorderLayout.EAST);
 		
 		JScrollPane scroll = new JScrollPane(areaChat);
-
 		add(scroll, BorderLayout.CENTER);
 		add(p1, BorderLayout.SOUTH);
+		
 	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		
 		String command = e.getActionCommand();
 		if(command.equals(SEND)) {
-			System.out.println("works");
+			String message = txtMessage.getText();
+			
+			if(message != null && !message.trim().isEmpty()) {
+				principal.sendMessage(message);
+				//receiveMessage(message);
+				txtMessage.setText("");
+			}			
 		}
+	}
+
+	public void receiveMessage(String message) {
+		//el server manda los mensajes con \n, en este caso se agrega solo para ver fallos en la visualización del jTextArea
+		areaChat.append("Juan : \n"+message+"\n");
 	}
 }

@@ -82,6 +82,8 @@ public class Client {
 
 	private boolean chatService;
 	
+	private ArrayList<String> userMessages;
+	
 	public Client(GUI_principal theGui) throws IOException {
 		
 		
@@ -101,6 +103,7 @@ public class Client {
 		try {
 			chatSocket = new Socket(IpServer, PORT_CHAT);
 			chatService = true;
+			setUserMessages(new ArrayList<String>());
 			ThreadICS = new ThreadInfoChatServer(this);
 			ThreadICS.start();
 			ThreadSM = new ThreadSendMessages(this);
@@ -109,6 +112,20 @@ public class Client {
 			
 			e.printStackTrace();
 		}
+	}
+	
+	public void sendMessage(String message) {
+		String userMessage = getNickname() + ";" + message;
+		userMessages.add(userMessage);
+	}
+	
+	public void receiveMessage(String message) {
+		
+		gui.receiveMessage(message);
+	}
+	
+	public void eraseMessages() {
+		userMessages = new ArrayList<String>();
 	}
 	public ArrayList<Integer> getEatenBalls() {
 		return eatenBalls;
@@ -483,6 +500,14 @@ public class Client {
 
 	public void setViewer(boolean viewer) {
 		this.viewer = viewer;
+	}
+
+	public ArrayList<String> getUserMessages() {
+		return userMessages;
+	}
+
+	public void setUserMessages(ArrayList<String> userMessages) {
+		this.userMessages = userMessages;
 	}
 
 }
