@@ -28,7 +28,6 @@ public class ThreadSendInfoUDP extends Thread {
 
 			while (!server.isRunningGame()) {
 
-//				System.out.println(server.isRunningGame());
 				
 				
 				DatagramPacket packet = new DatagramPacket(waiting, waiting.length,address,port); 
@@ -37,7 +36,6 @@ public class ThreadSendInfoUDP extends Thread {
 			}
 			Thread.sleep(100);
 			String s = server.sendInfoFirstTime()+"   ";
-//			System.out.println("INFO SENT BY SERVER: " + s);
 			byte[] send = s.getBytes();
 			DatagramPacket packet = new DatagramPacket(send,send.length,address,port);
 			socket.send(packet);
@@ -45,7 +43,10 @@ public class ThreadSendInfoUDP extends Thread {
 		    while (server.isRunningGame()) {
 
 		    	s = server.infoGame()+"   ";
+		    	
+		    	
 				send = s.getBytes();
+				
 				DatagramPacket packet1 = new DatagramPacket(send,send.length,address,port);
 				socket.send(packet1);
 				
@@ -58,7 +59,6 @@ public class ThreadSendInfoUDP extends Thread {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}
 
 	}

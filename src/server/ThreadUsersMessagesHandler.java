@@ -5,13 +5,13 @@ import java.net.Socket;
 
 public class ThreadUsersMessagesHandler extends Thread {
 	
-	private Socket socket;
+//	private Socket socket;
 	
 	private Server server;
 
-	public ThreadUsersMessagesHandler(Socket socket, Server server) {
+	public ThreadUsersMessagesHandler(Server server) {
 
-		this.socket = socket;
+//		this.socket = socket;
 		this.server = server;
 	}
 
@@ -20,12 +20,31 @@ public class ThreadUsersMessagesHandler extends Thread {
 		
 		try {
 			
+			System.out.println("COMIENZA HILO");
+			
 			DataInputStream in;
 			
+			
+
+			Socket socket = server.getServerSocketChat().accept();
+			
+			server.addChatSocket(socket);
+			
+
+			in = new DataInputStream(socket.getInputStream());
+			
 			while(server.isRunningChatService()) {
-				in = new DataInputStream(socket.getInputStream());
+				
+				
+				
 				String userMessage = in.readUTF();
+				
+//				System.out.println("ANTES");
+				
 				server.newMessage(userMessage);
+				
+//				System.out.println("DSPS");
+				
 				Thread.sleep(5);
 						
 			}
@@ -33,7 +52,7 @@ public class ThreadUsersMessagesHandler extends Thread {
 			
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		

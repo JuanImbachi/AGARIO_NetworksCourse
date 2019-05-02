@@ -4,50 +4,65 @@ import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ThreadSendMessages extends Thread{
+public class ThreadSendMessages extends Thread {
 
 	private Client client;
-	
-	public ThreadSendMessages(Client client) {
 
+	private ArrayList<String> messages;
+
+	private int size;
+
+	public void addMessage(String m) {
+		messages.add(m);
+		size++;
+		System.out.println("Mensaje agregado");
+		System.out.println("__ " + messages.size());
+	}
+
+	public ThreadSendMessages(Client client) {
+		messages = new ArrayList<String>();
 		this.client = client;
 	}
 
 	public void run() {
-		
+
 		try {
-			//Realizar lectura de los mensajes del usuario
+			// Realizar lectura de los mensajes del usuario
 			DataOutputStream out;
 
 			String mensaje = "";
 			Socket socket;
-			
-			while(client.isChatService()) {
-				if(client.getUserMessages().size()>0) {
+		
+			while (client.isChatService()) {
+				
+				System.out.print("");
+				
+				if (this.client.getUserMessages().size() > 0) {
+
 					socket = client.getChatSocket();
 					out = new DataOutputStream(socket.getOutputStream());
-					mensaje = client.getNickname() + ";";
-					
+
 					for (int i = 0; i < client.getUserMessages().size(); i++) {
-						mensaje = client.getNickname() + ";";
+						mensaje = client.getNickname()+ ";";
 						mensaje += client.getUserMessages().get(i);
 						out.writeUTF(mensaje);
+
 					}
 					client.eraseMessages();
-				}		
+				}
+			}
+
+			System.out.println("salió del hilo");
+		} catch (Exception e) {
+			
+			
+			e.printStackTrace();
+
 		}
-	}
-		catch(Exception e) {
-			
-		}
-		
-			
-			
-			
-		
-		
+
 	}
 
 }

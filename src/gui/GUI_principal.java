@@ -398,11 +398,11 @@ public class GUI_principal extends JFrame {
 		
 	}
 	
-	public boolean connectAsViewer(String ip) {
+	public boolean connectAsViewer(String ip,String nick) {
 		try {
 			
 			player.setIpServer(ip);
-			player.startViewer();
+			player.startViewer(nick);
 		    
 			return true;
 		} catch (Exception e) {

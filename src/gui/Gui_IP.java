@@ -15,8 +15,8 @@ public class Gui_IP extends JDialog implements ActionListener {
 
 	public final static String CONNECT = "Connect ";
 
-	private JLabel lblTitle, lblIp;
-	private JTextField txtIp;
+	private JLabel lblTitle, lblIp, lblNick;
+	private JTextField txtIp,txtNick;
 	private JButton btnConnect;
 	private Checkbox checkBox;
 
@@ -32,7 +32,7 @@ public class Gui_IP extends JDialog implements ActionListener {
 		setTitle("Icesi Games SA - AgarIO");
 		setResizable(false);
 		setLayout(new BorderLayout());
-		this.setMinimumSize(new Dimension(300, 160));
+		this.setMinimumSize(new Dimension(300, 180));
 
 		lblTitle = new JLabel("Server IP Address");
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
@@ -44,6 +44,9 @@ public class Gui_IP extends JDialog implements ActionListener {
 
 		txtIp = new JTextField(20);
 
+		lblNick = new JLabel("Nickname viewer: ");
+		txtNick = new JTextField(10);
+		
 		btnConnect = new JButton(CONNECT);
 		btnConnect.setActionCommand(CONNECT);
 		btnConnect.addActionListener(this);
@@ -60,6 +63,8 @@ public class Gui_IP extends JDialog implements ActionListener {
 		p1.add(lblTitle);
 		p2.add(lblIp);
 		p2.add(txtIp);
+		p2.add(lblNick);
+		p2.add(txtNick);
 		p2.add(new JLabel("  Viewer mode:  "));
 		p2.add(checkBox);
 		p3.add(btnConnect);
@@ -91,7 +96,9 @@ public class Gui_IP extends JDialog implements ActionListener {
 					}
 				} else {
 
-					boolean r = principal.connectAsViewer(ip);
+					String nick = txtNick.getText();
+					
+					boolean r = principal.connectAsViewer(ip,nick);
 					if(r){
 						this.setVisible(false);
 					}

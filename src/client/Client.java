@@ -103,12 +103,14 @@ public class Client {
 		
 		try {
 			chatSocket = new Socket(IpServer, PORT_CHAT);
+		
 			chatService = true;
 			userMessages = new ArrayList<String>();
 			ThreadICS = new ThreadInfoChatServer(this);
 			ThreadICS.start();
 			ThreadSM = new ThreadSendMessages(this);
 			ThreadSM.start();
+			System.out.println(" :: Chat Service ON ::");
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -116,8 +118,10 @@ public class Client {
 	}
 	
 	public void sendMessage(String message) {
-		String userMessage = getNickname() + ";" + message;
-		userMessages.add(userMessage);
+		System.out.println("mensaje almacenado");
+		userMessages.add(message);
+		ThreadSM.addMessage(message);
+		System.out.println(userMessages.size());
 	}
 	
 	public void receiveMessage(String message) {
@@ -498,9 +502,10 @@ public class Client {
 		this.chatService = chatService;
 	}
 
-	public void startViewer() throws Exception {
+	public void startViewer(String n) throws Exception {
 		threadRIUDP = new ThreadReceiveInfoUDP(this);
-		threadRIUDP.startConnection();
+		nickname = n;
+		threadRIUDP.startConnection(n);
 		viewer = true;
 	}
 

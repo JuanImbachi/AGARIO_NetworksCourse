@@ -70,6 +70,7 @@ public class Gui_Chat extends JPanel implements ActionListener{
 
 	public void receiveMessage(String message) {
 		//el server manda los mensajes con \n, en este caso se agrega solo para ver fallos en la visualización del jTextArea
-		areaChat.append("Juan : \n"+message+"\n");
+		String[] mess = message.split(":");
+		areaChat.append(mess[0]+": \n"+mess[1]+"\n");
 	}
 }

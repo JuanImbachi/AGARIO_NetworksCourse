@@ -120,17 +120,18 @@ public class Server {
 	
 	public void startChatService() {
 		try {
-			
-			setServerSocketChat(new ServerSocket(PORT_CHAT));
+			users = new ArrayList<String>();
+			messages = new ArrayList<String>();
+			serverSocketChat = new ServerSocket(PORT_CHAT);
 			runningChatService = true;
-			
+			sendMulticast = true;
+
 			threadCM = new ThreadChatMulticast(this);
 			threadCM.start();
 			
-			threadUM = new ThreadUsersMessages(this);
-			threadUM.start();
+			//threadUM = new ThreadUsersMessages(this);
+			//threadUM.start();
 			
-			sendMulticast = false;
 			System.out.println(":: Chat service ON ::");
 			
 		} catch (IOException e) {
@@ -529,7 +530,7 @@ public class Server {
 	public void eraseMessages() {
 		
 		messages = new ArrayList<String>();
-		
+		System.out.print("");
 	}
 
 
@@ -547,7 +548,26 @@ public class Server {
 		this.chatSockets = chatSockets;
 	}
 
-	public boolean verifyUserRegistered(Socket socketReceived, String message) throws IOException {
+//	public boolean verifyUserRegistered(Socket socketReceived, String message) throws IOException {
+//		String[] components = message.split(";");
+//		String userNick = components[0];
+//		boolean flag = false;
+//		if(users.contains(userNick)) {
+//			
+//			flag = true;
+//		}
+//		else {
+//			
+//			chatSockets.add(socketReceived);
+//			users.add(components[0]);
+//			ThreadUsersMessagesHandler usm = new ThreadUsersMessagesHandler(socketReceived, this);
+//			usm.start();
+//		}
+//		return flag;
+//	}
+	
+	
+	public boolean verifyUserRegistered(String message) throws IOException {
 		String[] components = message.split(";");
 		String userNick = components[0];
 		boolean flag = false;
@@ -557,10 +577,8 @@ public class Server {
 		}
 		else {
 			
-			chatSockets.add(socketReceived);
 			users.add(components[0]);
-			ThreadUsersMessagesHandler usm = new ThreadUsersMessagesHandler(socketReceived, this);
-			usm.start();
+			
 		}
 		return flag;
 	}
@@ -579,6 +597,12 @@ public class Server {
 
 	public void setSendMulticast(boolean sendMulticast) {
 		this.sendMulticast = sendMulticast;
+	}
+
+	public void addChatSocket(Socket usm) {
+
+		chatSockets.add(usm);
+		
 	}
 
 

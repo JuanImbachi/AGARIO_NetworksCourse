@@ -18,17 +18,18 @@ public class ThreadReceiveInfoUDP extends Thread {
 		client = c;
 	}
 	
-	public void startConnection() throws Exception{
+	public void startConnection(String nick) throws Exception{
 		
 		socket = new DatagramSocket();
-		byte[] first = "holi".getBytes();
+		String n = nick + ";";
+		byte[] first = n.getBytes();
 		DatagramPacket fPacket = new DatagramPacket(first, first.length,InetAddress.getByName(client.getIpServer()),Server.PORT_UDP);
 		socket.send(fPacket);
 		first = new byte[1024];
 		fPacket = new DatagramPacket(first, first.length);
 		socket.receive(fPacket);
 		String m = new String(fPacket.getData());
-		if(m.startsWith("RESPONSE")) {
+		if(m.startsWith("ACEPTA")) {
 			this.start();	
 		}else {
 			throw new Exception();
@@ -41,7 +42,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 
 		try {
 		
-			byte[] fInfo = new byte[1024];
+			byte[] fInfo = new byte[3000];
 			DatagramPacket fPacket = new DatagramPacket(fInfo, fInfo.length);
 			socket.receive(fPacket);
 			
@@ -53,7 +54,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 			
 			initizalizeWindow();
 			
-			
+			client.chatService();
 			boolean cond = false;
 			
 			while(!cond){
@@ -67,7 +68,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 					
 					firstInfo = firstInfo.substring(3);
 					
-					System.out.println("FIRST INFO: "+firstInfo);
+//					System.out.println("FIRST INFO: "+firstInfo);
                     
 					String[] fInfoBig = firstInfo.split("_");
 
@@ -76,7 +77,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 					String[] fInfoBalls = fInfoBig[1].split(",");
 					
 					client.setViewer(true);
-					client.chatService();
+				
 					client.initializeWorld(fInfoPlayers, fInfoBalls);
 					
 				}else if(firstInfo.startsWith("#end#")){
@@ -93,6 +94,8 @@ public class ThreadReceiveInfoUDP extends Thread {
 					
 					String info = firstInfo;
 					
+//					System.out.println(firstInfo.length());
+					
 					String[] infoBig = info.split("_");
 
 					String[] infoPlayers = infoBig[0].split(",");
@@ -106,7 +109,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 					
 				}
 				
-				fInfo = new byte[1024];
+				fInfo = new byte[3000];
 				fPacket = new DatagramPacket(fInfo, fInfo.length);
 				socket.receive(fPacket);
 

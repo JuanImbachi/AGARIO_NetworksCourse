@@ -20,15 +20,21 @@ public class ThreadUsersMessages extends Thread{
 			while(server.isRunningChatService()) {
 				Socket socketReceived = server.getServerSocketChat().accept();
 				in = new DataInputStream(socketReceived.getInputStream());
+				
+				System.out.println("LLEGA AQUI");
+				
 				String clientMessage = in.readUTF();
-				server.verifyUserRegistered(socketReceived, clientMessage);
+				
+				System.out.println(clientMessage);
+				
+//				server.verifyUserRegistered(socketReceived, clientMessage);
 				server.newMessage(clientMessage);
 				Thread.sleep(5);
 				server.setSendMulticast(true);
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 	}

@@ -20,7 +20,7 @@ public class ThreadChatMulticast extends Thread{
 			DataOutputStream out;
 			
 			while (server.isRunningChatService()) {
-				
+				System.out.print("");
 				if(server.isSendMulticast() && server.getMessages().size() > 0) {
 					
 					for (int i = 0; i < server.getChatSockets().size(); i++) {
@@ -30,8 +30,14 @@ public class ThreadChatMulticast extends Thread{
 						
 						for (int j = 0; j < server.getMessages().size(); j++) {
 							
+							
+							System.out.println("ANTES");
+							
 							String message = server.getMessages().get(j);
 							out.writeUTF(message);
+							
+							
+							System.out.println("DSPS");
 						}
 						
 					}

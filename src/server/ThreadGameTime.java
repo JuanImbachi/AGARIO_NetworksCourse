@@ -13,7 +13,7 @@ public class ThreadGameTime extends Thread {
 
 	@Override
 	public void run() {
-		while (seconds < 300 && server.getGame().numberOfPlayingClients() > 1) {
+		while (seconds < 300 && server.getGame().numberOfPlayingClients() > 0) {
 
 			
 			

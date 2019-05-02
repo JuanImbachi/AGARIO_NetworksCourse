@@ -35,13 +35,33 @@ public class ThreadWaitingViewers extends Thread {
 				int clientPort = firstPacket.getPort();
 				InetAddress clientAddress = firstPacket.getAddress();
 				
-				data = "RESPONSE".getBytes();
-				DatagramPacket packet = new DatagramPacket(data, data.length,clientAddress,clientPort);
-				socket.send(packet);
+				String user = new String(firstPacket.getData());
 				
-				ThreadSendInfoUDP th = new ThreadSendInfoUDP(server, clientAddress, clientPort);
-				th.start();
-
+				boolean cond = server.verifyUserRegistered(user);
+				
+				if(cond==false){
+				
+					data = "ACEPTA".getBytes();
+					DatagramPacket packet = new DatagramPacket(data, data.length,clientAddress,clientPort);
+					socket.send(packet);
+					
+					ThreadSendInfoUDP th = new ThreadSendInfoUDP(server, clientAddress, clientPort);
+					th.start();
+					
+					ThreadUsersMessagesHandler usm = new ThreadUsersMessagesHandler(server);
+					
+					usm.start();
+					
+					
+					
+				}else{
+					data = "NOACEPTA".getBytes();
+					DatagramPacket packet = new DatagramPacket(data, data.length,clientAddress,clientPort);
+					socket.send(packet);
+					
+				}
+				
+				
 			}
 
 		} catch (Exception e) {
