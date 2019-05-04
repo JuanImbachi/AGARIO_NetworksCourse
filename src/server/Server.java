@@ -22,7 +22,7 @@ public class Server {
 	public final static int PORT_UDP = 45000;
 	public final static int PORT_CHAT = 46567;
 	public final static String CONNECTED_CLIENT = "connected_client";
-
+	public final static String GAME_STARTED = "game already started";
 	public final static String START_GAME = "Start game";
 
 

@@ -31,13 +31,13 @@ public class ThreadChatMulticast extends Thread{
 						for (int j = 0; j < server.getMessages().size(); j++) {
 							
 							
-							System.out.println("ANTES");
+						//	System.out.println("ANTES");
 							
 							String message = server.getMessages().get(j);
 							out.writeUTF(message);
 							
 							
-							System.out.println("DSPS");
+						//	System.out.println("DSPS");
 						}
 						
 					}

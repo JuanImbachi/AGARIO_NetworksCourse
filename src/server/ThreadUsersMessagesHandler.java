@@ -20,7 +20,7 @@ public class ThreadUsersMessagesHandler extends Thread {
 		
 		try {
 			
-			System.out.println("COMIENZA HILO");
+		//	System.out.println("COMIENZA HILO");
 			
 			DataInputStream in;
 			
@@ -45,14 +45,15 @@ public class ThreadUsersMessagesHandler extends Thread {
 				
 //				System.out.println("DSPS");
 				
-				Thread.sleep(5);
+				Thread.sleep(20);
 						
 			}
 			
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("User disconnected");
+
 		}
 		
 		

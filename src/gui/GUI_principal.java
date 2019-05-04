@@ -214,6 +214,7 @@ public class GUI_principal extends JFrame {
 	public void closeWatingRoom(){
 		jdWaitingRoom.setVisible(false);
 	}
+	
 
 	public Client getPlayer() {
 		return player;
@@ -424,6 +425,16 @@ public class GUI_principal extends JFrame {
 
 	public void sendMessage(String message) {
 		player.sendMessage(message);
+	}
+
+
+	public void gameAlreadyStarted() {
+		
+		int option = JOptionPane.showConfirmDialog(null, "The game already started. Do you want to spectate it?", "Icesi Games SA - AgarIO", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
+		if(option == 0) {
+			connectAsViewer(player.getIpServer(), player.getNickname());
+		}
 	}
 
 }

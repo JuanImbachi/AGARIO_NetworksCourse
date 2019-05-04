@@ -18,8 +18,6 @@ public class ThreadSendMessages extends Thread {
 	public void addMessage(String m) {
 		messages.add(m);
 		size++;
-		System.out.println("Mensaje agregado");
-		System.out.println("__ " + messages.size());
 	}
 
 	public ThreadSendMessages(Client client) {
@@ -53,9 +51,9 @@ public class ThreadSendMessages extends Thread {
 					}
 					client.eraseMessages();
 				}
+				Thread.sleep(20);
 			}
 
-			System.out.println("salió del hilo");
 		} catch (Exception e) {
 			
 			

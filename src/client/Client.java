@@ -118,10 +118,8 @@ public class Client {
 	}
 	
 	public void sendMessage(String message) {
-		System.out.println("mensaje almacenado");
 		userMessages.add(message);
 		ThreadSM.addMessage(message);
-		System.out.println(userMessages.size());
 	}
 	
 	public void receiveMessage(String message) {
@@ -300,12 +298,14 @@ public class Client {
 					clientConnectionServer.getOutputStream());
 
 			out.writeUTF(Server.CONNECTED_CLIENT);
-
-			if (in.readUTF().equals(Server.CONNECTED_CLIENT)) {
+			String mess= in.readUTF();
+			if (mess.equals(Server.CONNECTED_CLIENT)) {
 				gui.goToWaitingRoom();
 				waitingForPlay = true;
 				threadWR = new ThreadWaitingRoom(this);
 				threadWR.start();
+			}else {
+				gui.gameAlreadyStarted();
 			}
 
 		} catch (Exception e) {

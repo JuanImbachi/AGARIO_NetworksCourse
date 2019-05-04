@@ -54,7 +54,7 @@ public class ThreadReceiveMusic extends Thread {
 			byte[] mybytearray = new byte[packetsize];
 			DatagramPacket receivePacket = new DatagramPacket(mybytearray,mybytearray.length);
 
-			System.out.println(nosofpackets + " " + mybytearray + " "+ packetsize);
+			//System.out.println(nosofpackets + " " + mybytearray + " "+ packetsize);
 
 			
 			for (double i = 0; i < 23000.0; i++) {

@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+
+import world.AgarIO;
+
 public class Gui_IP extends JDialog implements ActionListener {
 
 	public final static String CONNECT = "Connect ";
@@ -32,7 +35,7 @@ public class Gui_IP extends JDialog implements ActionListener {
 		setTitle("Icesi Games SA - AgarIO");
 		setResizable(false);
 		setLayout(new BorderLayout());
-		this.setMinimumSize(new Dimension(300, 180));
+		this.setMinimumSize(new Dimension(300, 190));
 
 		lblTitle = new JLabel("Server IP Address");
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
@@ -89,9 +92,10 @@ public class Gui_IP extends JDialog implements ActionListener {
 			}
 			if (command.equals(CONNECT)) {
 
+				
 				if (checkBox.getState() == false) {
 					boolean result = principal.connectServer(ip);
-					if (result == true) {
+					if( result == true) {
 						this.setVisible(false);
 					}
 				} else {
@@ -109,7 +113,7 @@ public class Gui_IP extends JDialog implements ActionListener {
 		} catch (Exception ex) {
 			String ExMessage = ex.getMessage();
 			if(ExMessage == null) {
-			JOptionPane.showMessageDialog(null, "Connection failed. Try again.",
+				JOptionPane.showMessageDialog(null, "Connection failed. Try again.",
 					"Error", JOptionPane.ERROR_MESSAGE);
 			}else {
 				JOptionPane.showMessageDialog(null, ExMessage,

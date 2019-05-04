@@ -7,13 +7,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import world.AgarIO;
+
 public class ThreadWaitingClients extends Thread {
 
 	private Server server;
-
+	private boolean keepAlive;
 	public ThreadWaitingClients(Server s) throws IOException {
 		server = s;
-
+		keepAlive = true;
 	}
 
 	@Override
@@ -26,13 +28,16 @@ public class ThreadWaitingClients extends Thread {
 					socket.getInputStream());
 			DataOutputStream out = new DataOutputStream(
 					socket.getOutputStream());
+			if(server.getGame().getStatus().equals(AgarIO.PLAYING)) {
+				out.writeUTF(Server.GAME_STARTED);
+
+			}
 			
-			
-			while (server.isWaitingClients()) {
+			while (server.isWaitingClients() || keepAlive) {
 				
 				String mensaje = in.readUTF();
 				
-				System.out.println(mensaje);
+				//System.out.println(mensaje);
 
 				if (mensaje.equals(Server.CONNECTED_CLIENT)) {
 					
@@ -62,8 +67,9 @@ public class ThreadWaitingClients extends Thread {
 
 //					out.writeUTF(Server.CONNECTED_CLIENT);
 				}
-				
-				out.writeUTF(Server.CONNECTED_CLIENT);
+				if(server.getGame().getStatus().equals(AgarIO.WAITING)) {
+					out.writeUTF(Server.CONNECTED_CLIENT);
+				}
 
 			}
 			

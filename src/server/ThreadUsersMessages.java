@@ -21,11 +21,11 @@ public class ThreadUsersMessages extends Thread{
 				Socket socketReceived = server.getServerSocketChat().accept();
 				in = new DataInputStream(socketReceived.getInputStream());
 				
-				System.out.println("LLEGA AQUI");
+				//System.out.println("LLEGA AQUI");
 				
 				String clientMessage = in.readUTF();
 				
-				System.out.println(clientMessage);
+			//	System.out.println(clientMessage);
 				
 //				server.verifyUserRegistered(socketReceived, clientMessage);
 				server.newMessage(clientMessage);
