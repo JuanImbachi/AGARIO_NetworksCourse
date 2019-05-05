@@ -57,7 +57,7 @@ public class ThreadSendMessages extends Thread {
 		} catch (Exception e) {
 			
 			
-			e.printStackTrace();
+//			e.printStackTrace();
 
 		}
 

@@ -65,7 +65,7 @@ public class ThreadWaitingViewers extends Thread {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 	}

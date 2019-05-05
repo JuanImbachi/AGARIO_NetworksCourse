@@ -131,7 +131,7 @@ public class ThreadReceiveInfoUDP extends Thread {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			
 		}
 		

@@ -32,7 +32,7 @@ public class ThreadInfoChatServer extends Thread{
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 	

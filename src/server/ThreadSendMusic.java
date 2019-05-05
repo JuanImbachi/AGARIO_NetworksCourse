@@ -49,7 +49,7 @@ public class ThreadSendMusic extends Thread{
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 			System.out.println(
 			"UDP Multicast Time Server Terminated");
