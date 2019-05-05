@@ -53,6 +53,7 @@ public class ThreadSendInfoUDP extends Thread {
 			}
 		    
 		    s="#end#";
+		    server.setAlive(false);
 		    send = s.getBytes();
 		    DatagramPacket packet1 = new DatagramPacket(send,send.length,address,port);
 			socket.send(packet1);

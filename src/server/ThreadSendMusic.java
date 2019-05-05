@@ -27,7 +27,7 @@ public class ThreadSendMusic extends Thread{
 			DatagramSocket socketMusic = new DatagramSocket(Server.PORT_MUSIC);
 			
 			byte[] data = new byte[1024];
-			while(true)
+			while(server.isAlive())
 			{
 				
 				

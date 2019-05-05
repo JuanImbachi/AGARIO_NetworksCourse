@@ -25,7 +25,7 @@ public class ThreadWaitingViewers extends Thread {
 
 			byte[] data = new byte[1024];
 
-			while (true) {
+			while (server.isAlive()) {
 
 				DatagramPacket firstPacket = new DatagramPacket(data,
 						data.length);

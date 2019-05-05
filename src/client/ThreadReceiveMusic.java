@@ -26,10 +26,14 @@ public class ThreadReceiveMusic extends Thread {
 
 	private boolean cond;
 	
+	private String rootM;
+	
 	private Client client;
 
-	public ThreadReceiveMusic(Client c) {
+	public ThreadReceiveMusic(Client c, String root) {
 		client = c;
+		String s = "gameMusic"+root;
+		rootM = s+".wav";
 		cond = false;
 	}
 
@@ -48,20 +52,21 @@ public class ThreadReceiveMusic extends Thread {
 			
 			int packetsize = 1024;
 			FileOutputStream fos = null;
-			fos = new FileOutputStream(Client.MUSIC_ROOT);
+			System.out.println(client.getMusicRoot());
+			fos = new FileOutputStream(rootM);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
-			double nosofpackets = Math.ceil(((int) (new File("Music/StarParty.mp3")).length()) / packetsize);
+			double nosofpackets = Math.ceil(((int) (new File(Server.MUSIC_SERVER)).length()) / packetsize);
 			byte[] mybytearray = new byte[packetsize];
 			DatagramPacket receivePacket = new DatagramPacket(mybytearray,mybytearray.length);
 
-			//System.out.println(nosofpackets + " " + mybytearray + " "+ packetsize);
+			
 
 			
 			for (double i = 0; i < 23000.0; i++) {
 
 				socketMusic.receive(receivePacket);
 				byte audioData[] = receivePacket.getData();
-//				System.out.println("Packet:" + (i + 1));
+
 				bos.write(audioData, 0, audioData.length);
 			}
 			
@@ -83,7 +88,7 @@ public class ThreadReceiveMusic extends Thread {
 		
 		
 		
-		InputStream music = new FileInputStream(new File(Client.MUSIC_ROOT));
+		InputStream music = new FileInputStream(new File(rootM));
 		AudioStream audio = new AudioStream(music);
 		AudioPlayer.player.start(audio);
 		

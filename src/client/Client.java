@@ -36,12 +36,15 @@ public class Client {
 	
 	public final static int PORT_CHAT = 46567;
 	
-	public static final String MUSIC_ROOT = "gameMusic.wav";
+//	public static final String MUSIC_ROOT = "gameMusic.wav";
 	
 	public static final int MUSIC_SIZE = 41009;
 	
 	
 	private boolean viewer;
+	
+	
+	private String musicRoot;
 	
 
 	private String IpServer;
@@ -86,6 +89,8 @@ public class Client {
 	
 	public Client(GUI_principal theGui) throws IOException {
 		
+		
+		
 		viewer = false;
 		
 		System.setProperty("javax.net.ssl.trustStore", "myTrustStore.jts");
@@ -102,6 +107,8 @@ public class Client {
 	public void chatService() {
 		
 		try {
+			
+			
 			chatSocket = new Socket(IpServer, PORT_CHAT);
 		
 			chatService = true;
@@ -111,6 +118,11 @@ public class Client {
 			ThreadSM = new ThreadSendMessages(this);
 			ThreadSM.start();
 			System.out.println(" :: Chat Service ON ::");
+			
+			
+			threadRM = new ThreadReceiveMusic(this, nickname);
+			threadRM.start();
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -169,9 +181,8 @@ public class Client {
 
 		threadIGC.start();
 		
-		//THREAD RECEIVE MUSIC ESTA AQUIIII---------------------
 		
-		threadRM = new ThreadReceiveMusic(this);
+		threadRM = new ThreadReceiveMusic(this,this.nickname);
 		
 		threadRM.start();
 
@@ -274,6 +285,8 @@ public class Client {
 				r = true;
 				String information = in.readUTF();
 				nickname = information;
+				
+//				musicRoot = "gameMusic"+information+".wav";
 
 				connectWithServer();
 			}
@@ -505,6 +518,9 @@ public class Client {
 	public void startViewer(String n) throws Exception {
 		threadRIUDP = new ThreadReceiveInfoUDP(this);
 		nickname = n;
+		
+		musicRoot = "gameMusic"+n+".wav";
+		
 		threadRIUDP.startConnection(n);
 		viewer = true;
 	}
@@ -532,5 +548,15 @@ public class Client {
 	public void setUserMessages(ArrayList<String> userMessages) {
 		this.userMessages = userMessages;
 	}
+
+	public String getMusicRoot() {
+		return musicRoot;
+	}
+
+	public void setMusicRoot(String musicRoot) {
+		this.musicRoot = musicRoot;
+	}
+
+	
 
 }

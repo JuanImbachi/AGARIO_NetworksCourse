@@ -24,6 +24,7 @@ public class Server {
 	public final static String CONNECTED_CLIENT = "connected_client";
 	public final static String GAME_STARTED = "game already started";
 	public final static String START_GAME = "Start game";
+	public final static String MUSIC_SERVER = "Music/StarParty.wav";
 
 
 	private ThreadWaitingViewers threadWV;
@@ -33,6 +34,8 @@ public class Server {
 	private DataBaseServer dbServer;
 
 	private boolean waitingClients;
+	
+	private boolean alive;
 
 	private boolean runningGame;
 
@@ -84,6 +87,8 @@ public class Server {
 
 	
 	public Server() throws IOException {
+		
+		alive = true;
 		
 		threadWV = new ThreadWaitingViewers(this);
 		threadWV.start();
@@ -603,6 +608,14 @@ public class Server {
 
 		chatSockets.add(usm);
 		
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 
 

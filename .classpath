@@ -6,6 +6,5 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/Eclipse/eclipse/JavaSoundDemo/JavaSoundDemo.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

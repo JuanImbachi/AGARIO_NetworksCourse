@@ -54,6 +54,11 @@ public class ThreadReceiveInfoUDP extends Thread {
 			
 			initizalizeWindow();
 			
+			
+//			ThreadReceiveMusic th = new ThreadReceiveMusic(client,client.getNickname());
+//			th.start();
+			
+			
 			client.chatService();
 			boolean cond = false;
 			
