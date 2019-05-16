@@ -67,6 +67,18 @@ public class AgarIO {
 		foodCounter = 0;
 		playersCounter = 0;
 	}
+	
+	public void finishGame() {
+		setStatus(GAME_FINISHED);
+		
+		 winner = players.get(0);
+		for (int i = 1; i < players.size(); i++) {
+			
+			if(players.get(i).getMass() >winner.getMass()) {
+				winner = players.get(i);
+			}
+		}
+	}
 
 	public void initializePlayers(ArrayList<String> nicks) {
 

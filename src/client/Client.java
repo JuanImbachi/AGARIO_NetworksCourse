@@ -273,9 +273,7 @@ public class Client {
 					clientConnectionDB.getInputStream());
 			DataOutputStream out = new DataOutputStream(
 					clientConnectionDB.getOutputStream());
-
 			out.writeUTF(message);
-
 			String result = in.readUTF();
 
 			gui.connectionResult(result);

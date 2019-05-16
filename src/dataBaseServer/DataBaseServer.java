@@ -34,8 +34,11 @@ public class DataBaseServer {
 	public final static String LOGIN_DB = "login_DB";
 
 	public static final int DB_PORT = 35000;
+	public static final int DB_PORTWEB = 37700;
 
 	public final static String ROOT = "UsersDB/usersDB.txt";
+	public final static String GAMEROOT = "UsersDB/gamesDB.txt";
+
 
 	private int numberOfClients;
 
@@ -47,6 +50,8 @@ public class DataBaseServer {
 	private SSLServerSocket serverSocketSSL;
 
 	private ThreadWaitingClientsDB threadWC_DB;
+	
+	private ThreadWebServiceDB threadWS;
 
 	public DataBaseServer(Server s) throws IOException {
 		
@@ -67,7 +72,34 @@ public class DataBaseServer {
 		waitingClients = true;
 
 		threadWC_DB.start();
+		
 	}
+	
+	public DataBaseServer() throws IOException {
+		
+
+
+		
+		System.setProperty("javax.net.ssl.keyStore", "myKeystore.jks");
+		System.setProperty("javax.net.ssl.keyStorePassword", "123456");
+
+		SSLServerSocketFactory factory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+
+		setServerSocketSSL((SSLServerSocket) factory.createServerSocket(DB_PORTWEB));
+
+		initializeWebService();
+
+	}
+	
+	
+	
+	public void initializeWebService() {
+
+		threadWS = new ThreadWebServiceDB(this);
+		
+		threadWS.start();
+	}
+	
 
 
 
@@ -125,7 +157,7 @@ public class DataBaseServer {
 			;
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					System.in));
-			File text = new File(ROOT);
+			File text = new File(GAMEROOT);
 			if (!text.exists()) {
 				if (text.createNewFile()) {
 					System.out.println("El fichero se ha creado correctamente");
@@ -216,6 +248,110 @@ public class DataBaseServer {
 
 	public void setServerSocketSSL(SSLServerSocket serverSocketSSL) {
 		this.serverSocketSSL = serverSocketSSL;
+	}
+
+
+
+	public void registerGame(String info) {
+		
+	
+		String gameInfo = info;
+		
+		
+		
+		try {
+
+		
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					System.in));
+			File text = new File(GAMEROOT);
+			if (!text.exists()) {
+				if (text.createNewFile()) {
+					System.out.println("El fichero se ha creado correctamente");
+				} else {
+					System.out.println("No ha podido ser creado el fichero");
+				}
+			} else {
+				BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream(text, true), "UTF8"));
+				out.write("\n");
+				out.write(gameInfo);
+				
+				out.close();
+			}
+
+		
+
+		} catch (IOException e) {
+		
+			System.out.println("La partida no pudo ser guardada");
+		}
+		
+	}
+	
+	public String infoGamesPlayer(String nickname) {
+
+		try {
+
+			String r = "";
+
+			File text = new File(GAMEROOT);
+
+			FileReader reader = new FileReader(text);
+
+			BufferedReader br = new BufferedReader(reader);
+
+			String currentLine = br.readLine();
+			
+			while (currentLine!= null ) {
+				String info[] = currentLine.split("-");
+				String players = info[0];
+				String date = info[1];
+				String winner = info[2];
+				String won="";
+				String score = "";
+				boolean played = false;
+				if(winner.equals(nickname)) {
+					won = "WIN";
+				}else {
+					won = "LOSE";
+				}
+				String[] eachPlayer = players.split("=");
+				
+				players = "";
+				
+				for (int i = 0; i < eachPlayer.length; i++) {
+					
+					String[] pl1 = eachPlayer[i].split(",");
+					
+					if(pl1[0].equals(nickname)) {
+						score = pl1[1];
+						played = true;
+					}else {
+						
+						if(i==0) {
+							players+= ":: ";
+						}
+						players+= pl1[0]+" :: ";
+					}
+		
+				}
+				
+				if(played) {
+					r += score+","+ date + ","+ players + "," + won+"=";
+				}
+				
+				currentLine = br.readLine();
+			}
+			reader.close();
+			br.close();
+
+			return r;
+
+		} catch (Exception e) {
+			return "";
+		}
+
 	}
 
 }

@@ -1,12 +1,21 @@
 package server;
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
 import world.AgarIO;
 import world.Ball;
 import world.PlayerBall;
@@ -85,7 +94,13 @@ public class Server {
 	
 	private boolean sendMulticast;
 
+	public boolean webService ;
+	public ServerSocket serverSocketWebService;
+	public static final int PORT_WEB_SERVICE = 7000;
+	//private HiloDespliegueAppWeb hiloDespliegueAppWeb;
 	
+	
+
 	public Server() throws IOException {
 		
 		alive = true;
@@ -121,6 +136,18 @@ public class Server {
 		serverSocketGame = new ServerSocket(PORT_INFO);
 		chatSockets = new ArrayList<Socket>();
 		startChatService();
+			
+		//Web Service
+		
+		webService = true;
+		try {
+			serverSocketWebService = new ServerSocket(PORT_WEB_SERVICE);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	
+	//	hiloDespliegueAppWeb = new HiloDespliegueAppWeb(this);
+		//hiloDespliegueAppWeb.start();
 	}
 	
 	public void startChatService() {
@@ -488,8 +515,40 @@ public class Server {
 
 		
 
-		game.setStatus(AgarIO.GAME_FINISHED);
+	//	game.setStatus(AgarIO.GAME_FINISHED);
+		game.finishGame();
+		finalGameInfo();
+		
 
+	}
+
+	public void finalGameInfo() {
+		
+		String info = "";
+		
+		for (int i = 0; i < game.getPlayers().size(); i++) {
+			if(i== game.getPlayers().size()-1) {
+				info+= game.getPlayers().get(i).getNickname()+","+game.getPlayers().get(i).getMass()+"-";
+
+			}else {
+				info+= game.getPlayers().get(i).getNickname()+","+game.getPlayers().get(i).getMass()+"=" ;
+				
+
+			}
+		}
+			Calendar c2 = new GregorianCalendar();
+			String dia = Integer.toString(c2.get(Calendar.DATE));
+			String mes = Integer.toString(c2.get(Calendar.MONTH));
+			String annio = Integer.toString(c2.get(Calendar.YEAR));
+			String date = dia +"/"+mes+"/"+ annio;
+			info += date+"-";
+			
+			String ganador = game.getWinner().getNickname();
+			info += ganador;
+			
+			dbServer.registerGame( info);
+			
+		
 	}
 
 	public ThreadGameTime getThreadGT() {
@@ -618,5 +677,31 @@ public class Server {
 		this.alive = alive;
 	}
 
+	/**
+	 * @return the hiloDespliegueAppWeb
+	 */
 
+	public boolean isWebService() {
+		return webService;
+	}
+
+	public void setWebService(boolean webService) {
+		this.webService = webService;
+	}
+
+	/**
+	 * @return the serverSocketWebService
+	 */
+	public ServerSocket getServerSocketWebService() {
+		return serverSocketWebService;
+	}
+
+	/**
+	 * @param serverSocketWebService the serverSocketWebService to set
+	 */
+	public void setServerSocketWebService(ServerSocket serverSocketWebService) {
+		this.serverSocketWebService = serverSocketWebService;
+	}
+
+	
 }

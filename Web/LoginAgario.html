@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		
+		body{
+			background-image: url("https://www.movilzona.es/app/uploads/2016/04/agar-io-b.jpg");
+			margin : 0;
+
+			background-size: cover;
+			background-attachment: fixed;
+			text-align: center;
+		
+		}
+
+		form{
+			
+			display: block;
+			margin: auto;
+			position: center;
+		}
+		label{
+			font-size: 25px;
+			display: block;
+			width: 100%;
+			color: black;
+			
+		}
+
+		input{
+			margin-bottom: 20px;
+			width: 100%;
+		}
+
+		input:focus{
+			border: 1px solid #1668c4;
+		}
+
+		.container {
+			margin : auto;
+			margin-top: 80px;
+			background-color: rgba(242,242,242,0.8);
+			border-radius: 10px;
+			border: 1px solid #000000;
+			width: 25%; 
+			padding: 10px;
+		}
+
+	</style>
+	<title>Icesi Games SA - AgarIO</title>
+</head>
+<body>
+	<div class="container">
+		<form method = "GET">
+		<label for ="user">User</label>
+		<input type="text" id="user" name="usr"placeholder="Write your nickname" required>
+
+		<label for ="password">Password</label>
+		<input type="password" id="password" name="pass" placeholder="Write your password" required>
+		<input type="submit"  value="Sign in">
+		</form>
+	</div>
+	
+</body>
+</html>

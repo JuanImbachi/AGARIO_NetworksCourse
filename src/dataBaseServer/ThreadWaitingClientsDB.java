@@ -38,7 +38,7 @@ public class ThreadWaitingClientsDB extends Thread {
 				DataOutputStream out = new DataOutputStream(
 						socket.getOutputStream());
 				String mensaje = in.readUTF();
-
+				System.out.print("");
 				if (!mensaje.equalsIgnoreCase("")) {
 					String[] info = mensaje.split(",");
 					String mode = info[0];
